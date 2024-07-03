@@ -3,11 +3,11 @@ from django import forms, http
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render
 from django.template.defaulttags import query_string
-from django.utils.html import format_html
 from django.utils.timezone import localtime
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
 
+from form_rendering import adapt_rendering
 from projects.models import Catalog, Project
 
 
@@ -56,17 +56,6 @@ class EntriesForm(forms.Form):
                 widget=forms.HiddenInput,
                 initial=entry.msgid_with_context,
             )
-            self.fields[f"msgstr_{index}"] = forms.CharField(
-                # label=format_html(
-                #     "<small>{msgctxt}</small><br>{msgid}",
-                #     msgctxt=entry.msgctxt or "",
-                #     msgid=entry.msgid,
-                # ),
-                label=format_html("<pre>{}</pre>", entry.__unicode__(wrapwidth=0)),
-                widget=forms.Textarea(attrs={"rows": 2}),
-                initial=entry.msgstr,
-                required=False,
-            )
             self.fields[f"fuzzy_{index}"] = forms.BooleanField(
                 label="Fuzzy",
                 initial=entry.fuzzy,
@@ -76,9 +65,29 @@ class EntriesForm(forms.Form):
             self.entry_rows.append({
                 "entry": entry,
                 "msgid": self[f"msgid_{index}"],
-                "msgstr": self[f"msgstr_{index}"],
+                "msgstr": [],
                 "fuzzy": self[f"fuzzy_{index}"],
             })
+
+            if entry.msgid_plural:
+                for count, msgstr in sorted(entry.msgstr_plural.items()):
+                    name = f"msgstr_{index}:{count}"
+                    self.fields[name] = forms.CharField(
+                        label=_("With {count} items").format(count=count),
+                        widget=forms.Textarea(attrs={"rows": 2}),
+                        initial=msgstr,
+                        required=False,
+                    )
+                    self.entry_rows[-1]["msgstr"].append(self[name])
+            else:
+                name = f"msgstr_{index}"
+                self.fields[f"msgstr_{index}"] = forms.CharField(
+                    label=_("Translation"),
+                    widget=forms.Textarea(attrs={"rows": 2}),
+                    initial=entry.msgstr,
+                    required=False,
+                )
+                self.entry_rows[-1]["msgstr"].append(self[name])
 
     def fix_nls(self, in_, out_):
         # Thanks, django-rosetta!
@@ -106,7 +115,7 @@ class EntriesForm(forms.Form):
     def update(self, po, *, user):
         for index in range(ENTRIES_PER_PAGE):
             msgid_with_context = self.cleaned_data.get(f"msgid_{index}")
-            msgstr = self.cleaned_data.get(f"msgstr_{index}")
+            msgstr = self.cleaned_data.get(f"msgstr_{index}", "")
             fuzzy = self.cleaned_data.get(f"fuzzy_{index}")
 
             if not msgid_with_context:
@@ -115,6 +124,12 @@ class EntriesForm(forms.Form):
             for entry in po:
                 if entry.msgid_with_context == msgid_with_context:
                     entry.msgstr = self.fix_nls(entry.msgid, msgstr)
+                    if entry.msgid_plural:
+                        for count in entry.msgstr_plural:
+                            entry.msgstr_plural[count] = self.fix_nls(
+                                entry.msgid_plural,
+                                self.cleaned_data.get(f"msgstr_{index}:{count}", ""),
+                            )
                     if fuzzy and not entry.fuzzy:
                         entry.flags.append("fuzzy")
                     if not fuzzy and entry.fuzzy:
@@ -154,7 +169,10 @@ def catalog(request, project, pk):
         if query := data.get("query", "").casefold():
             entries = [entry for entry in entries if query in str(entry).casefold()]
         if start := data.get("start") or 0:
-            entries = entries[start:]
+            if len(entries) > start:
+                entries = entries[start:]
+            else:
+                start = 0
     else:
         start = 0
         return http.HttpResponseRedirect(".")
@@ -172,7 +190,7 @@ def catalog(request, project, pk):
             query_string(
                 None,
                 request.GET,
-                start=start + ENTRIES_PER_PAGE,
+                start=start,
             )
         )
 
@@ -183,8 +201,8 @@ def catalog(request, project, pk):
             "catalog": catalog,
             "project": catalog.project,
             "po": catalog.po,
-            "filter_form": filter_form,
-            "form": form,
+            "filter_form": adapt_rendering(filter_form),
+            "form": adapt_rendering(form),
             "entries": entries,
             "previous_url": query_string(
                 None, request.GET, start=start - ENTRIES_PER_PAGE

@@ -13,7 +13,7 @@
 <h2>{{ catalog }}</h2>
 
 <form method="get" class="form form--filter flow">
-  {{ filter_form|adapt_rendering }}
+  {{ filter_form }}
   <button class="button" type="submit">Filtern</button>
   <a href="." class="button">Reset</a>
 </form>
@@ -34,7 +34,11 @@
     {% for entry in form.entry_rows %}
     <tr>
       <td><pre>{{ entry.entry }}</pre> {{ entry.msgid }}</td>
-      <td>{{ entry.msgstr }}</td>
+      <td class="flow">
+        {% for field in entry.msgstr %}
+          {{ field.as_field_group }}
+        {% endfor %}
+      </td>
       <td>{{ entry.fuzzy }}</td>
     </tr>
     {% endfor %}

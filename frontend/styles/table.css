@@ -4,6 +4,7 @@
   td,
   th {
     text-align: left;
+    vertical-align: top;
   }
 
   tbody tr:nth-child(2n) {
