@@ -1,13 +1,14 @@
-from django import forms
+import polib
+from django import forms, http
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.template.defaulttags import query_string
 from django.utils.html import format_html
 from django.utils.timezone import localtime
 from django.utils.translation import gettext_lazy as _
+from django.views.decorators.csrf import csrf_exempt
 
-from projects.models import Catalog
+from projects.models import Catalog, Project
 
 
 ENTRIES_PER_PAGE = 20
@@ -156,7 +157,7 @@ def catalog(request, project, pk):
             entries = entries[start:]
     else:
         start = 0
-        return HttpResponseRedirect(".")
+        return http.HttpResponseRedirect(".")
 
     data = [request.POST] if request.method == "POST" else []
     entries = entries[:ENTRIES_PER_PAGE]
@@ -164,9 +165,10 @@ def catalog(request, project, pk):
 
     if form.is_valid():
         form.update(catalog.po, user=request.user)
+        catalog.pofile = str(catalog.po)
         catalog.save()
 
-        return HttpResponseRedirect(
+        return http.HttpResponseRedirect(
             query_string(
                 None,
                 request.GET,
@@ -194,3 +196,30 @@ def catalog(request, project, pk):
             else None,
         },
     )
+
+
+@csrf_exempt
+def pofile(request, language_code, domain):
+    project = Project.objects.filter(
+        token=request.headers.get("x-project-token")
+    ).first()
+    if not project:
+        return http.HttpResponseForbidden()
+
+    if request.method == "GET":
+        if catalog := project.catalogs.filter(
+            language_code=language_code, domain=domain
+        ).first():
+            return http.HttpResponse(catalog.pofile, content_type="text/plain")
+        return http.HttpResponseNotFound()
+
+    if request.method == "PUT":
+        po = polib.pofile(request.body.decode("utf-8"))
+        project.catalogs.update_or_create(
+            language_code=language_code,
+            domain=domain,
+            defaults={"pofile": str(po)},
+        )
+        return http.HttpResponse(status=202)  # Accepted
+
+    return http.HttpResponse(status=405)  # Method Not Allowed

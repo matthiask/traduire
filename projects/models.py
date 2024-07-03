@@ -31,7 +31,7 @@ class Project(models.Model):
         related_name="projects",
         verbose_name=_("users"),
     )
-    token = models.CharField(_("token"), max_length=100, editable=False)
+    token = models.CharField(_("token"), max_length=100, editable=False, unique=True)
 
     class Meta:
         verbose_name = _("project")
@@ -68,17 +68,17 @@ class Catalog(models.Model):
     pofile = models.TextField("pofile")
 
     class Meta:
+        ordering = ["language_code", "domain"]
+        unique_together = [("project", "language_code", "domain")]
         verbose_name = _("catalog")
         verbose_name_plural = _("catalogs")
 
     def __str__(self):
-        return f"{self.language_code}, {self.domain} ({self.po.percent_translated()}%)"
-
-    def save(self, *args, **kwargs):
-        self.pofile = str(self.po)
-        super().save(*args, **kwargs)
-
-    save.alters_data = True
+        try:
+            percent_translated = f"{self.po.percent_translated()}%"
+        except Exception:
+            percent_translated = "Invalid"
+        return f"{self.language_code}, {self.domain} ({percent_translated})"
 
     def get_absolute_url(self):
         return reverse(

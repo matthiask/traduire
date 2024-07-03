@@ -1,15 +1,11 @@
-# forum-pfarrblatt.ch
+# Traduire
 
-Link zur Preview-Umgebung:
+Somewhat working API for cURL.
 
-[forum-pfarrblatt-preview.feinheit.dev](https://forum-pfarrblatt-preview.feinheit.dev/)
+Read pofile:
 
+    curl -v http://127.0.0.1:8000/api/pofile/de/django/ --header "x-project-token: ..." | less
 
-## Lokale Installation
+Write pofile:
 
-Zusätzlich zu den gewöhnlichen Voraussetzungen müssen postgis und gdal
-installiert werden, gemäss der Installationsanleitung in der offiziellen Django
-Dokumentation: https://docs.djangoproject.com/en/5.0/ref/contrib/gis/
-
-Im `.env` steht bei der `DATABASE_URL` als Protokoll `postgres://`, das muss
-ersetzt werden durch  `postgis://`
+    curl -v http://127.0.0.1:8000/api/pofile/fr/django/ --header "x-project-token: ..." --header "content-type: text/plain" -X PUT --data-binary @.../locale/fr/LC_MESSAGES/django.po
