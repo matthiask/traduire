@@ -27,12 +27,14 @@
   <input type="checkbox" id="menu-toggle" tabindex="-1">
   {% block header %}
     <header class="header">
-      <h1><a href="/">Traduire</a></h1>
+      <a href="/">Traduire</a>
     </header>
   {% endblock header %}
 
   {% block body %}
+  <div class="container">
     {% block content %}{% endblock content %}
+  </div>
   {% endblock body %}
 
   {% include 'svg.html' %}

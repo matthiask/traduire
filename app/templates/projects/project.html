@@ -11,7 +11,7 @@
 <p>Kataloge:</p>
 <ul>
   {% for catalog in project.catalogs.all %}
-  <li><a href="{{ catalog.get_absolute_url }}">{{ catalog.domain }}, {{ catalog.language_code }}</a></li>
+  <li><a href="{{ catalog.get_absolute_url }}">{{ catalog.language_code }}, {{ catalog.domain }}</a></li>
   {% endfor %}
 </ul>
 {% endblock %}

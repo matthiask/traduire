@@ -69,7 +69,7 @@ class Catalog(models.Model):
         verbose_name_plural = _("catalogs")
 
     def __str__(self):
-        return self.language_code
+        return f"{self.language_code},{self.domain}"
 
     def get_absolute_url(self):
         return reverse(

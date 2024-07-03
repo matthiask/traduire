@@ -6,26 +6,24 @@
 
 {% block content %}
 
-<h1>{{ project }} - {{ catalog }}</h1>
+<h1><a href="{{ project.get_absolute_url }}">{{ project }}</a></h1>
+
+<h2>{{ catalog }}</h2>
 
 <p>Fortschritt: {{ po.percent_translated }}%</p>
 
-<table>
-  {% for entry in po %}
-  <tr>
-    <th>
-      {% if entry.msgctxt %}<small>{{ entry.msgctxt }}</small>{% endif %}
-      {{ entry.msgid }}
-    </th>
-    <td>
-      <textarea rows="2">{{ entry.msgstr }}</textarea>
-      {{ entry.msgstr_plural }}
-    </td>
-    <td>
-      {{ entry.flags }}
-    </td>
-  </tr>
-  {% endfor %}
-</table>
+<nav>
+  <a href=".">Alle</a>
+  <a href="?flags=fuzzy">Fuzzy</a>
+  <a href="?flags=untranslated">Untranslated</a>
+</nav>
+
+<form method="post">
+  {% csrf_token %}
+  <div class="entries">
+    {{ form|adapt_rendering }}
+  </div>
+  <button class="button" type="submit">Speichern und weiter</button>
+</form>
 
 {% endblock %}
