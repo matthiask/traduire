@@ -12,12 +12,13 @@
 
 <p>Fortschritt: {{ po.percent_translated }}%</p>
 
-<nav>
-  <a href=".">Alle</a>
-  <a href="?flags=fuzzy">Fuzzy</a>
-  <a href="?flags=untranslated">Untranslated</a>
-</nav>
+<form method="get" class="form">
+  {{ filter_form|adapt_rendering }}
+  <button class="button" type="submit">Filtern</button>
+  <a href="." class="button">Reset</a>
+</form>
 
+{% if entries %}
 <form method="post">
   {% csrf_token %}
   <div class="entries">
@@ -25,5 +26,14 @@
   </div>
   <button class="button" type="submit">Speichern und weiter</button>
 </form>
+
+<div class="buttons">
+<a href="{{ previous_url }}" class="button">Zurück</a>
+<a href="{{ next_url }}" class="button">Weiter</a>
+</div>
+
+{% else %}
+  Keine Einträge.
+{% endif %}
 
 {% endblock %}

@@ -1,3 +1,6 @@
+from functools import cached_property
+
+import polib
 from django.conf import global_settings, settings
 from django.db import models
 from django.urls import reverse
@@ -38,9 +41,9 @@ class Project(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        if not self.token:
-            self.cycle_token(save=False)
         super().save(*args, **kwargs)
+        if not self.token:
+            self.cycle_token(save=True)
 
     save.alters_data = True
 
@@ -71,7 +74,17 @@ class Catalog(models.Model):
     def __str__(self):
         return f"{self.language_code},{self.domain}"
 
+    def save(self, *args, **kwargs):
+        self.pofile = str(self.po)
+        super().save(*args, **kwargs)
+
+    save.alters_data = True
+
     def get_absolute_url(self):
         return reverse(
             "projects:catalog", kwargs={"project": self.project_id, "pk": self.pk}
         )
+
+    @cached_property
+    def po(self):
+        return polib.pofile(self.pofile, wrapwidth=0)

@@ -1,4 +1,3 @@
-import polib
 from django import forms
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
@@ -35,8 +34,10 @@ class FilterForm(forms.Form):
             ("fuzzy", _("Fuzzy")),
             ("untranslated", _("Untranslated")),
         ],
+        widget=forms.RadioSelect,
         required=False,
     )
+    query = forms.CharField(label=_("query"), required=False)
     start = forms.IntegerField(
         label=_("start"), widget=forms.HiddenInput, required=False
     )
@@ -127,8 +128,7 @@ def catalog(request, project, pk):
         pk=pk,
     )
 
-    po = polib.pofile(catalog.pofile, wrapwidth=0)
-    entries = list(po)
+    entries = list(catalog.po)
 
     filter_form = FilterForm(request.GET)
     if filter_form.is_valid():
@@ -141,24 +141,27 @@ def catalog(request, project, pk):
                 for entry in entries
                 if not entry.translated() and not entry.fuzzy and not entry.obsolete
             ]
-        if start := data.get("start"):
+        if query := data.get("query", "").casefold():
+            entries = [entry for entry in entries if query in str(entry).casefold()]
+        if start := data.get("start") or 0:
             entries = entries[start:]
     else:
+        start = 0
         return HttpResponseRedirect(".")
 
     data = [request.POST] if request.method == "POST" else []
-    form = EntriesForm(*data, entries=entries[:ENTRIES_PER_PAGE])
+    entries = entries[:ENTRIES_PER_PAGE]
+    form = EntriesForm(*data, entries=entries)
 
     if form.is_valid():
-        form.update(po, user=request.user)
-        catalog.pofile = str(po)
+        form.update(catalog.po, user=request.user)
         catalog.save()
 
         return HttpResponseRedirect(
             query_string(
                 None,
                 request.GET,
-                start=ENTRIES_PER_PAGE + (filter_form.cleaned_data.get("start") or 0),
+                start=start + ENTRIES_PER_PAGE,
             )
         )
 
@@ -168,8 +171,13 @@ def catalog(request, project, pk):
         {
             "catalog": catalog,
             "project": catalog.project,
-            "po": po,
+            "po": catalog.po,
+            "filter_form": filter_form,
             "form": form,
             "entries": entries,
+            "previous_url": query_string(
+                None, request.GET, start=start - ENTRIES_PER_PAGE
+            ),
+            "next_url": query_string(None, request.GET, start=start + ENTRIES_PER_PAGE),
         },
     )

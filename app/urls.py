@@ -1,10 +1,8 @@
 from django.conf import settings
-from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 from django.http import FileResponse
 from django.shortcuts import render
 from django.urls import include, path
-from django.views.i18n import JavaScriptCatalog
 
 from app.ratelimiting import username_ratelimit
 
@@ -20,14 +18,12 @@ def file_response(path):
 
 urlpatterns = [
     path("", include("authlib.admin_oauth.urls")),
+    path("accounts/", include("django.contrib.auth.urls")),
     path("admin/", admin.site.urls),
     path("404/", render, {"template_name": "404.html"}),
     path("favicon.ico", file_response(settings.BASE_DIR / "htdocs" / "favicon.ico")),
     path("favicon.png", file_response(settings.BASE_DIR / "htdocs" / "favicon.png")),
     path("", include("projects.urls")),
-    *i18n_patterns(
-        path("jsi18n/", JavaScriptCatalog.as_view(), name="javascript-catalog"),
-    ),
 ]
 
 if settings.DEBUG:
