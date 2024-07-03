@@ -78,7 +78,9 @@ class Catalog(models.Model):
             percent_translated = f"{self.po.percent_translated()}%"
         except Exception:
             percent_translated = "Invalid"
-        return f"{self.language_code}, {self.domain} ({percent_translated})"
+        return (
+            f"{self.get_language_code_display()}, {self.domain} ({percent_translated})"
+        )
 
     def get_absolute_url(self):
         return reverse(

@@ -29,7 +29,7 @@ def project(request, pk):
 
 class FilterForm(forms.Form):
     flags = forms.ChoiceField(
-        label=_("flags"),
+        label=_("Flags"),
         choices=[
             ("", _("All")),
             ("fuzzy", _("Fuzzy")),
@@ -38,9 +38,9 @@ class FilterForm(forms.Form):
         widget=forms.RadioSelect,
         required=False,
     )
-    query = forms.CharField(label=_("query"), required=False)
+    query = forms.CharField(label=_("Query"), required=False)
     start = forms.IntegerField(
-        label=_("start"), widget=forms.HiddenInput, required=False
+        label=_("Start"), widget=forms.HiddenInput, required=False
     )
 
 
@@ -74,7 +74,7 @@ class EntriesForm(forms.Form):
                     name = f"msgstr_{index}:{count}"
                     self.fields[name] = forms.CharField(
                         label=_("With {count} items").format(count=count),
-                        widget=forms.Textarea(attrs={"rows": 2}),
+                        widget=forms.Textarea(attrs={"rows": 3}),
                         initial=msgstr,
                         required=False,
                     )
@@ -82,8 +82,8 @@ class EntriesForm(forms.Form):
             else:
                 name = f"msgstr_{index}"
                 self.fields[f"msgstr_{index}"] = forms.CharField(
-                    label=_("Translation"),
-                    widget=forms.Textarea(attrs={"rows": 2}),
+                    label="",
+                    widget=forms.Textarea(attrs={"rows": 3}),
                     initial=entry.msgstr,
                     required=False,
                 )
@@ -154,20 +154,24 @@ def catalog(request, project, pk):
     )
 
     entries = list(catalog.po)
+    total = len(entries)
 
     filter_form = FilterForm(request.GET)
     if filter_form.is_valid():
         data = filter_form.cleaned_data
         if data.get("flags") == "fuzzy":
             entries = [entry for entry in entries if entry.fuzzy]
+            total = len(entries)
         elif data.get("flags") == "untranslated":
             entries = [
                 entry
                 for entry in entries
                 if not entry.translated() and not entry.fuzzy and not entry.obsolete
             ]
+            total = len(entries)
         if query := data.get("query", "").casefold():
             entries = [entry for entry in entries if query in str(entry).casefold()]
+            total = len(entries)
         if start := data.get("start") or 0:
             if len(entries) > start:
                 entries = entries[start:]
@@ -212,6 +216,9 @@ def catalog(request, project, pk):
             "next_url": query_string(None, request.GET, start=start + ENTRIES_PER_PAGE)
             if entries
             else None,
+            "start": start + 1,
+            "end": min(total, start + ENTRIES_PER_PAGE),
+            "total": total,
         },
     )
 

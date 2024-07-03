@@ -14,12 +14,12 @@
 
 <form method="get" class="form form--filter flow">
   {{ filter_form }}
-  <button class="button" type="submit">Filtern</button>
-  <a href="." class="button">Reset</a>
+  <button class="button" type="submit">{% translate 'Apply' %}</button>
+  <a href="." class="button">{% translate 'Reset' %}</a>
 </form>
 
 {% if entries %}
-<h3>Einträge</h3>
+<h3>{% translate 'Entries' %} <small>{{ start }} - {{ end }} / {{ total }}</small></h3>
 <form method="post" class="form flow">
   {% csrf_token %}
   <table class="table">
@@ -45,9 +45,9 @@
     </tbody>
   </table>
   <div class="buttons">
-    <button class="button" type="submit">Speichern und weiter</button>
-    {% if previous_url %}<a href="{{ previous_url }}" class="button">Zurück</a>{% endif %}
-    {% if next_url %}<a href="{{ next_url }}" class="button">Weiter</a>{% endif %}
+    <button class="button" type="submit">{% translate 'Save' %}</button>
+    {% if previous_url %}<a href="{{ previous_url }}" class="button">{% translate 'Previous page' %}</a>{% endif %}
+    {% if next_url %}<a href="{{ next_url }}" class="button">{% translate 'Next page' %}</a>{% endif %}
   </div>
 </form>
 

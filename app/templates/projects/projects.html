@@ -6,9 +6,9 @@
 
 {% block content %}
 
-<h1>Hallo, {{ request.user }}</h1>
+<h1>{% blocktranslate with user=request.user %}Hello, {{ user }}{% endblocktranslate %}</h1>
 
-<p>Deine Projekte:</p>
+<p>{% translate 'Your projects:' %}</p>
 <ul>
   {% for project in projects %}
   <li><a href="{{ project.get_absolute_url }}">{{ project.name }}</a></li>

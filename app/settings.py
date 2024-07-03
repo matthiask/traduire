@@ -38,6 +38,7 @@ SECRET_KEY = env("SECRET_KEY", required=True)
 TIME_ZONE = "Europe/Zurich"
 LANGUAGE_CODE = "de"
 LANGUAGES = (
+    ("en", _("English")),
     ("de", _("German")),
     # ("fr", _("French")),
     # ("it", _("Italian")),

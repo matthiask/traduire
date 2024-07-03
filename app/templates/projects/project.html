@@ -8,7 +8,7 @@
 
 <h1>{{ project }}</h1>
 
-<p>Kataloge:</p>
+<p>{% translate 'catalogs'|capfirst %}:</p>
 <ul>
   {% for catalog in project.catalogs.all %}
   <li><a href="{{ catalog.get_absolute_url }}">{{ catalog }}</a></li>

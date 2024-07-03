@@ -5,9 +5,18 @@
   th {
     text-align: left;
     vertical-align: top;
+    padding: 4px;
   }
 
-  tbody tr:nth-child(2n) {
+  tbody tr:nth-child(2n+1) {
     background: #eee;
+  }
+
+  pre {
+    margin: 0;
+  }
+
+  .field {
+    width: 100%;
   }
 }
