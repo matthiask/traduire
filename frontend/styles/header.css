@@ -1,2 +1,9 @@
 .header {
+  background: var(--primary);
+  color: var(--white);
+  padding: 1rem;
+
+  a {
+    color: inherit;
+  }
 }

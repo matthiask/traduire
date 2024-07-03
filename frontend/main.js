@@ -9,10 +9,8 @@ import "./styles/icons.css"
 import "./styles/buttons.css"
 import "./styles/body.css"
 import "./styles/header.css"
-import "./styles/menu.css"
 import "./styles/forms.css"
-
-import "./styles/pagination.css"
+import "./styles/table.css"
 
 import "./dashboard/base.css"
 import "./dashboard/login.css"

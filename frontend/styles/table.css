@@ -1,0 +1,12 @@
+.table {
+  width: 100%;
+
+  td,
+  th {
+    text-align: left;
+  }
+
+  tbody tr:nth-child(2n) {
+    background: #eee;
+  }
+}

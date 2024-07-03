@@ -72,7 +72,7 @@ class Catalog(models.Model):
         verbose_name_plural = _("catalogs")
 
     def __str__(self):
-        return f"{self.language_code},{self.domain}"
+        return f"{self.language_code}, {self.domain} ({self.po.percent_translated()}%)"
 
     def save(self, *args, **kwargs):
         self.pofile = str(self.po)

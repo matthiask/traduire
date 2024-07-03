@@ -48,6 +48,8 @@ class EntriesForm(forms.Form):
         self.entries = kwargs.pop("entries")
         super().__init__(*args, **kwargs)
 
+        self.entry_rows = []
+
         for index, entry in enumerate(self.entries):
             self.fields[f"msgid_{index}"] = forms.CharField(
                 widget=forms.HiddenInput,
@@ -69,6 +71,13 @@ class EntriesForm(forms.Form):
                 initial=entry.fuzzy,
                 required=False,
             )
+
+            self.entry_rows.append({
+                "entry": entry,
+                "msgid": self[f"msgid_{index}"],
+                "msgstr": self[f"msgstr_{index}"],
+                "fuzzy": self[f"fuzzy_{index}"],
+            })
 
     def fix_nls(self, in_, out_):
         # Thanks, django-rosetta!
@@ -177,7 +186,11 @@ def catalog(request, project, pk):
             "entries": entries,
             "previous_url": query_string(
                 None, request.GET, start=start - ENTRIES_PER_PAGE
-            ),
-            "next_url": query_string(None, request.GET, start=start + ENTRIES_PER_PAGE),
+            )
+            if start - ENTRIES_PER_PAGE >= 0
+            else None,
+            "next_url": query_string(None, request.GET, start=start + ENTRIES_PER_PAGE)
+            if entries
+            else None,
         },
     )

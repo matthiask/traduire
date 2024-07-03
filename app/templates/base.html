@@ -12,7 +12,6 @@
   <title>{% block title %}Traduire{% endblock %}</title>
 </head>
 <body class="{% block bodyclass %}{% endblock %}">
-  <input type="checkbox" id="menu-toggle" tabindex="-1">
   {% block header %}
     <header class="header">
       <a href="/">Traduire</a>
@@ -20,9 +19,11 @@
   {% endblock header %}
 
   {% block body %}
-  <div class="container">
-    {% block content %}{% endblock content %}
-  </div>
+  <main class="main">
+    <div class="container">
+      {% block content %}{% endblock content %}
+    </div>
+  </main>
   {% endblock body %}
 
   {% include 'svg.html' %}

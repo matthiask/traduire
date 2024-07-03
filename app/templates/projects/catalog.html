@@ -6,34 +6,50 @@
 
 {% block content %}
 
+<div class="flow">
+
 <h1><a href="{{ project.get_absolute_url }}">{{ project }}</a></h1>
 
 <h2>{{ catalog }}</h2>
 
-<p>Fortschritt: {{ po.percent_translated }}%</p>
-
-<form method="get" class="form">
+<form method="get" class="form form--filter flow">
   {{ filter_form|adapt_rendering }}
   <button class="button" type="submit">Filtern</button>
   <a href="." class="button">Reset</a>
 </form>
 
 {% if entries %}
-<form method="post">
+<h3>Einträge</h3>
+<form method="post" class="form flow">
   {% csrf_token %}
-  <div class="entries">
-    {{ form|adapt_rendering }}
+  <table class="table">
+    <thead>
+      <tr>
+        <th>{% translate 'Original' %}</th>
+        <th>{% translate 'Translation' %}</th>
+        <th>{% translate 'Fuzzy' %}</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for entry in form.entry_rows %}
+    <tr>
+      <td><pre>{{ entry.entry }}</pre></td>
+      <td>{{ entry.msgstr }}</td>
+      <td>{{ entry.fuzzy }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  <div class="buttons">
+    <button class="button" type="submit">Speichern und weiter</button>
+    {% if previous_url %}<a href="{{ previous_url }}" class="button">Zurück</a>{% endif %}
+    {% if next_url %}<a href="{{ next_url }}" class="button">Weiter</a>{% endif %}
   </div>
-  <button class="button" type="submit">Speichern und weiter</button>
 </form>
 
-<div class="buttons">
-<a href="{{ previous_url }}" class="button">Zurück</a>
-<a href="{{ next_url }}" class="button">Weiter</a>
-</div>
-
 {% else %}
-  Keine Einträge.
+<p>Keine Einträge.</p>
 {% endif %}
 
+</div>
 {% endblock %}

@@ -1,9 +1,6 @@
 html {
   overscroll-behavior: none;
 
-  /* color: var(--fg);
-  background: var(--bg); */
-
   min-height: calc(100% + env(safe-area-inset-top));
   padding: env(safe-area-inset-top) env(safe-area-inset-right)
     env(safe-area-inset-bottom) env(safe-area-inset-left);
@@ -23,6 +20,8 @@ body {
   color: var(--fg);
   background: var(--bg);
 
+  font-family: system-ui;
+
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -32,6 +31,7 @@ body {
 
 .main {
   flex-grow: 1;
+  margin: 2rem 1rem;
 }
 
 .container {
@@ -39,12 +39,4 @@ body {
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  padding-left: var(--layout-padding);
-  padding-right: var(--layout-padding);
-
-  .header & {
-    /* max-width: calc(var(--layout-width) ); */
-    padding-left: calc(var(--layout-padding) - 5px);
-    padding-right: calc(var(--layout-padding) - 5px);
-  }
 }

@@ -7,7 +7,7 @@ select,
 textarea {
   display: inline-block;
   border-radius: 0.25rem;
-  border: 1px solid var(--gray-light);
+  border: 1px solid var(--gray);
   background: var(--white);
   min-width: 0;
   padding: 3px 7px;
@@ -39,6 +39,11 @@ textarea {
   }
 }
 
+fieldset.field {
+  border: none;
+  padding: 0;
+}
+
 .field:has(select) {
   position: relative;
 
@@ -60,27 +65,6 @@ textarea {
     appearance: none;
     cursor: pointer;
     padding-right: 3rem;
-  }
-}
-
-.field:has(input[name="query"], input[name="search"]) {
-  position: relative;
-
-  &::after {
-    content: "";
-    display: block;
-    background: transparent url("../icons/search.svg") center center no-repeat;
-    background-size: contain;
-    width: 1.5rem;
-    height: 1.5rem;
-    position: absolute;
-    left: 1rem;
-    bottom: 0.5rem; /* XXX this isn't good when .help-text exists */
-    pointer-events: none;
-  }
-
-  input {
-    padding-left: 3rem;
   }
 }
 
