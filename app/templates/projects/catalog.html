@@ -33,7 +33,7 @@
     <tbody>
     {% for entry in form.entry_rows %}
     <tr>
-      <td><pre>{{ entry.entry }}</pre></td>
+      <td><pre>{{ entry.entry }}</pre> {{ entry.msgid }}</td>
       <td>{{ entry.msgstr }}</td>
       <td>{{ entry.fuzzy }}</td>
     </tr>
