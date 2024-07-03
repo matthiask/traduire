@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block title %}{{ catalog }} - {{ project }} - {{ block.super }}{% endblock %}
+
+{% block content %}
+
+<h1>{{ project }} - {{ catalog }}</h1>
+
+<p>Fortschritt: {{ po.percent_translated }}%</p>
+
+<table>
+  {% for entry in po %}
+  <tr>
+    <th>
+      {% if entry.msgctxt %}<small>{{ entry.msgctxt }}</small>{% endif %}
+      {{ entry.msgid }}
+    </th>
+    <td>
+      <textarea rows="2">{{ entry.msgstr }}</textarea>
+      {{ entry.msgstr_plural }}
+    </td>
+    <td>
+      {{ entry.flags }}
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
+{% endblock %}

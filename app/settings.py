@@ -129,6 +129,7 @@ INSTALLED_APPS = [
         "authlib.little_auth",
         "django.contrib.admin",
         "app",
+        "projects",
         "canonical_domain",
         "django_htmx",
         "template_partials",

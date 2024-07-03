@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block title %}{{ project }} - {{ block.super }}{% endblock %}
+
+{% block content %}
+
+<h1>{{ project }}</h1>
+
+<p>Kataloge:</p>
+<ul>
+  {% for catalog in project.catalogs.all %}
+  <li><a href="{{ catalog.get_absolute_url }}">{{ catalog.domain }}, {{ catalog.language_code }}</a></li>
+  {% endfor %}
+</ul>
+{% endblock %}

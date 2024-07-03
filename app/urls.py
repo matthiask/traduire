@@ -24,6 +24,7 @@ urlpatterns = [
     path("404/", render, {"template_name": "404.html"}),
     path("favicon.ico", file_response(settings.BASE_DIR / "htdocs" / "favicon.ico")),
     path("favicon.png", file_response(settings.BASE_DIR / "htdocs" / "favicon.png")),
+    path("", include("projects.urls")),
     *i18n_patterns(
         path("jsi18n/", JavaScriptCatalog.as_view(), name="javascript-catalog"),
     ),

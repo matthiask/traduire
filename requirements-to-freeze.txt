@@ -8,6 +8,7 @@ django-ratelimit
 django-template-partials
 granian
 hiredis
+polib
 psycopg[binary]
 redis
 sentry-sdk

@@ -17,6 +17,7 @@ granian==1.4.4
 hiredis==2.3.2
 idna==3.7
 oauthlib==3.2.2
+polib==1.2.0
 psycopg==3.2.1
 psycopg-binary==3.2.1
 redis==5.1.0b7

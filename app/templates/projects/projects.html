@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block title %}{% translate 'projects' %} - {{ block.super }}{% endblock %}
+
+{% block content %}
+
+<h1>Hallo, {{ request.user }}</h1>
+
+<p>Deine Projekte:</p>
+<ul>
+  {% for project in projects %}
+  <li><a href="{{ project.get_absolute_url }}">{{ project.name }}</a></li>
+  {% endfor %}
+</ul>
+{% endblock %}
