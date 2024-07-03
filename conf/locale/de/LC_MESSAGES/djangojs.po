@@ -1,0 +1,198 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-03-07 11:21+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: conf/strings.js frontend/dialog/dialogComponents.js
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: conf/strings.js frontend/dialog/dialogComponents.js
+msgid "delete your progress"
+msgstr ""
+
+#: conf/strings.js frontend/dialog/dialogComponents.js
+msgid "delete"
+msgstr ""
+
+#: conf/strings.js frontend/dialog/dialogComponents.js
+msgid "Do you want to interrupt the task?"
+msgstr "Möchtest du die Aufgabe unterbrechen?"
+
+#: conf/strings.js frontend/static/editRelatedFields.js
+msgid "edit"
+msgstr "bearbeiten"
+
+#: conf/strings.js frontend/dialog/dialogComponents.js
+msgid "home"
+msgstr "Home"
+
+#: conf/strings.js frontend/dialog/dialogComponents.js
+msgid "I am sure that I want to delete my progress and not continue later."
+msgstr ""
+
+#: conf/strings.js frontend/dialog/dialogComponents.js
+msgid "I want to take a break and have written down the code."
+msgstr "Ich möchte eine Pause machen und habe den Code aufgeschrieben"
+
+#: conf/strings.js frontend/dialog/dialogComponents.js
+msgid "pause"
+msgstr "Pause"
+
+#: conf/strings.js frontend/dialog/dialogComponents.js
+msgid "Save current state"
+msgstr "Akutellen Status speichern"
+
+#: conf/strings.js frontend/dialog/dialogComponents.js
+#, fuzzy
+#| msgid "Save and continue later"
+msgid "Would you like to continue later?"
+msgstr "Speichern und später weiterfahren"
+
+#: conf/strings.js frontend/dialog/dialogComponents.js
+#, fuzzy
+#| msgid "Save and continue later"
+msgid "Would you like to delete your progress."
+msgstr "Speichern und später weiterfahren"
+
+#: conf/strings.js frontend/dialog/dialogComponents.js
+msgid "You can also switch to another device."
+msgstr ""
+
+#: conf/strings.js frontend/dialog/dialogComponents.js
+msgid "You can continue later with this code."
+msgstr ""
+
+#: conf/strings.js frontend/dialog/dialogComponents.js
+msgid "You will receive a code to continue at any time."
+msgstr ""
+
+#~ msgid "After the video you wrote down what concerns you. Here are your original thoughts again:"
+#~ msgstr "Nach dem Video hast du aufgeschrieben, was dich beschäftigt. Hier nochmals deine ursprünglichen Gedanken:"
+
+#~ msgid "All entries will be deleted. Are you really sure?"
+#~ msgstr "Alle Eingaben werden gelöscht. Bist du wirklich sicher?"
+
+#~ msgid "At least 50 characters."
+#~ msgstr "Mindestens 50 Zeichen."
+
+#~ msgid "Back"
+#~ msgstr "Zurück"
+
+#~ msgid "checked"
+#~ msgstr "ausgewählt"
+
+#~ msgid "Choose your level of complexity"
+#~ msgstr "Wähle deine Komplexitätsstufe"
+
+#~ msgid "Continue"
+#~ msgstr "Weiter"
+
+#~ msgid "Copied code!"
+#~ msgstr "Code kopiert!"
+
+#~ msgid "Discard my inputs"
+#~ msgstr "Alle Eingaben verwerfen"
+
+#~ msgid "done"
+#~ msgstr "Ok"
+
+#~ msgid "Download as PDF"
+#~ msgstr "Portfolio als PDF herunterladen"
+
+#~ msgid "Educational medium on Swiss history"
+#~ msgstr "Bildungsmedium zur Schweizer Geschichte"
+
+#~ msgid "Enter the code"
+#~ msgstr "Code eingeben"
+
+#~ msgid "I have been here before:"
+#~ msgstr "Ich war schon mal da:"
+
+#~ msgid "Instructions"
+#~ msgstr "Instruktion"
+
+#~ msgid "Please order the following events."
+#~ msgstr "Bitte sortiere die folgenden Ereignisse."
+
+#~ msgid "Remember this"
+#~ msgstr "Aspekt merken"
+
+#~ msgid "Select a different person"
+#~ msgstr "Wähle eine andere Person"
+
+#~ msgid "Select a second source"
+#~ msgstr "Wähle eine zweite Quelle aus"
+
+#~ msgid "Select one of the following sources"
+#~ msgstr "Wähle eine der folgenden Quellen aus"
+
+#~ msgid "Selection of people"
+#~ msgstr "Auswahl der Personen"
+
+#~ msgid "Skip"
+#~ msgstr "Überspringen"
+
+#~ msgid "Start"
+#~ msgstr "Start"
+
+#~ msgid "Submit"
+#~ msgstr "Einreichen"
+
+#~ msgid "Task"
+#~ msgstr "Aufgabenstellung"
+
+#~ msgid "Tell a person you have chosen in letter form what you think about the coercive measures against %(name)s."
+#~ msgstr "Teile einer von dir gewählten Person in Briefform mit, was du von den Zwangsmassnahmen gegenüber %(name)s hältst."
+
+#~ msgid "The events are ordered correctly."
+#~ msgstr "Die Ereignisse sind korrekt soriert."
+
+#~ msgid "Timeline"
+#~ msgstr "Zeitstrahl"
+
+#~ msgid "Welfare and coercition"
+#~ msgstr "Fürsorge und Zwang"
+
+#~ msgid "What do you want to do with your portfolio?"
+#~ msgstr "Was willst du mit dem Portfolio tun?"
+
+#~ msgid "What two questions concern you?"
+#~ msgstr "Welche zwei Fragen beschäftigen dich?"
+
+#~ msgid "Which event from the life of %(name)s would you like to tell others? Describe it and briefly mention what happened before and after."
+#~ msgstr "Welches Ereignis aus dem Lebenslauf von %(name)s möchtest du weitererzählen? Schildere es und erwähne kurz, was davor und danach passiert ist."
+
+#, fuzzy
+#~| msgid "What do you want to do with your portfolio?"
+#~ msgid "Which person do you want to deal with?"
+#~ msgstr "Was willst du mit dem Portfolio tun?"
+
+#~ msgid "Who could you tell the story of %(name)s? Choose someone and write down why that person should know the story of %(name)s."
+#~ msgstr "Wem könntest du die Geschichte von %(name)s weitererzählen? Suche dir jemanden aus und schreibe auf, wieso diese Person die Geschichte von %(name)s kennen sollte."
+
+#~ msgid "Write them down below."
+#~ msgstr "Schreibe sie unten auf."
+
+#~ msgid "You have now experienced the memories of %(name)s."
+#~ msgstr "Du hast nun die Erinnerungen von %(name)s erfahren."
+
+#~ msgid "You have selected the following aspects"
+#~ msgstr "Du hast die folgenden Aspekte ausgewählt"
+
+#~ msgid "Your portfolio begins"
+#~ msgstr "Dein Portfolio beginnt"

@@ -1,0 +1,17 @@
+[
+  {
+    "model": "little_auth.user",
+    "pk": 1,
+    "fields": {
+      "password": "",
+      "last_login": "2017-09-06T09:35:48.867Z",
+      "is_superuser": true,
+      "email": "dev@feinheit.ch",
+      "is_active": true,
+      "is_staff": true,
+      "date_joined": "2017-09-06T09:35:38.375Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  }
+]

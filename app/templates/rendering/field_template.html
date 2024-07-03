@@ -1,0 +1,19 @@
+{# Essentially the same as Django's default except that there's a div wrapper when not using fieldsets and the wrapper includes "field {{ css_classes }}" #}
+{{ field.errors }}
+{% if field.use_fieldset %}
+  <fieldset{% if field.help_text and field.auto_id and "aria-describedby" not in field.field.widget.attrs %} aria-describedby="{{ field.auto_id }}_helptext"{% endif %} class="field {{ field.css_classes }}">
+  {% if field.label %}{{ field.legend_tag }}{% endif %}
+{% else %}
+  <div class="field {{ field.css_classes }}">
+  {% if field.label %}{{ field.label_tag }}{% endif %}
+{% endif %}
+
+{{ field }}
+{% if field.help_text %}<div class="helptext"{% if field.auto_id %} id="{{ field.auto_id }}_helptext"{% endif %}>{{ field.help_text|safe }}</div>{% endif %}
+
+
+{% if field.use_fieldset %}
+  </fieldset>
+{% else %}
+</div>
+{% endif %}

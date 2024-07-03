@@ -1,0 +1,48 @@
+.objects {
+  display: grid;
+  row-gap: 8px;
+  max-width: 80rem;
+}
+
+.objects--agenda {
+  grid-template-columns: repeat(3, 1fr) min-content;
+}
+
+.objects--updates {
+  grid-template-columns: 1fr min-content;
+}
+
+.objects--people {
+  grid-template-columns: 150px 1fr min-content;
+}
+
+.object {
+  grid-column: 1 / -1;
+  background: var(--petrol-lighter);
+  border-radius: 8px;
+
+  display: grid;
+  grid-template-columns: subgrid;
+  gap: 8px;
+
+  transition: all ease-in 0.2s;
+}
+
+.object__cell {
+  padding: 8px;
+}
+
+.object--form {
+  grid-template-columns: 1fr;
+  padding: 2rem;
+
+  .form {
+    max-width: 40rem;
+    margin: 0 auto;
+  }
+}
+
+.object--new {
+  grid-template-columns: 1fr;
+  padding: 1rem;
+}

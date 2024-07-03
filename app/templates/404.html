@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% load static i18n %}
+
+{% block title %}{% translate "This page was not found" %}{% endblock %}
+
+{% block content %}
+<main class="main main--left fourzerofour">
+  <div class="container">
+    <div class="prose flow">
+      <h1>{% translate "404: Sorry, we could not find the page you requested." %}</h1>
+      <h2 class="fourzerofour__undertitle">{% translate "Try the following links:" %}</h2>
+
+      <nav class="fourzerofour__menu">
+        <a class="fourzerofour__menu-link fourzerofour__menu-link--strong" href="/" title="{% translate 'go to Homepage' %}">{% translate "Homepage" %}<svg class="icon" role="img"><use href="#icon-next" /></svg></a>
+        {% for p in menus.main %}
+          <a class="fourzerofour__menu-link" href="{{ p.get_navigation_url }}" title="{% blocktranslate with title=p.title %}go to page {{ title }}{% endblocktranslate %}">
+            {{ p.title }}
+            <svg class="icon icon--next" aria-label="{% blocktranslate with p.title as title %}go to page {{ title }}{% endblocktranslate %}" role="img"><use href="#icon-next" /></svg></a>
+        {% endfor %}
+      </nav>
+
+    </div>
+  </div>
+</main>
+{% endblock %}

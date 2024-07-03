@@ -1,0 +1,107 @@
+[tool.ruff]
+target-version = "py310"
+preview = true
+
+fix = true
+show-fixes = true
+lint.extend-select = [
+  # flake8-async
+  "ASYNC",
+  # flake8-bugbear
+  "B",
+  # flake8-comprehensions
+  "C4",
+  # mmcabe
+  "C90",
+  # flake8-django
+  "DJ",
+  "E",
+  # pyflakes, pycodestyle
+  "F",
+  # flake8-boolean-trap
+  "FBT",
+  # isort
+  "I",
+  # flake8-no-pep420
+  "INP",
+  # flake8-gettext
+  "INT",
+  # flake8-implicit-string-concatenation
+  "ISC",
+  # flake8-logging
+  "LOG",
+  # pep8-naming
+  "N",
+  # pygrep-hooks
+  "PGH",
+  # flake8-pie
+  "PIE",
+  # pylint
+  "PLC",
+  "PLE",
+  "PLW",
+  # flake8-return
+  "RET",
+  # ruff
+  "RUF005",
+  "RUF006",
+  "RUF007",
+  "RUF008",
+  "RUF009",
+  "RUF010",
+  "RUF015",
+  "RUF016",
+  "RUF017",
+  "RUF100",
+  "RUF200",
+  # flake8-simplify
+  "SIM",
+  # flake8-slots
+  "SLOT",
+  # flake8-tidy-imports
+  "TID",
+  # pyupgrade
+  "UP",
+  "W",
+  # flake8-2020
+  "YTT",
+]
+lint.extend-ignore = [
+  # Allow zip() without strict=
+  "B905",
+  # No line length errors
+  "E501",
+]
+lint.per-file-ignores."*/migrat*/*" = [
+  # Allow using PascalCase model names in migrations
+  "N806",
+  # Ignore the fact that migration files are invalid module names
+  "N999",
+]
+lint.per-file-ignores."conf/*" = [
+  # Allow Python files in conf/ without __init__
+  "INP",
+]
+lint.per-file-ignores."fabfile.py" = [
+  # No boolean trap in function definitions in the fabfile
+  "FBT002",
+]
+lint.per-file-ignores."scripts/*" = [
+  # Allow Python files in scripts/ without __init__
+  "INP",
+]
+lint.isort.combine-as-imports = true
+lint.isort.lines-after-imports = 2
+lint.mccabe.max-complexity = 15
+
+[tool.coverage.run]
+branch = true
+omit = [
+  "*migrate*",
+  "*migrations*",
+  "*venv*",
+]
+
+[tool.coverage.report]
+skip_covered = true
+show_missing = true

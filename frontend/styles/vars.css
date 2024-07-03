@@ -1,0 +1,213 @@
+:root {
+  --primary: #007cb0;
+  --secondary: #fcfe7f;
+  --black: #101010;
+  --white: #fdfdfd;
+
+  --petrol-lighter: #def6fe;
+  --petrol-light: #a3e3fa;
+  --petrol-dark: #34cdfe;
+  --petrol-darker: #005773;
+
+  --f3cc-accept-background: var(--petrol-dark);
+
+  --apricot-lighter: #fbede0;
+  --apricot-light: #fbcfa2;
+  --apricot-dark: #f8a851;
+  --apricot-darker: #dd7709;
+
+  --green-lighter: #e4f7cf;
+  --green-light: #b0e377;
+  --green-dark: #00c814;
+  --green-darker: #37a810;
+
+  --gray-lighter: #f0f0f0;
+  --gray-light: #d6d6d6;
+  --gray-dark: #afafaf;
+  --gray-darker: #919191;
+
+  --plum-lighter: #f2e2fd;
+  --plum-light: #e3bdf5;
+  --plum-dark: #bf6fe6;
+  --plum-darker: #a755cd;
+
+  --berry-lighter: #fce8f0;
+  --berry-light: #f6b7d1;
+  --berry-dark: #ff70ac;
+  --berry-darker: #ec609b;
+
+  --yellow-lighter: #fff999;
+  --yellow-light: #faf061;
+  --yellow-dark: #e6dc0f;
+  --yellow-darker: #9c9502;
+
+  --fg: var(--black);
+  --bg: var(--white);
+  --fg-hover: var(--primary);
+
+  --button-fg: var(--white);
+  --button-bg: var(--primary);
+  --button-border: var(--primary);
+  --button-hover-fg: var(--black);
+  --button-hover-bg: var(--white);
+  --button-hover-border: var(--black);
+
+  --button-dark-fg: var(--white);
+  --button-dark-bg: var(--black);
+  --button-dark-border: var(--black);
+  --button-dark-hover-fg: var(--black);
+  --button-dark-hover-bg: var(--white);
+  --button-dark-hover-border: var(--black);
+
+  --button-toggle-fg: var(--black);
+  --button-toggle-bg: var(--white);
+  --button-toggle-border: var(--black);
+  --button-toggle-hover-fg: var(--white);
+  --button-toggle-hover-bg: var(--black);
+  --button-toggle-hover-border: var(--black);
+  --button-toggle-active-fg: var(--white);
+  --button-toggle-active-bg: var(--black);
+  --button-toggle-active-border: var(--black);
+
+  --button-filter-fg: var(--primary);
+  --button-filter-bg: var(--white);
+  --button-filter-border: var(--primary);
+  --button-filter-hover-fg: var(--white);
+  --button-filter-hover-bg: var(--primary);
+  --button-filter-hover-border: var(--primary);
+  --button-filter-active-fg: var(--white);
+  --button-filter-active-bg: var(--primary);
+  --button-filter-active-border: var(--primary);
+
+  --error-fg: #f00;
+  --warning: tomato;
+
+  --box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
+  --box-shadow-2: 4px 0px 16px 0px rgba(0, 0, 0, 0.08);
+  --layout-width: 78rem;
+  --text-width: 50rem;
+  --content-width: 37rem;
+  --layout-padding: 1rem;
+
+  --header-height: 130px;
+  --header-height-full: 101px;
+  --header-height-sub: 171px;
+  --header-height-lead: auto;
+  --header-height-mobile: 76px;
+
+  --header-height-login: 58px;
+
+  --z-hidden: -5;
+  --z-header: 10;
+}
+
+.color {
+  --lighter: tomato;
+  --light: red;
+  --dark: crimson;
+  --darker: darkred;
+}
+
+.color--petrol {
+  --lighter: var(--petrol-lighter);
+  --light: var(--petrol-light);
+  --dark: var(--petrol-dark);
+  --darker: var(--petrol-darker);
+}
+
+.color--apricot {
+  --lighter: var(--apricot-lighter);
+  --light: var(--apricot-light);
+  --dark: var(--apricot-dark);
+  --darker: var(--apricot-darker);
+}
+
+.color--green {
+  --lighter: var(--green-lighter);
+  --light: var(--green-light);
+  --dark: var(--green-dark);
+  --darker: var(--green-darker);
+}
+
+.color--gray {
+  --lighter: var(--gray-lighter);
+  --light: var(--gray-light);
+  --dark: var(--gray-dark);
+  --darker: var(--gray-darker);
+}
+
+.color--plum {
+  --lighter: var(--plum-lighter);
+  --light: var(--plum-light);
+  --dark: var(--plum-dark);
+  --darker: var(--plum-darker);
+}
+
+.color--berry {
+  --lighter: var(--berry-lighter);
+  --light: var(--berry-light);
+  --dark: var(--berry-dark);
+  --darker: var(--berry-darker);
+}
+
+.color--yellow {
+  --lighter: var(--yellow-lighter);
+  --light: var(--yellow-light);
+  --dark: var(--yellow-dark);
+  --darker: var(--yellow-darker);
+}
+
+.color--petrol-light {
+  --rubric-color: var(--petrol-light);
+}
+.color--petrol-dark {
+  --rubric-color: var(--petrol-dark);
+}
+.color--apricot-lighter {
+  --rubric-color: var(--apricot-lighter);
+}
+.color--apricot-light {
+  --rubric-color: var(--apricot-light);
+}
+.color--apricot-dark {
+  --rubric-color: var(--apricot-dark);
+}
+.color--green-lighter {
+  --rubric-color: var(--green-lighter);
+}
+.color--green-light {
+  --rubric-color: var(--green-light);
+}
+.color--green-dark {
+  --rubric-color: var(--green-dark);
+}
+.color--gray-light {
+  --rubric-color: var(--gray-light);
+}
+.color--gray-dark {
+  --rubric-color: var(--gray-dark);
+}
+.color--plum-light {
+  --rubric-color: var(--plum-light);
+}
+.color--plum-dark {
+  --rubric-color: var(--plum-dark);
+}
+.color--berry-lighter {
+  --rubric-color: var(--berry-lighter);
+}
+.color--berry-light {
+  --rubric-color: var(--berry-light);
+}
+.color--berry-dark {
+  --rubric-color: var(--berry-dark);
+}
+.color--yellow-lighter {
+  --rubric-color: var(--yellow-lighter);
+}
+.color--yellow-light {
+  --rubric-color: var(--yellow-light);
+}
+.color--yellow-dark {
+  --rubric-color: var(--yellow-dark);
+}

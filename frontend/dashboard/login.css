@@ -1,0 +1,28 @@
+.main.main--login {
+  display: flex;
+  align-items: center;
+}
+
+.login {
+  display: grid;
+  background: var(--petrol-lighter);
+  box-shadow: var(--box-shadow-2);
+  border-radius: 8px;
+  padding: 5rem 2rem;
+  max-width: 59rem;
+  margin: 0 auto;
+}
+
+.form--login {
+  width: 100%;
+  max-width: 33rem;
+  margin: 0 auto;
+}
+
+.login__title {
+  color: var(--primary);
+}
+
+.login__subtitle {
+  --flow-space: 1.5rem;
+}

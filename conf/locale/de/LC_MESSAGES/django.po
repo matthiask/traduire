@@ -1,0 +1,850 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-06-25 11:59+0200\n"
+"PO-Revision-Date: 2024-01-22 11:40+0100\n"
+"Last-Translator: Anonymous User <dev@feinheit.ch>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Translated-Using: django-rosetta 0.10.0\n"
+
+#: agenda/app_agenda.py agenda/models.py articles/models.py parishes/models.py
+msgid "parish"
+msgstr "Pfarrei"
+
+#: agenda/app_agenda.py agenda/models.py
+msgid "category"
+msgstr "Kategorie"
+
+#: agenda/app_agenda.py
+msgid "search in the agenda"
+msgstr "In der Agenda suchen"
+
+#: agenda/apps.py pages/models.py
+msgid "agenda"
+msgstr "Agenda"
+
+#: agenda/models.py
+msgid "identifier"
+msgstr "Identifikator"
+
+#: agenda/models.py
+msgid "API key"
+msgstr "API-Schlüssel"
+
+#: agenda/models.py
+msgid "verowa credentials"
+msgstr "Verowa-Anmeldedaten"
+
+#: agenda/models.py articles/models.py issues/models.py pages/models.py
+msgid "title"
+msgstr "Titel"
+
+#: agenda/models.py articles/models.py parishes/models.py
+msgid "slug"
+msgstr "Slug"
+
+#: agenda/models.py
+msgid "categories"
+msgstr "Kategorien"
+
+#: agenda/models.py articles/models.py parishes/models.py
+msgid "created at"
+msgstr "erstellt um"
+
+#: agenda/models.py parishes/models.py
+msgid "location"
+msgstr "Standort"
+
+#: agenda/models.py
+msgid "date from"
+msgstr "Datum von"
+
+#: agenda/models.py
+msgid "date until"
+msgstr "Datum bis"
+
+#: agenda/models.py articles/models.py parishes/models.py
+msgid "image"
+msgstr "Bild"
+
+#: agenda/models.py articles/models.py pages/models.py parishes/models.py
+msgid "alternative text"
+msgstr "alternativer Text"
+
+#: agenda/models.py articles/models.py pages/models.py parishes/models.py
+msgid "Describe the contents, e.g. for screenreaders."
+msgstr "Beschreibe die Inhalte, zB für Screenreader."
+
+#: agenda/models.py articles/models.py pages/models.py parishes/models.py
+msgid "image copyright"
+msgstr "Bild-Urheberrecht"
+
+#: agenda/models.py articles/models.py
+msgid "description"
+msgstr "Beschreibung"
+
+#: agenda/models.py articles/models.py
+msgid "external identifier"
+msgstr "externer Identifikator"
+
+#: agenda/models.py
+msgid "recurrence rule"
+msgstr "Wiederholungsregel"
+
+#: agenda/models.py articles/models.py pages/models.py
+msgid "event"
+msgstr "Veranstaltung"
+
+#: agenda/models.py
+msgid "events"
+msgstr "Veranstaltungen"
+
+#: agenda/models.py articles/models.py pages/models.py
+msgid "Image copyrights are required."
+msgstr "Bild-Urheberrechte werden benötigt."
+
+#: agenda/models.py
+msgid "Recurrence rule is invalid: {}"
+msgstr "Wiederholungsregel ist ungültig: {}"
+
+#: agenda/models.py articles/models.py
+msgid "parent"
+msgstr "übergeordnetes"
+
+#: agenda/models.py
+msgid "interesting event"
+msgstr "interessanter Artikel"
+
+#: agenda/models.py
+msgid "interesting events"
+msgstr "interessante Veranstaltungen"
+
+#: agenda/models.py
+msgid "initial event"
+msgstr "Erste Veranstaltung"
+
+#: agenda/models.py
+msgid "event customized at"
+msgstr "Veranstaltung wurde angepasst um"
+
+#: agenda/models.py
+msgid "Customized events are not changed or removed automatically when changing the original event or the recurrence rule."
+msgstr "Angepasste Veranstaltungen werden nicht automatisch verändert oder gelöscht wenn die Wiederholungsregel der ersten Veranstaltung angepasst wird."
+
+#: agenda/models.py
+msgid "generated event"
+msgstr "generierte Veranstaltung"
+
+#: agenda/models.py
+msgid "generated events"
+msgstr "generierte Veranstaltungen"
+
+#: app/elements.py
+msgid "copyright"
+msgstr "Urheberrecht"
+
+#: app/elements.py
+msgid "download"
+msgstr "Download"
+
+#: app/elements.py articles/models.py
+msgid "caption"
+msgstr "Legende"
+
+#: app/elements.py
+msgid "downloads"
+msgstr "Downloads"
+
+#: app/settings.py
+msgid "German"
+msgstr "Deutsch"
+
+#: app/templates/404.html
+msgid "This page was not found"
+msgstr "Diese Seite wurde nicht gefunden"
+
+#: app/templates/404.html
+msgid "404: Sorry, we could not find the page you requested."
+msgstr "404: Leider haben wir die gewünschte Seite nicht gefunden."
+
+#: app/templates/404.html
+msgid "Try the following links:"
+msgstr "Versuchen Sie es mit folgenden Links:"
+
+#: app/templates/404.html
+msgid "go to Homepage"
+msgstr "zur Startseite"
+
+#: app/templates/404.html
+msgid "Homepage"
+msgstr "Startseite"
+
+#: app/templates/404.html app/templates/includes/backlinks.html
+#, python-format
+msgid "go to page %(title)s"
+msgstr "zur Seite %(title)s"
+
+#: app/templates/agenda/event_detail.html
+msgid "further events"
+msgstr "weitere Veranstaltungen"
+
+#: app/templates/agenda/event_list.html
+msgid "Agenda"
+msgstr "Agenda"
+
+#: app/templates/agenda/event_list.html
+msgid "all events"
+msgstr "alle Veranstaltungen"
+
+#: app/templates/agenda/event_list.html
+#: app/templates/articles/article_list.html
+#: app/templates/parishes/parish_list.html
+msgid "reset search"
+msgstr "Suche zurücksetzen"
+
+#: app/templates/agenda/event_list.html
+msgid "Load more events"
+msgstr "Mehr Veranstaltungen laden"
+
+#: app/templates/agenda/event_list.html
+msgid "generate PDF"
+msgstr "PDF generieren"
+
+#: app/templates/agenda/event_list.html app/templates/plugins/this_week.html
+msgid "No events found"
+msgstr "Keine Events gefunden"
+
+#: app/templates/agenda/event_teaser.html
+msgid "more"
+msgstr "mehr"
+
+#: app/templates/articles/article_detail.html
+msgid "Published on"
+msgstr "Erschienen am"
+
+#: app/templates/articles/article_detail.html
+msgid "in"
+msgstr "in"
+
+#: app/templates/articles/article_detail.html
+msgid "Even more %(title)s"
+msgstr "Noch mehr %(title)s"
+
+#: app/templates/articles/article_detail.html
+msgid "This might also interest you"
+msgstr "Das könnte Sie auch interessieren"
+
+#: app/templates/articles/article_list.html
+msgid "No articles found"
+msgstr "Keine Artikel gefunden"
+
+#: app/templates/articles/article_teaser.html
+msgid "to the article"
+msgstr "zum Artikel"
+
+#: app/templates/articles/rubric_teaser.html
+msgid "rubric overview"
+msgstr "Rubrik-Übersicht"
+
+#: app/templates/base.html
+msgid "Forum of the future"
+msgstr ""
+
+#: app/templates/base.html
+msgid "scroll to content"
+msgstr "Forum der Zukunft"
+
+#: app/templates/base.html app/templates/pages/standard_header_small.html
+#: app/templates/parishes/base.html
+msgid "toggle menu"
+msgstr "Menü ein-/aufklappen"
+
+#: app/templates/base.html
+msgid "Publisher"
+msgstr "Herausgeberin"
+
+#: app/templates/base.html
+msgid ""
+"\n"
+"            Forum Foundation – Parish bulletin of<br>\n"
+"            the Catholic Church in the Canton of Zurich<br>\n"
+"            Hirschengraben 72<br>\n"
+"            8001 Zurich\n"
+"            "
+msgstr ""
+"\n"
+"            Stiftung forum – Pfarrblatt der<br>\n"
+"            katholischen Kirche im Kanton Zürich<br>\n"
+"            Hirschengraben 72<br>\n"
+"            8001 Zürich\n"
+"            "
+
+#: app/templates/base.html
+msgid "Contact"
+msgstr "Kontakt"
+
+#: app/templates/base.html
+msgid "Services"
+msgstr "Dienste"
+
+#: app/templates/base.html
+msgid "Archive"
+msgstr "Archiv"
+
+#: app/templates/dashboard/agenda.html app/templates/dashboard/base.html
+#: app/templates/parishes/base.html
+msgid "Our agenda"
+msgstr "Unsere Agenda"
+
+#: app/templates/dashboard/agenda.html
+msgid "Add"
+msgstr "Hinzufügen"
+
+#: app/templates/dashboard/base.html
+msgid "The parish"
+msgstr "Die Pfarrei"
+
+#: app/templates/dashboard/base.html
+msgid "Parish life"
+msgstr "Pfarreileben"
+
+#: app/templates/dashboard/base.html app/templates/parishes/base.html
+msgid "About us"
+msgstr "Wir über uns"
+
+#: app/templates/dashboard/base.html
+msgid "Next printing date"
+msgstr "Nächster Drucktermin"
+
+#: app/templates/dashboard/base.html app/templates/registration/login.html
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: app/templates/dashboard/base.html
+msgid "Hey"
+msgstr "Hallo"
+
+#: app/templates/dashboard/parish.html
+msgid "Save"
+msgstr "Speichern"
+
+#: app/templates/includes/calendar.html
+msgid "previous month"
+msgstr "vorherige Monat"
+
+#: app/templates/includes/calendar.html
+msgid "next month"
+msgstr "nächster Monat"
+
+#: app/templates/includes/calendar.html app/templates/plugins/this_week.html
+msgid "to the agenda"
+msgstr "zur Agenda"
+
+#: app/templates/includes/pagination.html
+msgid "previous page"
+msgstr "vorherige Seite"
+
+#: app/templates/includes/pagination.html
+msgid "next page"
+msgstr "nächste Seite"
+
+#: app/templates/parishes/base.html
+msgid "Parish"
+msgstr "Pfarrei"
+
+#: app/templates/parishes/base.html
+msgid "important information"
+msgstr "wichtige Informationen"
+
+#: app/templates/parishes/parish_detail.html
+msgid "Editorial articles"
+msgstr "Redaktionelle Beiträge"
+
+#: app/templates/parishes/parish_list.html
+msgid "No parishes found"
+msgstr "Keine Pfarreien gefunden"
+
+#: app/templates/parishes/parish_teaser.html
+msgid "Mission"
+msgstr "Mission"
+
+#: app/templates/plugins/newsletter.html
+msgid "Topics and discussions directly in the mailbox"
+msgstr "Themen und Diskussionen direkt in die Mailbox"
+
+#: app/templates/plugins/newsletter.html
+msgid "Subscribe to newsletter"
+msgstr "Newsletter abonnieren"
+
+#: app/templates/plugins/publishing_plan.html
+msgid "Issue"
+msgstr "Ausgabe"
+
+#: app/templates/plugins/publishing_plan.html
+msgid "Publication date"
+msgstr "Erscheinungstag"
+
+#: app/templates/plugins/publishing_plan.html
+msgid "Holidays"
+msgstr "Festtage"
+
+#: app/templates/plugins/publishing_plan.html
+msgid "Advertising deadline"
+msgstr "Inserateschluss"
+
+#: app/templates/plugins/references.html pages/models.py
+msgid "resource"
+msgstr "Quelle"
+
+#: app/templates/plugins/references.html pages/models.py
+msgid "holder of rights"
+msgstr "Rechteinhaber:in"
+
+#: app/templates/plugins/this_week.html pages/models.py
+msgid "this week"
+msgstr "Diese Woche"
+
+#: app/templates/plugins/this_week.html pages/models.py
+msgid "highlights"
+msgstr "Highlights"
+
+#: app/templates/registration/login.html
+msgid "Login"
+msgstr "Anmelden"
+
+#: app/templates/registration/login.html
+#: app/templates/registration/password_reset_complete.html
+#: app/templates/registration/password_reset_confirm.html
+#: app/templates/registration/password_reset_done.html
+#: app/templates/registration/password_reset_form.html
+msgid "Reset password"
+msgstr "Passwort zurücksetzen"
+
+#: app/templates/registration/password_change_done.html
+#: app/templates/registration/password_change_form.html
+msgid "Change password"
+msgstr "Passwort ändern"
+
+#: app/templates/registration/password_change_done.html
+msgid "Your password was changed."
+msgstr "Ihr Passwort wurde geändert."
+
+#: app/templates/registration/password_change_form.html
+msgid "Please enter your old password, for security’s sake, and then enter your new password twice so we can verify you typed it in correctly."
+msgstr "Bitte geben Sie zur Sicherheit Ihr altes Passwort ein und geben Sie dann Ihr neues Passwort zweimal ein, damit wir überprüfen können, ob Sie es richtig eingegeben haben."
+
+#: app/templates/registration/password_change_form.html
+#: app/templates/registration/password_reset_confirm.html
+#: app/templates/registration/password_reset_form.html
+msgid "Submit"
+msgstr "Abschicken"
+
+#: app/templates/registration/password_reset_complete.html
+msgid "Your password has been set.  You may go ahead and log in now."
+msgstr "Ihr Passwort wurde festgelegt.  Sie können sich jetzt einloggen."
+
+#: app/templates/registration/password_reset_complete.html
+msgid "Log in"
+msgstr ""
+
+#: app/templates/registration/password_reset_confirm.html
+msgid "The password reset link was invalid, possibly because it has already been used.  Please request a new password reset."
+msgstr "Der Link zum Zurücksetzen des Passworts war ungültig, möglicherweise weil er bereits verwendet wurde.  Bitte fordern Sie ein neues Passwort an."
+
+#: app/templates/registration/password_reset_done.html
+msgid "We’ve emailed you instructions for setting your password, if an account exists with the email you entered. You should receive them shortly."
+msgstr "Wir haben Ihnen per E-Mail eine Anleitung zum Einrichten Ihres Passworts geschickt, sofern ein Konto mit der von Ihnen eingegebenen E-Mail-Adresse existiert. Sie sollten sie in Kürze erhalten."
+
+#: app/templates/registration/password_reset_done.html
+msgid "If you don’t receive an email, please make sure you’ve entered the address you registered with, and check your spam folder."
+msgstr "Wenn Sie keine E-Mail erhalten, vergewissern Sie sich bitte, dass Sie die Adresse eingegeben haben, mit der Sie sich registriert haben, und überprüfen Sie Ihren Spam-Ordner."
+
+#: app/templates/registration/password_reset_email.html
+#, python-format
+msgid "You're receiving this email because you requested a password reset for your user account at %(site_name)s."
+msgstr "Sie erhalten diese E-Mail, weil Sie ein neues Passwort für Ihr Benutzerkonto bei %(site_name)s beantragt haben."
+
+#: app/templates/registration/password_reset_email.html
+msgid "Please go to the following page and choose a new password:"
+msgstr "Bitte gehen Sie auf die folgende Seite und wählen Sie ein neues Passwort:"
+
+#: app/templates/registration/password_reset_email.html
+msgid "Your username, in case you’ve forgotten:"
+msgstr "Ihren Benutzernamen, falls Sie ihn vergessen haben:"
+
+#: app/templates/registration/password_reset_email.html
+msgid "Thanks for using our site!"
+msgstr "Vielen Dank für die Nutzung unserer Website!"
+
+#: app/templates/registration/password_reset_email.html
+#, python-format
+msgid "The %(site_name)s team"
+msgstr "Das Team von %(site_name)s"
+
+#: app/templates/subregions/article_bricks.html
+msgid "to the magazine"
+msgstr "Zum Magazin"
+
+#: articles/admin.py articles/models.py
+msgid "rubric"
+msgstr "Rubrik"
+
+#: articles/app_articles.py
+msgid "filter by rubric"
+msgstr "Filtern nach Rubrik"
+
+#: articles/app_articles.py
+msgid "current edition"
+msgstr "Aktuelle Ausgabe"
+
+#: articles/app_articles.py
+msgid "search in the magazine"
+msgstr "Im Magazin suchen"
+
+#: articles/apps.py articles/models.py pages/models.py
+msgid "articles"
+msgstr "Artikel"
+
+#: articles/models.py
+msgid "color"
+msgstr "Farbe"
+
+#: articles/models.py pages/models.py
+msgid "rubrics"
+msgstr "Rubriken"
+
+#: articles/models.py
+msgid "Main"
+msgstr "Haupt"
+
+#: articles/models.py
+msgid "published at"
+msgstr "veröffentlicht um"
+
+#: articles/models.py issues/models.py pages/models.py
+msgid "issue"
+msgstr "Ausgabe"
+
+#: articles/models.py pages/admin.py pages/models.py
+msgid "lead image"
+msgstr "Lead-Bild"
+
+#: articles/models.py pages/models.py
+msgid "lead text"
+msgstr "Leadtext"
+
+#: articles/models.py parishes/models.py
+msgid "is image dark?"
+msgstr "Bild ist dunkel"
+
+#: articles/models.py parishes/models.py
+msgid "Text on the image should be colored white if the background is dark."
+msgstr "Der Text auf dem Bild sollte weiß gefärbt sein, wenn der Hintergrund dunkel ist."
+
+#: articles/models.py
+msgid "authors"
+msgstr "Autor:innen"
+
+#: articles/models.py pages/models.py
+msgid "article"
+msgstr "Artikel"
+
+#: articles/models.py
+msgid "interesting object"
+msgstr "interessante/r/s Artikel/Veranstaltung/Pfarrei/Rubrik"
+
+#: articles/models.py
+msgid "Select exactly one interesting object please."
+msgstr "Wählen Sie bitte genau eins aus."
+
+#: articles/models.py
+msgid "Only choose articles from the same rubric please."
+msgstr "Wählen Sie bitte nur Artikel aus der gleichen Rubrik."
+
+#: articles/models.py
+msgid "info box"
+msgstr "Infobox"
+
+#: dashboard/apps.py
+msgid "dashboard"
+msgstr "Dashboard"
+
+#: dashboard/views.py
+msgid "You do not have editing rights here."
+msgstr "Sie haben hier keine Bearbeitungsrechte."
+
+#: dashboard/views.py
+msgid "Thank you!"
+msgstr "Danke"
+
+#: issues/apps.py issues/models.py pages/models.py
+msgid "issues"
+msgstr "Ausgaben"
+
+#: issues/models.py pages/models.py
+msgid "published on"
+msgstr "veröffentlicht am"
+
+#: issues/models.py
+msgid "cover"
+msgstr "Titelseite"
+
+#: issues/models.py
+msgid "contents submitted on"
+msgstr "Inhalte übermittelt am"
+
+#: issues/models.py
+msgid "The final date when contents will be submitted to the print shop."
+msgstr "Das endgültige Datum, an dem die Inhalte an die Druckerei übermittelt werden."
+
+#: pages/admin.py
+msgid "static path"
+msgstr "statischer Pfad"
+
+#: pages/admin.py
+msgid "redirects"
+msgstr "Weiterleitungen"
+
+#: pages/apps.py
+msgid "pages"
+msgstr "Seiten"
+
+#: pages/models.py
+msgid "standard"
+msgstr "Standard"
+
+#: pages/models.py
+msgid "Content"
+msgstr "Inhalt"
+
+#: pages/models.py parishes/apps.py parishes/models.py
+msgid "parishes"
+msgstr "Pfarreien"
+
+#: pages/models.py
+msgid "privacy policy"
+msgstr "Datenschutzerklärung"
+
+#: pages/models.py
+msgid "Main menu"
+msgstr "Hauptmenü"
+
+#: pages/models.py
+msgid "Footer menu"
+msgstr "Footermenü"
+
+#: pages/models.py
+msgid "references"
+msgstr "Quellenangaben"
+
+#: pages/models.py
+msgid "reference"
+msgstr "Quellenangabe"
+
+#: pages/models.py
+msgid "publishing plan"
+msgstr "Erscheinungsplan"
+
+#: pages/models.py
+msgid "number"
+msgstr "Nummer"
+
+#: pages/models.py
+msgid "festive days"
+msgstr "Festtage"
+
+#: pages/models.py
+msgid "advertisement deadline"
+msgstr "Inserateschluss"
+
+#: pages/models.py
+msgid "Layout"
+msgstr "Layout"
+
+#: pages/models.py
+msgid "one article"
+msgstr "Ein Artikel"
+
+#: pages/models.py
+msgid "One large article"
+msgstr "Ein grosser Artikel"
+
+#: pages/models.py
+msgid "One large article with the issue and calendar on the side"
+msgstr "Ein grosser Artikel mit der Ausgabe und dem Kalender auf der Seite"
+
+#: pages/models.py
+msgid "two articles"
+msgstr "Zwei Artikel"
+
+#: pages/models.py
+msgid "Two equal teasers"
+msgstr "Zwei gleich grosse Teaser"
+
+#: pages/models.py
+msgid "three articles"
+msgstr "Drei Artikel"
+
+#: pages/models.py
+msgid "Three equal teasers"
+msgstr "Drei gleich grosse Teaser"
+
+#: pages/models.py
+msgid "One big and two small teasers"
+msgstr "Ein grosser und zwei kleine Teaser"
+
+#: pages/models.py
+msgid "Two small and one big teaser"
+msgstr "Zwei kleine und ein grosser Teaser"
+
+#: pages/models.py
+msgid "newsletter form"
+msgstr "Newsletterformular"
+
+#: pages/models.py
+msgid "Show upcoming events"
+msgstr "Bevorstehende Ereignisse anzeigen"
+
+#: parishes/app_parishes.py
+msgid "filter by region"
+msgstr "Filtern nach Region"
+
+#: parishes/app_parishes.py
+msgid "select region"
+msgstr "Region auswählen"
+
+#: parishes/app_parishes.py
+msgid "search parish"
+msgstr "Pfarrei suchen"
+
+#: parishes/models.py
+msgid "name"
+msgstr "Name"
+
+#: parishes/models.py
+msgid "region"
+msgstr "Region"
+
+#: parishes/models.py
+msgid "regions"
+msgstr "Regionen"
+
+#: parishes/models.py
+msgid "Unable to parse as phone number."
+msgstr "Konnte den Wert nicht als Telefonnummer erkennen."
+
+#: parishes/models.py
+msgid "Phone number invalid."
+msgstr "Telefonnummer ungültig."
+
+#: parishes/models.py
+msgid "city"
+msgstr "Ort"
+
+#: parishes/models.py
+msgid "is mission"
+msgstr "Ist eine Mission"
+
+#: parishes/models.py
+msgid "postal address"
+msgstr "Postadresse"
+
+#: parishes/models.py
+msgid "phone"
+msgstr "Telefon"
+
+#: parishes/models.py
+msgid "email"
+msgstr "E-Mail"
+
+#: parishes/models.py
+msgid "website"
+msgstr "Webseite"
+
+#: parishes/models.py
+msgid "subline"
+msgstr "Subline"
+
+#: parishes/models.py
+msgid "introduction"
+msgstr "Einführung"
+
+#: parishes/models.py
+msgid "informations"
+msgstr "Informationen"
+
+#: parishes/models.py
+msgid "about us"
+msgstr "Wir über uns"
+
+#: parishes/models.py
+msgid "user"
+msgstr "Nutzer:in"
+
+#: parishes/models.py
+msgid "editor"
+msgstr "Redakteur:in"
+
+#: parishes/models.py
+msgid "editors"
+msgstr "Redakteur:innen"
+
+#: parishes/models.py
+msgid "full name"
+msgstr "Name"
+
+#: parishes/models.py
+msgid "function"
+msgstr "Funktion"
+
+#: parishes/models.py
+msgid "person"
+msgstr "Person"
+
+#: parishes/models.py
+msgid "people"
+msgstr "Personen"
+
+#~ msgid "Even more"
+#~ msgstr "Noch mehr"
+
+#~ msgid "Edit event"
+#~ msgstr "Veranstaltung bearbeiten"
+
+#~ msgid "Register event"
+#~ msgstr "Veranstaltung erfassen"
+
+#~ msgid "Cancel"
+#~ msgstr "Abbrechen"
+
+#~ msgid "o'clock"
+#~ msgstr "Uhr"
+
+#~ msgid "Edit"
+#~ msgstr "Bearbeiten"
+
+#~ msgid "Highlights"
+#~ msgstr "Highlights"
+
+#~ msgid "teaser excerpt"
+#~ msgstr "Teaser-Auszug"
+
+#~ msgid "with highlights"
+#~ msgstr "mit Highlights"
+
+#~ msgid "search query"
+#~ msgstr "Suchanfrage"
+
+#~ msgid "lead"
+#~ msgstr "Lead"

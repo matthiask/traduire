@@ -1,0 +1,38 @@
+{% extends "dashboard/base.html" %}
+{% load i18n static %}
+
+{% block header %}
+<header class="header header--login">
+  <div class="header__static">
+    <div class="container">
+      <a class="header__home-login" href="/">
+        <img class="header__logo-login" src="{% static 'logos/logo+_blue.svg' %}" alt="Forum+ Logo"/>
+      </a>
+    </div>
+  </div>
+</header>
+{% endblock header %}
+
+{% block body %}
+<main class="main main--login">
+  <div class="container">
+    <div class="login">
+      {% block content %}
+        <form method="post" class="form form--login flow">
+          <h1 class="login__title">{% translate "Dashboard" %}</h1>
+          {% csrf_token %}
+          {{ form|adapt_rendering }}
+          <div class="form__link-wrapper">
+            <a class="form__link" href="{% url 'password_reset' %}">{% translate "Reset password" %}</a>
+          </div>
+          <div class="buttons buttons--left">
+            <button class="button button--icon" type="submit">{% translate "Login" %}<svg class="icon icon-login" aria-label="{% translate 'scroll to content' %}" role="img"><use href="#icon-login" /></svg></button>
+          </div>
+        </form>
+      {% endblock content %}
+    </div>
+  </div>
+</main>
+{% endblock %}
+
+{% block footer %}{% endblock footer %}

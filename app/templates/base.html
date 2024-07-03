@@ -1,0 +1,40 @@
+{% load markcurrent i18n static webpack_assets %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#282830">
+  <script src="{% url 'javascript-catalog' %}" defer></script>
+  {% if not TESTING %}{% webpack_assets 'main' %}{% endif %}
+
+  <title>
+    {% block title %}
+    {% if meta_tags.title %}{{ meta_tags.title }}{% else %}
+    {% if page %}{{ page.title }} - {% endif %} {% translate "Forum of the future" %}
+    {% endif %}
+    {% endblock %}
+  </title>
+  {{ meta_tags }}
+</head>
+<body class="{% block bodyclass %}{% endblock %}">
+  <input type="checkbox" id="menu-toggle" tabindex="-1">
+  {% block header %}
+    <header class="header">
+      <h1><a href="/">Traduire</a></h1>
+    </header>
+  {% endblock header %}
+
+  {% block body %}
+    {% block content %}{% endblock content %}
+  {% endblock body %}
+
+  {% include 'svg.html' %}
+</body>
+</html>

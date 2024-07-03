@@ -1,0 +1,14 @@
+blacknoise
+Django
+django-authlib
+django-canonical-domain
+django-debug-toolbar
+django-htmx
+django-ratelimit
+django-template-partials
+granian
+hiredis
+psycopg[binary]
+redis
+sentry-sdk
+speckenv

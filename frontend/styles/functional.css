@@ -1,0 +1,30 @@
+.hide {
+  display: none !important;
+}
+
+.sr-only {
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  overflow: hidden;
+
+  &.skip-link:focus-visible {
+    height: auto;
+    width: auto;
+    left: 5rem;
+    top: 5rem;
+  }
+}
+
+.print-only {
+  display: none;
+
+  @media print {
+    display: unset;
+  }
+}
+
+.flow > * + * {
+  /* flow uses em to auto-adapt to the font-size of the following element */
+  margin-block-start: var(--flow-space, 1em);
+}

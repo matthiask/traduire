@@ -1,0 +1,6 @@
+{% for message in messages %}
+{% if forloop.first %}<div class="messages">{% endif %}
+<div class="message {{ message.tags }}">{{ message }}</div>
+{% if forloop.last %}</div>{% endif %}
+{% endfor %}
+{# <a class="close" href="#">&times;</a> #}

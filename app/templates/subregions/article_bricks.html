@@ -1,0 +1,9 @@
+{% load feincms3 i18n %}
+{{ content }}
+
+{% reverse_app 'articles' 'list' as url %}
+{% if url %}
+  <div class="buttons">
+    <a class="button button--dark button--large" href="{{ url }}">{% translate "to the magazine" %}</a>
+  </div>
+{% endif %}
