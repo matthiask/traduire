@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-04 11:15+0200\n"
-"PO-Revision-Date: 2024-07-04 11:16+0200\n"
+"POT-Creation-Date: 2024-07-04 11:30+0200\n"
+"PO-Revision-Date: 2024-07-04 11:30+0200\n"
 "Last-Translator: Anonymous User <dev@feinheit.ch>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -121,14 +121,38 @@ msgid "Hello, %(user)s"
 msgstr "Hallo, %(user)s"
 
 #: app/templates/projects/projects.html
-msgid "Your projects:"
-msgstr "Deine Projekte:"
+msgid "Your projects"
+msgstr "Deine Projekte"
 
-#: app/templates/registration/login.html app/templates/registration/password_change_done.html app/templates/registration/password_change_form.html app/templates/registration/password_reset_complete.html app/templates/registration/password_reset_confirm.html app/templates/registration/password_reset_done.html app/templates/registration/password_reset_form.html
+#: app/templates/projects/projects.html
+msgid "Account"
+msgstr "Konto"
+
+#: app/templates/projects/projects.html
+msgid "Log out"
+msgstr "Abmelden"
+
+#: app/templates/projects/projects.html
+#: app/templates/registration/password_change_done.html
+#: app/templates/registration/password_change_form.html
+msgid "Change password"
+msgstr "Passwort ändern"
+
+#: app/templates/registration/login.html
+#: app/templates/registration/password_change_done.html
+#: app/templates/registration/password_change_form.html
+#: app/templates/registration/password_reset_complete.html
+#: app/templates/registration/password_reset_confirm.html
+#: app/templates/registration/password_reset_done.html
+#: app/templates/registration/password_reset_form.html
 msgid "Dashboard"
 msgstr "Dashboard"
 
-#: app/templates/registration/login.html app/templates/registration/password_reset_complete.html app/templates/registration/password_reset_confirm.html app/templates/registration/password_reset_done.html app/templates/registration/password_reset_form.html
+#: app/templates/registration/login.html
+#: app/templates/registration/password_reset_complete.html
+#: app/templates/registration/password_reset_confirm.html
+#: app/templates/registration/password_reset_done.html
+#: app/templates/registration/password_reset_form.html
 msgid "Reset password"
 msgstr "Passwort zurücksetzen"
 
@@ -140,10 +164,6 @@ msgstr "Anmelden"
 msgid "scroll to content"
 msgstr "Forum der Zukunft"
 
-#: app/templates/registration/password_change_done.html app/templates/registration/password_change_form.html
-msgid "Change password"
-msgstr "Passwort ändern"
-
 #: app/templates/registration/password_change_done.html
 msgid "Your password was changed."
 msgstr "Ihr Passwort wurde geändert."
@@ -152,7 +172,9 @@ msgstr "Ihr Passwort wurde geändert."
 msgid "Please enter your old password, for security’s sake, and then enter your new password twice so we can verify you typed it in correctly."
 msgstr "Bitte geben Sie zur Sicherheit Ihr altes Passwort ein und geben Sie dann Ihr neues Passwort zweimal ein, damit wir überprüfen können, ob Sie es richtig eingegeben haben."
 
-#: app/templates/registration/password_change_form.html app/templates/registration/password_reset_confirm.html app/templates/registration/password_reset_form.html
+#: app/templates/registration/password_change_form.html
+#: app/templates/registration/password_reset_confirm.html
+#: app/templates/registration/password_reset_form.html
 msgid "Submit"
 msgstr "Abschicken"
 
@@ -197,6 +219,10 @@ msgstr "Vielen Dank für die Nutzung unserer Website!"
 #, python-format
 msgid "The %(site_name)s team"
 msgstr "Das Team von %(site_name)s"
+
+#: projects/admin.py
+msgid "explicit users"
+msgstr "Explizite Accounts"
 
 #: projects/models.py
 msgid "name"

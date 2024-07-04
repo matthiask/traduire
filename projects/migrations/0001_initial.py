@@ -42,6 +42,7 @@ class Migration(migrations.Migration):
                 ),
             ],
             options={
+                "ordering": ["name"],
                 "verbose_name": "project",
                 "verbose_name_plural": "projects",
             },

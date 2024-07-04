@@ -8,10 +8,24 @@
 
 <h1>{% blocktranslate with user=request.user %}Hello, {{ user }}{% endblocktranslate %}</h1>
 
-<p>{% translate 'Your projects:' %}</p>
+<h2>{% translate 'Your projects' %}</h2>
 <ul>
   {% for project in projects %}
   <li><a href="{{ project.get_absolute_url }}">{{ project.name }}</a></li>
   {% endfor %}
 </ul>
+
+<h2>{% translate 'Account' %}</h2>
+<ul>
+  <li>
+    <form method="post" action="{% url 'logout' %}">
+      {% csrf_token %}
+      <button type="submit">{% translate 'Log out' %}</button>
+    </form>
+  </li>
+  <li>
+    <a href="{% url 'password_change' %}">{% translate 'Change password' %}</a>
+  </li>
+</ul>
+
 {% endblock %}
