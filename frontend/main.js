@@ -25,3 +25,11 @@ onReady(() => {
     }
   })
 })
+
+onReady(() => {
+  document.body.addEventListener("change", (e) => {
+    if (e.target.matches(".form--filter input")) {
+      e.target.form.requestSubmit()
+    }
+  })
+})

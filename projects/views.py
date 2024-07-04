@@ -28,17 +28,12 @@ def project(request, slug):
 
 
 class FilterForm(forms.Form):
-    flags = forms.ChoiceField(
-        label=_("Flags"),
-        choices=[
-            ("", _("All")),
-            ("fuzzy", _("Fuzzy")),
-            ("untranslated", _("Untranslated")),
-        ],
-        widget=forms.RadioSelect,
+    pending = forms.BooleanField(label=_("Pending"), required=False)
+    query = forms.CharField(
+        label="",
         required=False,
+        widget=forms.TextInput(attrs={"placeholder": _("Query")}),
     )
-    query = forms.CharField(label=_("Query"), required=False)
     start = forms.IntegerField(
         label=_("Start"), widget=forms.HiddenInput, required=False
     )
@@ -160,14 +155,11 @@ def catalog(request, project, language_code, domain):
     filter_form = FilterForm(request.GET)
     if filter_form.is_valid():
         data = filter_form.cleaned_data
-        if data.get("flags") == "fuzzy":
-            entries = [entry for entry in entries if entry.fuzzy]
-            total = len(entries)
-        elif data.get("flags") == "untranslated":
+        if data.get("pending"):
             entries = [
                 entry
                 for entry in entries
-                if not entry.translated() and not entry.fuzzy and not entry.obsolete
+                if not entry.translated() and not entry.obsolete
             ]
             total = len(entries)
         if query := data.get("query", "").casefold():

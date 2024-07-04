@@ -28,20 +28,13 @@ textarea {
   }
 }
 
-.field {
-  max-width: 100%;
-  width: 100%;
-
-  @media (--media-md) {
-    gap: 1.5rem;
-    width: 284px;
-    flex: 1;
-  }
-}
-
 fieldset.field {
   border: none;
   padding: 0;
+}
+
+.field:has(>input[type=checkbox]) {
+  input { order: -1 };
 }
 
 .field:has(select) {
@@ -173,12 +166,14 @@ main.main--login,
   }
 }
 
-.form__link-wrapper {
-  display: block;
-}
+.form--filter {
+  display: flex;
+  gap: 0.5rem;
+  flex-flow: row wrap;
+  align-items: stretch;
 
-.form__link {
-  display: inline-block;
-  color: var(--primary);
-  text-decoration: underline;
+  .field {
+    display: flex;
+    align-items: center;
+  }
 }
