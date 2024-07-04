@@ -12,12 +12,17 @@ import "./styles/table.css"
 import "./styles/entries.css"
 import "./styles/login.css"
 
-import { onReady } from "./js/utils.js"
+import { onReady, qs } from "./js/utils.js"
 
 onReady(() => {
   document.body.addEventListener("change", (e) => {
     if (e.target.matches(".form--filter input[type=checkbox]")) {
       e.target.form.requestSubmit()
+    }
+
+    const entry = e.target.closest(".entry")
+    if (e.target.closest(".entry__msgstr")) {
+      qs(".entry__fuzzy input", e.target.closest(".entry")).checked = false
     }
   })
 })
@@ -34,16 +39,14 @@ onReady(() => {
         method: "POST",
         credentials: "same-origin",
         headers: {
-          "x-csrftoken": document.querySelector(
-            "input[name=csrfmiddlewaretoken]",
-          ).value,
+          "x-csrftoken": qs("input[name=csrfmiddlewaretoken]").value,
         },
         body,
       })
       if (r.ok) {
         const data = await r.json()
         if (data.msgstr) {
-          t.closest(".field").querySelector("textarea").value = data.msgstr
+          qs("textarea", t.closest(".field")).value = data.msgstr
         } else if (data.error) {
           alert(data.error)
         }
