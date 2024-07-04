@@ -1,6 +1,4 @@
-# Traduire
-
-## CLI interface
+# Traduire CLI interface
 
 First, install it:
 

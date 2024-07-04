@@ -78,6 +78,9 @@ lint.per-file-ignores."*/migrat*/*" = [
   # Ignore the fact that migration files are invalid module names
   "N999",
 ]
+lint.per-file-ignores."cli/*" = [
+  "INP",
+]
 lint.per-file-ignores."conf/*" = [
   # Allow Python files in conf/ without __init__
   "INP",

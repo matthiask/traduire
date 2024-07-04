@@ -1,0 +1,27 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+
+requires = [
+  "setuptools>=61",
+]
+
+[project]
+name = "traduire-cli"
+version = "0.0.1"
+description = "Traduire CLI"
+readme = "README.md"
+authors = [
+  { name = "Matthias Kestenholz", email = "mk@feinheit.ch" },
+]
+requires-python = ">=3.12"
+
+classifiers = [
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+  "requests",
+]
+urls."Bug Tracker" = "https://github.com/matthiask/traduire/issues"
+urls."Homepage" = "https://github.com/matthiask/traduire"
+scripts.trd = "trd:main"
