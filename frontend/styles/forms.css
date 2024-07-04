@@ -39,30 +39,6 @@ fieldset.field {
   }
 }
 
-.field:has(select) {
-  position: relative;
-
-  &::after {
-    content: "";
-    display: block;
-    background: transparent url("../icons/chevron-down.svg") center center
-      no-repeat;
-    background-size: contain;
-    width: 1.5rem;
-    height: 1.5rem;
-    position: absolute;
-    right: 0.5rem;
-    bottom: 0.5rem; /* XXX this isn't good when .help-text exists */
-    pointer-events: none;
-  }
-
-  select {
-    appearance: none;
-    cursor: pointer;
-    padding-right: 3rem;
-  }
-}
-
 .field.has-error {
   > label {
     color: var(--error-fg);

@@ -4,7 +4,6 @@ import "./styles/reset.css"
 import "./styles/functional.css"
 
 import "./styles/vars.css"
-import "./styles/icons.css"
 import "./styles/buttons.css"
 import "./styles/body.css"
 import "./styles/header.css"

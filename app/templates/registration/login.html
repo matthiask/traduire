@@ -12,7 +12,7 @@
           {{ form|adapt_rendering }}
 
           <div class="buttons">
-            <button class="button button--icon" type="submit">{% translate "Login" %}<svg class="icon icon-login" aria-label="{% translate 'scroll to content' %}" role="img"><use href="#icon-login" /></svg></button>
+            <button class="button" type="submit">{% translate "Login" %}</button>
 
             <a href="{% url 'password_reset' %}">{% translate "Reset password" %}</a>
           </div>

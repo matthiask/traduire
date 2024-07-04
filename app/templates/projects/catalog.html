@@ -58,12 +58,12 @@
           {{ entry.entry.msgid }}
         {% endif %}
       </td>
-      <td class="flow">
+      <td class="entry__msgstr flow">
         {% for field in entry.msgstr %}
           {{ field.as_field_group }}
         {% endfor %}
       </td>
-      <td>{{ entry.fuzzy }}</td>
+      <td class="entry__fuzzy">{{ entry.fuzzy }}</td>
     </tr>
     {% endfor %}
     </tbody>

@@ -45,10 +45,3 @@ button {
     border-color: var(--button-hover-border);
   }
 }
-
-.button--icon {
-  --size: 1.5rem;
-
-  display: inline-flex;
-  gap: 0.5rem;
-}
