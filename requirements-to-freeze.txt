@@ -5,9 +5,7 @@ django-debug-toolbar
 django-ratelimit
 django>=5.1b1
 granian
-hiredis
 polib
 psycopg[binary]
-redis
 sentry-sdk
 speckenv

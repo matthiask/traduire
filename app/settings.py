@@ -7,7 +7,6 @@ from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from speckenv import env
 from speckenv_django import (
-    django_cache_url,
     django_database_url,
     django_email_url,
     django_storage_url,
@@ -31,7 +30,6 @@ MANAGERS = ADMINS
 SERVER_EMAIL = DEFAULT_FROM_EMAIL = "no-reply@feinheit.ch"
 
 DATABASES = {"default": django_database_url(env("DATABASE_URL", required=True))}
-CACHES = {"default": django_cache_url(env("CACHE_URL", required=True))}
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 SECRET_KEY = env("SECRET_KEY", required=True)
