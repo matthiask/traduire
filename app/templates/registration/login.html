@@ -7,14 +7,14 @@
     <div class="login">
       {% block content %}
         <form method="post" class="form form--login flow">
-          <h1 class="login__title">{% translate "Dashboard" %}</h1>
+          <h1 class="login__title">Traduire</h1>
           {% csrf_token %}
           {{ form|adapt_rendering }}
-          <div class="form__link-wrapper">
-            <a class="form__link" href="{% url 'password_reset' %}">{% translate "Reset password" %}</a>
-          </div>
-          <div class="buttons buttons--left">
+
+          <div class="buttons">
             <button class="button button--icon" type="submit">{% translate "Login" %}<svg class="icon icon-login" aria-label="{% translate 'scroll to content' %}" role="img"><use href="#icon-login" /></svg></button>
+
+            <a href="{% url 'password_reset' %}">{% translate "Reset password" %}</a>
           </div>
         </form>
       {% endblock content %}

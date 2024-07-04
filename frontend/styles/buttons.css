@@ -3,6 +3,7 @@
   gap: 0.5rem;
   margin-top: 1.25rem;
   flex-wrap: wrap;
+  align-items: center;
 }
 
 button {

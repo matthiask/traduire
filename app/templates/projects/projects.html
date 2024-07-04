@@ -16,16 +16,10 @@
 </ul>
 
 <h2>{% translate 'Account' %}</h2>
-<ul>
-  <li>
-    <form method="post" action="{% url 'logout' %}">
-      {% csrf_token %}
-      <button class="link" type="submit">{% translate 'Log out' %}</button>
-    </form>
-  </li>
-  <li>
-    <a href="{% url 'password_change' %}">{% translate 'Change password' %}</a>
-  </li>
-</ul>
+<form class="buttons">
+  {% csrf_token %}
+  <button class="button" type="submit" formmethod="post"  formaction="{% url 'logout' %}">{% translate 'Log out' %}</button>
+  <a class="button" href="{% url 'password_change' %}">{% translate 'Change password' %}</a>
+</form>
 
 {% endblock %}

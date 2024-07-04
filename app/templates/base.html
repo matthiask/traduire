@@ -14,13 +14,15 @@
 <body class="{% block bodyclass %}{% endblock %}">
   {% block header %}
     <header class="header">
-      <a href="/">Traduire</a>
+      <div class="container">
+        <a href="/">Traduire</a>
+      </div>
     </header>
   {% endblock header %}
 
   {% block body %}
   <main class="main">
-    <div class="container">
+    <div class="container flow">
       {% block content %}{% endblock content %}
     </div>
   </main>
