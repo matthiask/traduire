@@ -18,6 +18,8 @@
   <a href="." class="button">{% translate 'Reset' %}</a>
 </form>
 
+{% include 'includes/messages.html' %}
+
 {% if entries %}
 <h3>{% translate 'Entries' %} <small>{{ start }} - {{ end }} / {{ total }}</small></h3>
 <form method="post" class="form flow">

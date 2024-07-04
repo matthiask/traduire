@@ -1,12 +1,15 @@
+import copy
+
 import polib
 from django import forms, http
 from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render
 from django.template.defaulttags import query_string
 from django.utils.html import format_html
 from django.utils.timezone import localtime
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _, ngettext
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
@@ -104,7 +107,9 @@ class EntriesForm(forms.Form):
                 )
                 self.entry_rows[-1]["msgstr"].append(self[name])
 
-    def update(self, po, *, user):
+    def update(self, po, *, request):
+        updates = 0
+
         for index in range(ENTRIES_PER_PAGE):
             msgid_with_context = self.cleaned_data.get(f"msgid_{index}")
             msgstr = self.cleaned_data.get(f"msgstr_{index}", "")
@@ -115,6 +120,7 @@ class EntriesForm(forms.Form):
 
             for entry in po:
                 if entry.msgid_with_context == msgid_with_context:
+                    old = copy.deepcopy(entry)
                     entry.msgstr = translators.fix_nls(entry.msgid, msgstr)
                     if entry.msgid_plural:
                         for count in entry.msgstr_plural:
@@ -123,18 +129,33 @@ class EntriesForm(forms.Form):
                                 self.cleaned_data.get(f"msgstr_{index}:{count}", ""),
                             )
                     if fuzzy and not entry.fuzzy:
-                        entry.flags.append("fuzzy")
+                        entry.fuzzy = True
                     if not fuzzy and entry.fuzzy:
-                        entry.flags.remove("fuzzy")
+                        entry.fuzzy = False
+
+                    if old != entry:
+                        updates += 1
                     break
 
         po.metadata["Last-Translator"] = "{} {} <{}>".format(
-            getattr(user, "first_name", "Anonymous"),
-            getattr(user, "last_name", "User"),
-            getattr(user, "email", "anonymous@user.tld"),
+            getattr(request.user, "first_name", "Anonymous"),
+            getattr(request.user, "last_name", "User"),
+            getattr(request.user, "email", "anonymous@user.tld"),
         )
         po.metadata["X-Translated-Using"] = "traduire 0.0.1"
         po.metadata["PO-Revision-Date"] = localtime().strftime("%Y-%m-%d %H:%M%z")
+
+        if updates:
+            messages.success(
+                request,
+                ngettext(
+                    "Successfully updated {count} message.",
+                    "Successfully updated {count} messages.",
+                    updates,
+                ).format(count=updates),
+            )
+        else:
+            messages.info(request, _("No changes detected."))
 
 
 @login_required
@@ -172,7 +193,7 @@ def catalog(request, project, language_code, domain):
     form = EntriesForm(*data, entries=entries, language_code=language_code)
 
     if form.is_valid():
-        form.update(catalog.po, user=request.user)
+        form.update(catalog.po, request=request)
         catalog.pofile = str(catalog.po)
         catalog.save()
 

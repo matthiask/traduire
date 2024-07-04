@@ -11,8 +11,9 @@ import "./styles/forms.css"
 import "./styles/table.css"
 import "./styles/entries.css"
 import "./styles/login.css"
+import "./styles/messages.css"
 
-import { onReady, qs } from "./js/utils.js"
+import { onReady, qs, qsa } from "./js/utils.js"
 
 onReady(() => {
   document.body.addEventListener("change", (e) => {
@@ -53,4 +54,12 @@ onReady(() => {
       }
     }
   })
+})
+
+onReady(() => {
+  setTimeout(() => {
+    for (const el of qsa(".messages")) {
+      el.remove()
+    }
+  }, 5000)
 })

@@ -1,0 +1,11 @@
+.message {
+  padding: 0.5rem 1rem;
+  border-radius: 1.5rem;
+
+  background: var(--primary);
+  color: var(--white);
+
+  &.success {
+    --primary: #058436;
+  }
+}
