@@ -23,7 +23,7 @@ def projects(request):
 
 @login_required
 def project(request, slug):
-    project = get_object_or_404(request.user.projects.all(), slug=slug)
+    project = get_object_or_404(Project.objects.for_user(request.user), slug=slug)
     return render(request, "projects/project.html", {"project": project})
 
 
@@ -148,7 +148,7 @@ class EntriesForm(forms.Form):
 @login_required
 def catalog(request, project, language_code, domain):
     catalog = get_object_or_404(
-        Catalog.objects.filter(project__users=request.user),
+        Catalog.objects.for_user(request.user),
         project__slug=project,
         language_code=language_code,
         domain=domain,

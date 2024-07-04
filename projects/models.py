@@ -24,6 +24,11 @@ class ChoicesCharField(models.CharField):
         return name, "django.db.models.CharField", args, kwargs
 
 
+class ProjectQuerySet(models.QuerySet):
+    def for_user(self, user):
+        return self if user.is_superuser else self.filter(users=user)
+
+
 class Project(models.Model):
     name = models.CharField(_("name"), max_length=100)
     slug = models.SlugField(_("slug"), unique=True)
@@ -33,6 +38,8 @@ class Project(models.Model):
         verbose_name=_("users"),
     )
     token = models.CharField(_("token"), max_length=100, editable=False, unique=True)
+
+    objects = ProjectQuerySet.as_manager()
 
     class Meta:
         verbose_name = _("project")
@@ -57,6 +64,11 @@ class Project(models.Model):
             self.save()
 
 
+class CatalogQuerySet(models.QuerySet):
+    def for_user(self, user):
+        return self if user.is_superuser else self.filter(project__users=user)
+
+
 class Catalog(models.Model):
     project = models.ForeignKey(
         Project,
@@ -67,6 +79,8 @@ class Catalog(models.Model):
     language_code = ChoicesCharField(_("language"), choices=global_settings.LANGUAGES)
     domain = models.CharField(_("domain"), max_length=20, default="django")
     pofile = models.TextField("pofile")
+
+    objects = CatalogQuerySet.as_manager()
 
     class Meta:
         ordering = ["language_code", "domain"]
