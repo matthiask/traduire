@@ -305,12 +305,18 @@ def pofile(request, language_code, domain):
         return http.HttpResponseNotFound()
 
     if request.method == "PUT":
-        po = polib.pofile(request.body.decode("utf-8"))
-        project.catalogs.update_or_create(
+        new = polib.pofile(request.body.decode("utf-8"))
+        old, created = project.catalogs.get_or_create(
             language_code=language_code,
             domain=domain,
-            defaults={"pofile": str(po)},
+            defaults={"pofile": ""},
         )
+        if created:
+            old.pofile = str(new)
+        else:
+            old.po.merge(new)
+            old.pofile = str(old.po)
+        old.save()
         return http.HttpResponse(status=202)  # Accepted
 
     return http.HttpResponse(status=405)  # Method Not Allowed

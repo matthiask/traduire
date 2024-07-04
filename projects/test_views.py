@@ -62,4 +62,77 @@ msgstr[1] "Réinitialisation des mots de passe de %(count)s élèves ."
         )
         self.assertEqual(r.status_code, 404)
 
+        r = self.client.put(
+            "/api/pofile/fr/djangojs/",
+            headers={"x-project-token": p.token},
+            data=b"""\
+#: conf/strings.js frontend/intro/intro.js frontend/people/person.js
+msgid "Continue"
+msgstr "Blub"
+
+#: conf/strings.js
+msgid "Copied code!"
+msgstr ""
+
+msgid "Hello World"
+msgstr "Blab"
+""",
+        )
+
+        c.refresh_from_db()
+
+        self.assertIn(
+            """\
+msgid "Continue"
+msgstr "Continuer"
+""",
+            c.pofile,
+        )
+
+        self.assertIn(
+            """\
+msgid "Hello World"
+msgstr ""
+""",
+            c.pofile,
+        )
+
+        # Different language!
+        r = self.client.put(
+            "/api/pofile/de/djangojs/",
+            headers={"x-project-token": p.token},
+            data=b"""\
+#: conf/strings.js frontend/intro/intro.js frontend/people/person.js
+msgid "Continue"
+msgstr "Blub"
+
+#: conf/strings.js
+msgid "Copied code!"
+msgstr ""
+
+msgid "Hello World"
+msgstr "Blab"
+""",
+        )
+
+        c = p.catalogs.order_by("id").last()
+
+        self.assertIn(
+            """\
+msgid "Continue"
+msgstr "Blub"
+""",
+            c.pofile,
+        )
+
+        self.assertIn(
+            """\
+msgid "Hello World"
+msgstr "Blab"
+""",
+            c.pofile,
+        )
+
+        # print(c.pofile)
+        # print(list(c.po))
         # print(r, r.content.decode("utf-8"))
