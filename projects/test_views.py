@@ -1,5 +1,6 @@
 from authlib.little_auth.models import User
 from django.test import Client, TestCase
+from django.test.utils import override_settings
 
 from projects.models import Project
 
@@ -153,3 +154,9 @@ msgstr "Blab"
         # print(c.pofile)
         # print(list(c.po))
         # print(r, r.content.decode("utf-8"))
+
+        with override_settings(DEBUG=True):  # Disable ManifestStaticFilesStorage
+            r = su_client.get("/admin/projects/project/")
+
+        self.assertContains(r, '<td class="field-explicit_users">-</td>')
+        self.assertContains(r, '<td class="field-explicit_users">use***@***.com</td>')

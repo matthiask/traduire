@@ -8,7 +8,7 @@ from app.ratelimiting import username_ratelimit
 
 
 admin.site.enable_nav_sidebar = False
-admin.site.site_header = admin.site.site_title = settings.META_TAGS["site_name"]
+admin.site.site_header = admin.site.site_title = "Traduire"
 admin.site.login = username_ratelimit(rate="3/m")(admin.site.login)
 
 

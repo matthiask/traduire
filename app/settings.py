@@ -1,6 +1,5 @@
 import os
 import sys
-import warnings
 from pathlib import Path
 
 from django.urls import reverse_lazy
@@ -15,7 +14,6 @@ from speckenv_django import (
 
 DEBUG = env("DEBUG", required=True)
 TESTING = env("TESTING", default="test" in sys.argv)
-LIVE = env("LIVE", default=False)
 SECURE_SSL_HOST = env("SECURE_SSL_HOST")
 SECURE_SSL_REDIRECT = env("SECURE_SSL_REDIRECT", default=False)
 ALLOWED_HOSTS = env("ALLOWED_HOSTS", required=True)
@@ -72,7 +70,6 @@ STORAGES = {
 MIDDLEWARE = [
     m
     for m in [
-        "" if DEBUG or LIVE else "curtains.middleware.basic_auth",
         "debug_toolbar.middleware.DebugToolbarMiddleware" if DEBUG_TOOLBAR else "",
         "canonical_domain.middleware.canonical_domain",
         "django.middleware.security.SecurityMiddleware",
@@ -169,8 +166,6 @@ if DEBUG:
 else:
     globals().update(django_email_url(env("EMAIL_URL", default="smtp:")))
 
-META_TAGS = {"site_name": "Traduire"}
-
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 SESSION_COOKIE_HTTPONLY = True
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
@@ -187,14 +182,6 @@ else:
     os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
 ADMIN_OAUTH_PATTERNS = [(r"@feinheit\.ch", "dev@feinheit.ch")]
-BASIC_AUTH_CREDENTIALS = ["preview", "please"]
-
-warnings.filterwarnings(
-    "ignore",
-    message="datetime.datetime.utcnow",
-    category=DeprecationWarning,
-    module="^botocore",
-)
 
 LOGIN_URL = reverse_lazy("login")
 LOGIN_REDIRECT_URL = "/"

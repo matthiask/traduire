@@ -35,7 +35,6 @@ jobs:
         ALLOWED_HOSTS: '["*"]'
         DATABASE_URL: postgres://postgres:postgres@localhost:${{ job.services.postgres.ports[5432] }}/postgres
         DEBUG: 'True'
-        LIVE: 'False'
         NAMESPACE: test
         SECRET_KEY: unsafe
         TESTING: 'True'
