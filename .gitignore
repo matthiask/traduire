@@ -25,3 +25,4 @@ app/static/app/dist
 /*.sql
 /.vscode
 .tox
+.coverage

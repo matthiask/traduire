@@ -52,17 +52,16 @@ class Project(models.Model):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         if not self.token:
-            self.cycle_token(save=True)
+            self.cycle_token()
 
     save.alters_data = True
 
     def get_absolute_url(self):
         return reverse("projects:project", kwargs={"slug": self.slug})
 
-    def cycle_token(self, *, save=True):
+    def cycle_token(self):
         self.token = f"{get_random_string(60)}-{self.pk}"
-        if save:
-            self.save()
+        self.save()
 
 
 class CatalogQuerySet(models.QuerySet):

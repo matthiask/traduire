@@ -20,7 +20,9 @@ ENTRIES_PER_PAGE = 20
 @login_required
 def projects(request):
     return render(
-        request, "projects/projects.html", {"projects": request.user.projects.all()}
+        request,
+        "projects/projects.html",
+        {"projects": Project.objects.for_user(request.user)},
     )
 
 

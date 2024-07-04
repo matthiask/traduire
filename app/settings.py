@@ -15,11 +15,12 @@ from speckenv_django import (
 
 
 DEBUG = env("DEBUG", required=True)
-TESTING = any(r in sys.argv for r in ("test",))
+TESTING = env("TESTING", default="test" in sys.argv)
 LIVE = env("LIVE", default=False)
 SECURE_SSL_HOST = env("SECURE_SSL_HOST")
 SECURE_SSL_REDIRECT = env("SECURE_SSL_REDIRECT", default=False)
 ALLOWED_HOSTS = env("ALLOWED_HOSTS", required=True)
+DEBUG_TOOLBAR = DEBUG and not TESTING
 
 FORMS_URLFIELD_ASSUME_HTTPS = True
 
@@ -75,7 +76,7 @@ MIDDLEWARE = [
     m
     for m in [
         "" if DEBUG or LIVE else "curtains.middleware.basic_auth",
-        "debug_toolbar.middleware.DebugToolbarMiddleware" if DEBUG else "",
+        "debug_toolbar.middleware.DebugToolbarMiddleware" if DEBUG_TOOLBAR else "",
         "canonical_domain.middleware.canonical_domain",
         "django.middleware.security.SecurityMiddleware",
         "django.contrib.sessions.middleware.SessionMiddleware",
@@ -129,7 +130,7 @@ INSTALLED_APPS = [
         "app",
         "projects",
         "canonical_domain",
-        "debug_toolbar" if DEBUG else "",
+        "debug_toolbar" if DEBUG_TOOLBAR else "",
     ]
     if app
 ]
