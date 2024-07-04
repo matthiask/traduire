@@ -64,10 +64,26 @@ msgstr[1] "Réinitialisation des mots de passe de %(count)s élèves ."
         self.assertEqual(r.status_code, 200)
 
         r = su_client.get(c.get_absolute_url(), headers={"accept-language": "en"})
+        self.assertContains(r, "msgid_0")
         self.assertContains(
             r,
             '<input type="hidden" name="msgid_1" value="Copied code!" id="id_msgid_1">',
         )
+
+        r = su_client.get(
+            c.get_absolute_url() + "?pending=on", headers={"accept-language": "en"}
+        )
+        self.assertNotContains(r, "msgid_0")
+
+        r = su_client.get(
+            c.get_absolute_url() + "?query=bla", headers={"accept-language": "en"}
+        )
+        self.assertNotContains(r, "msgid_0")
+
+        r = su_client.get(
+            c.get_absolute_url() + "?start=a", headers={"accept-language": "en"}
+        )
+        self.assertRedirects(r, c.get_absolute_url())
 
         # API test
         r = su_client.get("/api/pofile/fr/djangojs/")
