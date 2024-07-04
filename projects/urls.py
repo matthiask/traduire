@@ -6,7 +6,11 @@ from projects import views
 app_name = "projects"
 urlpatterns = [
     path("", views.projects, name="projects"),
-    path("project/<int:pk>/", views.project, name="project"),
-    path("project/<int:project>/catalog/<int:pk>/", views.catalog, name="catalog"),
+    path("project/<slug:slug>/", views.project, name="project"),
+    path(
+        "project/<slug:project>/catalog/<str:language_code>/<str:domain>/",
+        views.catalog,
+        name="catalog",
+    ),
     path("api/pofile/<str:language_code>/<str:domain>/", views.pofile, name="pofile"),
 ]

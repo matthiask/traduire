@@ -22,8 +22,8 @@ def projects(request):
 
 
 @login_required
-def project(request, pk):
-    project = get_object_or_404(request.user.projects.all(), pk=pk)
+def project(request, slug):
+    project = get_object_or_404(request.user.projects.all(), slug=slug)
     return render(request, "projects/project.html", {"project": project})
 
 
@@ -146,11 +146,12 @@ class EntriesForm(forms.Form):
 
 
 @login_required
-def catalog(request, project, pk):
+def catalog(request, project, language_code, domain):
     catalog = get_object_or_404(
         Catalog.objects.filter(project__users=request.user),
-        project=project,
-        pk=pk,
+        project__slug=project,
+        language_code=language_code,
+        domain=domain,
     )
 
     entries = list(catalog.po)

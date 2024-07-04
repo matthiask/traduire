@@ -26,6 +26,7 @@ class ChoicesCharField(models.CharField):
 
 class Project(models.Model):
     name = models.CharField(_("name"), max_length=100)
+    slug = models.SlugField(_("slug"), unique=True)
     users = models.ManyToManyField(
         settings.AUTH_USER_MODEL,
         related_name="projects",
@@ -48,7 +49,7 @@ class Project(models.Model):
     save.alters_data = True
 
     def get_absolute_url(self):
-        return reverse("projects:project", kwargs={"pk": self.pk})
+        return reverse("projects:project", kwargs={"slug": self.slug})
 
     def cycle_token(self, *, save=True):
         self.token = f"{get_random_string(60)}-{self.pk}"
@@ -84,7 +85,12 @@ class Catalog(models.Model):
 
     def get_absolute_url(self):
         return reverse(
-            "projects:catalog", kwargs={"project": self.project_id, "pk": self.pk}
+            "projects:catalog",
+            kwargs={
+                "project": self.project.slug,
+                "language_code": self.language_code,
+                "domain": self.domain,
+            },
         )
 
     @cached_property

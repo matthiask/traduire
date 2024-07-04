@@ -6,6 +6,7 @@ from projects import models
 @admin.register(models.Project)
 class ProjectAdmin(admin.ModelAdmin):
     filter_horizontal = ["users"]
+    prepopulated_fields = {"slug": ["name"]}
     ordering = ["name"]
 
 

@@ -8,10 +8,22 @@
 
 <h1>{{ project }}</h1>
 
-<p>{% translate 'catalogs'|capfirst %}:</p>
+<h2>{% translate 'catalogs'|capfirst %}</h2>
 <ul>
   {% for catalog in project.catalogs.all %}
   <li><a href="{{ catalog.get_absolute_url }}">{{ catalog }}</a></li>
   {% endfor %}
 </ul>
+
+<h2>{% translate 'CLI configuration' %}</h2>
+<details>
+  <summary><code>~/.config/traduire.toml</code></summary>
+  <pre>
+[[project]]
+name = "{{ project.name }}"
+token = "{{ project.token }}"
+url = "https://{{ request.get_host }}/"
+path = ""
+</pre>
+</details>
 {% endblock %}
