@@ -31,7 +31,6 @@ SERVER_EMAIL = DEFAULT_FROM_EMAIL = "no-reply@feinheit.ch"
 
 DATABASES = {"default": django_database_url(env("DATABASE_URL", required=True))}
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
 SECRET_KEY = env("SECRET_KEY", required=True)
 
 TIME_ZONE = "Europe/Zurich"
