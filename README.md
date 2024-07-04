@@ -1,26 +1,39 @@
 # Traduire
 
-## CLI interface
+Traduire (french for «translate») is a web-based platform for editing
+[gettext](https://www.gnu.org/software/gettext/gettext.html) translations.
 
-First, install it:
+It is intended as a replacement for [Transifex](https://www.transifex.com/),
+[Weblate](https://weblate.org/en/) and comparable products. It is geared
+towards small teams or agencies which want to allow their customers or their
+less technical team members to update translations.
 
-    pipx install traduire-cli
+It is built using [Django](https://www.djangoproject.com/), heavily relies on
+[polib](https://pypi.org/project/polib/) and profits from the great work done
+on [django-rosetta](https://github.com/mbi/django-rosetta/).
 
-You need a configuration file, `~/.config/traduire.toml` which contains one or
-more records of the following form:
+## Features
 
-    [[project]]
-    name = "..."
-    token = "..."
-    url = "https://traduire.example.com"
-    path = "..."
+- Supports several projects out of the box
+- Multi user support, projects can only be seen by explicitly selected users
+  (and superusers)
+- Integrates [DeepL](https://www.deepl.com/) for translation suggestions
+- Has a CLI interface for uploading and downloading translation files, see
+  [traduire-cli](https://pypi.org/project/traduire-cli/).
 
-The name, token, and URL are taken from your Traduire installation. The path is
-the folder where your local checkout of the project resides.
+## Non-goals
 
-Then, assuming you have your gettext `.po` files inside `project/locale` you
-can do this to get the pofiles from remote or send your local pofiles to the
-remote:
+- I'm not interested in review processes.
+- I don't intend to implement any sort of automatic SCM integration. It sounds
+  great in theory but I'm sceptical.
 
-    trd get project/locale
-    trd put project/locale
+## What's missing?
+
+- Unit tests
+- Documentation
+- An easy way to get this thing up and running. All it needs is a Django
+  hosting environment and a database. It shouldn't be too hard to throw
+  together a Docker compose file or something. I'm deploying it in my
+  Kubernetes cluster though, so it's not really my itch to scratch.
+
+More issues on [GitHub](https://github.com/matthiask/traduire/issues).
