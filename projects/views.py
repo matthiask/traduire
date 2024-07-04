@@ -1,8 +1,11 @@
 import polib
+import requests
 from django import forms, http
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render
 from django.template.defaulttags import query_string
+from django.utils.html import format_html
 from django.utils.timezone import localtime
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
@@ -39,9 +42,21 @@ class FilterForm(forms.Form):
     )
 
 
+def _help_text(msgid, language_code):
+    if settings.DEEPL_AUTH_KEY:
+        return format_html(
+            '<small data-suggest="{}" data-language-code="{}">{}</small>',
+            msgid,
+            language_code,
+            _("Suggest"),
+        )
+    return ""
+
+
 class EntriesForm(forms.Form):
     def __init__(self, *args, **kwargs):
         self.entries = kwargs.pop("entries")
+        self.language_code = kwargs.pop("language_code")
         super().__init__(*args, **kwargs)
 
         self.entry_rows = []
@@ -72,6 +87,7 @@ class EntriesForm(forms.Form):
                         widget=forms.Textarea(attrs={"rows": 3}),
                         initial=msgstr,
                         required=False,
+                        help_text=_help_text(entry.msgid_plural, self.language_code),
                     )
                     self.entry_rows[-1]["msgstr"].append(self[name])
             else:
@@ -81,6 +97,7 @@ class EntriesForm(forms.Form):
                     widget=forms.Textarea(attrs={"rows": 3}),
                     initial=entry.msgstr,
                     required=False,
+                    help_text=_help_text(entry.msgid, self.language_code),
                 )
                 self.entry_rows[-1]["msgstr"].append(self[name])
 
@@ -176,7 +193,7 @@ def catalog(request, project, language_code, domain):
 
     data = [request.POST] if request.method == "POST" else []
     entries = entries[:ENTRIES_PER_PAGE]
-    form = EntriesForm(*data, entries=entries)
+    form = EntriesForm(*data, entries=entries, language_code=language_code)
 
     if form.is_valid():
         form.update(catalog.po, user=request.user)
@@ -214,6 +231,60 @@ def catalog(request, project, language_code, domain):
             "total": total,
         },
     )
+
+
+class TranslationError(Exception):
+    pass
+
+
+def translate_by_deepl(text, to_language, auth_key):
+    if auth_key.lower().endswith(":fx"):
+        endpoint = "https://api-free.deepl.com"
+    else:
+        endpoint = "https://api.deepl.com"
+
+    r = requests.post(
+        f"{endpoint}/v2/translate",
+        headers={"Authorization": f"DeepL-Auth-Key {auth_key}"},
+        data={
+            "target_lang": to_language.upper(),
+            "text": text,
+        },
+        timeout=5,
+    )
+    if r.status_code != 200:
+        raise TranslationError(
+            f"Deepl response is {r.status_code}. Please check your API key or try again later."
+        )
+    try:
+        return r.json().get("translations")[0].get("text")
+    except Exception as exc:
+        raise TranslationError(
+            "Deepl returned a non-JSON or unexpected response."
+        ) from exc
+
+
+class SuggestForm(forms.Form):
+    language_code = forms.CharField()
+    msgid = forms.CharField()
+
+
+def suggest(request):
+    if not request.user.is_authenticated:
+        return http.HttpResponseForbidden()
+
+    form = SuggestForm(request.POST)
+    if form.is_valid():
+        data = form.cleaned_data
+        try:
+            translation = translate_by_deepl(
+                data["msgid"], data["language_code"], settings.DEEPL_AUTH_KEY
+            )
+        except TranslationError as exc:
+            return http.JsonResponse({"error": str(exc)})
+        return http.JsonResponse({"msgstr": translation})
+
+    return http.HttpResponseBadRequest()
 
 
 @csrf_exempt

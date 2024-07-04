@@ -12,5 +12,6 @@ urlpatterns = [
         views.catalog,
         name="catalog",
     ),
+    path("suggest/", views.suggest),
     path("api/pofile/<str:language_code>/<str:domain>/", views.pofile, name="pofile"),
 ]

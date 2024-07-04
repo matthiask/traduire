@@ -206,3 +206,5 @@ LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = reverse_lazy("login")
 
 FORM_RENDERER = "form_rendering.FormRendering"
+
+DEEPL_AUTH_KEY = env("DEEPL_AUTH_KEY")
