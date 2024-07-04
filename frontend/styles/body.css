@@ -45,6 +45,11 @@ a {
   color: var(--primary);
 }
 
+button.link {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
 summary {
   cursor: pointer;
 }
