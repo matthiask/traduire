@@ -1,8 +1,11 @@
+from unittest.mock import Mock, patch
+
 from authlib.little_auth.models import User
 from django.test import Client, TestCase
 from django.test.utils import override_settings
 
-from projects.models import Project
+from projects.models import Catalog, Project
+from projects.translators import TranslationError
 
 
 class ProjectsTest(TestCase):
@@ -74,6 +77,11 @@ msgstr[1] "Réinitialisation des mots de passe de %(count)s élèves ."
             "/api/pofile/fr/djangojs/", headers={"x-project-token": p.token}
         )
         self.assertEqual(r.content.decode("utf-8"), c.pofile)
+
+        r = su_client.post(
+            "/api/pofile/fr/djangojs/", headers={"x-project-token": p.token}
+        )
+        self.assertEqual(r.status_code, 405)
 
         r = su_client.get(
             "/api/pofile/de/djangojs/", headers={"x-project-token": p.token}
@@ -160,3 +168,36 @@ msgstr "Blab"
 
         self.assertContains(r, '<td class="field-explicit_users">-</td>')
         self.assertContains(r, '<td class="field-explicit_users">use***@***.com</td>')
+
+    def test_suggest(self):
+        c = Client()
+
+        r = c.get("/suggest/")
+        self.assertEqual(r.status_code, 405)
+
+        r = c.post("/suggest/")
+        self.assertEqual(r.status_code, 403)
+
+        user = User.objects.create_user("user@example.com", "user")
+        c.force_login(user)
+
+        r = c.post("/suggest/")
+        self.assertEqual(r.status_code, 400)
+
+        with patch(
+            "projects.views.translators.translate_by_deepl", lambda *a: "Bonjour"
+        ):
+            r = c.post("/suggest/", {"language_code": "fr", "msgid": "Anything"})
+            self.assertEqual(r.status_code, 200)
+            self.assertEqual(r.json(), {"msgstr": "Bonjour"})
+
+        mock = Mock()
+        mock.side_effect = TranslationError("Oops")
+        with patch("projects.views.translators.translate_by_deepl", mock):
+            r = c.post("/suggest/", {"language_code": "fr", "msgid": "Anything"})
+            self.assertEqual(r.status_code, 200)
+            self.assertEqual(r.json(), {"error": "Oops"})
+
+    def test_invalid_catalog(self):
+        c = Catalog(language_code="it", domain="django", pofile="blub")
+        self.assertEqual(str(c), "Italian, django (Invalid)")

@@ -1,5 +1,4 @@
 import polib
-import requests
 from django import forms, http
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
@@ -9,8 +8,10 @@ from django.utils.html import format_html
 from django.utils.timezone import localtime
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
 
 from form_rendering import adapt_rendering
+from projects import translators
 from projects.models import Catalog, Project
 
 
@@ -235,42 +236,12 @@ def catalog(request, project, language_code, domain):
     )
 
 
-class TranslationError(Exception):
-    pass
-
-
-def translate_by_deepl(text, to_language, auth_key):
-    if auth_key.lower().endswith(":fx"):
-        endpoint = "https://api-free.deepl.com"
-    else:
-        endpoint = "https://api.deepl.com"
-
-    r = requests.post(
-        f"{endpoint}/v2/translate",
-        headers={"Authorization": f"DeepL-Auth-Key {auth_key}"},
-        data={
-            "target_lang": to_language.upper(),
-            "text": text,
-        },
-        timeout=5,
-    )
-    if r.status_code != 200:
-        raise TranslationError(
-            f"Deepl response is {r.status_code}. Please check your API key or try again later."
-        )
-    try:
-        return r.json().get("translations")[0].get("text")
-    except Exception as exc:
-        raise TranslationError(
-            "Deepl returned a non-JSON or unexpected response."
-        ) from exc
-
-
 class SuggestForm(forms.Form):
     language_code = forms.CharField()
     msgid = forms.CharField()
 
 
+@require_POST
 def suggest(request):
     if not request.user.is_authenticated:
         return http.HttpResponseForbidden()
@@ -279,10 +250,10 @@ def suggest(request):
     if form.is_valid():
         data = form.cleaned_data
         try:
-            translation = translate_by_deepl(
+            translation = translators.translate_by_deepl(
                 data["msgid"], data["language_code"], settings.DEEPL_AUTH_KEY
             )
-        except TranslationError as exc:
+        except translators.TranslationError as exc:
             return http.JsonResponse({"error": str(exc)})
         return http.JsonResponse({"msgstr": translation})
 
