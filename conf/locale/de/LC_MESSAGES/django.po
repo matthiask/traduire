@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-04 11:30+0200\n"
-"PO-Revision-Date: 2024-07-04 11:30+0200\n"
+"POT-Creation-Date: 2024-07-04 12:16+0200\n"
+"PO-Revision-Date: 2024-07-04 12:16+0200\n"
 "Last-Translator: Anonymous User <dev@feinheit.ch>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -87,7 +87,7 @@ msgstr "Original"
 msgid "Translation"
 msgstr "Übersetzung"
 
-#: app/templates/projects/catalog.html projects/views.py
+#: app/templates/projects/catalog.html
 msgid "Fuzzy"
 msgstr "Unscharf"
 
@@ -132,27 +132,15 @@ msgstr "Konto"
 msgid "Log out"
 msgstr "Abmelden"
 
-#: app/templates/projects/projects.html
-#: app/templates/registration/password_change_done.html
-#: app/templates/registration/password_change_form.html
+#: app/templates/projects/projects.html app/templates/registration/password_change_done.html app/templates/registration/password_change_form.html
 msgid "Change password"
 msgstr "Passwort ändern"
 
-#: app/templates/registration/login.html
-#: app/templates/registration/password_change_done.html
-#: app/templates/registration/password_change_form.html
-#: app/templates/registration/password_reset_complete.html
-#: app/templates/registration/password_reset_confirm.html
-#: app/templates/registration/password_reset_done.html
-#: app/templates/registration/password_reset_form.html
+#: app/templates/registration/login.html app/templates/registration/password_change_done.html app/templates/registration/password_change_form.html app/templates/registration/password_reset_complete.html app/templates/registration/password_reset_confirm.html app/templates/registration/password_reset_done.html app/templates/registration/password_reset_form.html
 msgid "Dashboard"
 msgstr "Dashboard"
 
-#: app/templates/registration/login.html
-#: app/templates/registration/password_reset_complete.html
-#: app/templates/registration/password_reset_confirm.html
-#: app/templates/registration/password_reset_done.html
-#: app/templates/registration/password_reset_form.html
+#: app/templates/registration/login.html app/templates/registration/password_reset_complete.html app/templates/registration/password_reset_confirm.html app/templates/registration/password_reset_done.html app/templates/registration/password_reset_form.html
 msgid "Reset password"
 msgstr "Passwort zurücksetzen"
 
@@ -172,9 +160,7 @@ msgstr "Ihr Passwort wurde geändert."
 msgid "Please enter your old password, for security’s sake, and then enter your new password twice so we can verify you typed it in correctly."
 msgstr "Bitte geben Sie zur Sicherheit Ihr altes Passwort ein und geben Sie dann Ihr neues Passwort zweimal ein, damit wir überprüfen können, ob Sie es richtig eingegeben haben."
 
-#: app/templates/registration/password_change_form.html
-#: app/templates/registration/password_reset_confirm.html
-#: app/templates/registration/password_reset_form.html
+#: app/templates/registration/password_change_form.html app/templates/registration/password_reset_confirm.html app/templates/registration/password_reset_form.html
 msgid "Submit"
 msgstr "Abschicken"
 
@@ -257,16 +243,8 @@ msgid "catalog"
 msgstr "Katalog"
 
 #: projects/views.py
-msgid "Flags"
-msgstr "Flags"
-
-#: projects/views.py
-msgid "All"
-msgstr "Alle"
-
-#: projects/views.py
-msgid "Untranslated"
-msgstr "Nicht übersetzt"
+msgid "Pending"
+msgstr "Nicht erledigt"
 
 #: projects/views.py
 msgid "Query"
@@ -277,9 +255,22 @@ msgid "Start"
 msgstr "Start"
 
 #: projects/views.py
+msgid "Suggest"
+msgstr "Vorschlagen"
+
+#: projects/views.py
 #, python-brace-format
 msgid "With {count} items"
 msgstr "Mit {count} Elementen"
+
+#~ msgid "Flags"
+#~ msgstr "Flags"
+
+#~ msgid "All"
+#~ msgstr "Alle"
+
+#~ msgid "Untranslated"
+#~ msgstr "Nicht übersetzt"
 
 #~ msgid "parish"
 #~ msgstr "Pfarrei"
