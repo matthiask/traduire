@@ -95,6 +95,9 @@ class EntriesForm(forms.Form):
             if not msgid_with_context:
                 continue
 
+            # Better be safe than sorry -- do not modify the entries in
+            # self.entries, find the entry in the current version of the pofile
+            # instead.
             for entry in po:
                 if entry.msgid_with_context == msgid_with_context:
                     old = copy.deepcopy(entry)
