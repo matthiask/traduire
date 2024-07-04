@@ -12,6 +12,8 @@ It is built using [Django](https://www.djangoproject.com/), heavily relies on
 [polib](https://pypi.org/project/polib/) and profits from the great work done
 on [django-rosetta](https://github.com/mbi/django-rosetta/).
 
+![Traduire screenshot](./images/traduire.png)
+
 ## Features
 
 - Supports several projects out of the box
