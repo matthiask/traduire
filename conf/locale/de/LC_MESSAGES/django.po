@@ -8,15 +8,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-03 21:26+0200\n"
-"PO-Revision-Date: 2024-01-22 11:40+0100\n"
+"POT-Creation-Date: 2024-07-04 11:15+0200\n"
+"PO-Revision-Date: 2024-07-04 11:16+0200\n"
 "Last-Translator: Anonymous User <dev@feinheit.ch>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Translated-Using: django-rosetta 0.10.0\n"
+"X-Translated-Using: traduire 0.0.1\n"
 
 #: app/elements.py
 msgid "copyright"
@@ -36,7 +36,7 @@ msgstr "Downloads"
 
 #: app/settings.py
 msgid "English"
-msgstr ""
+msgstr "Englisch"
 
 #: app/settings.py
 msgid "German"
@@ -107,6 +107,10 @@ msgstr "Nächste Seite"
 msgid "catalogs"
 msgstr "Kataloge"
 
+#: app/templates/projects/project.html
+msgid "CLI configuration"
+msgstr "Kommandozeilen-Konfiguration"
+
 #: app/templates/projects/projects.html projects/models.py
 msgid "projects"
 msgstr "Projekte"
@@ -120,21 +124,11 @@ msgstr "Hallo, %(user)s"
 msgid "Your projects:"
 msgstr "Deine Projekte:"
 
-#: app/templates/registration/login.html
-#: app/templates/registration/password_change_done.html
-#: app/templates/registration/password_change_form.html
-#: app/templates/registration/password_reset_complete.html
-#: app/templates/registration/password_reset_confirm.html
-#: app/templates/registration/password_reset_done.html
-#: app/templates/registration/password_reset_form.html
+#: app/templates/registration/login.html app/templates/registration/password_change_done.html app/templates/registration/password_change_form.html app/templates/registration/password_reset_complete.html app/templates/registration/password_reset_confirm.html app/templates/registration/password_reset_done.html app/templates/registration/password_reset_form.html
 msgid "Dashboard"
 msgstr "Dashboard"
 
-#: app/templates/registration/login.html
-#: app/templates/registration/password_reset_complete.html
-#: app/templates/registration/password_reset_confirm.html
-#: app/templates/registration/password_reset_done.html
-#: app/templates/registration/password_reset_form.html
+#: app/templates/registration/login.html app/templates/registration/password_reset_complete.html app/templates/registration/password_reset_confirm.html app/templates/registration/password_reset_done.html app/templates/registration/password_reset_form.html
 msgid "Reset password"
 msgstr "Passwort zurücksetzen"
 
@@ -146,8 +140,7 @@ msgstr "Anmelden"
 msgid "scroll to content"
 msgstr "Forum der Zukunft"
 
-#: app/templates/registration/password_change_done.html
-#: app/templates/registration/password_change_form.html
+#: app/templates/registration/password_change_done.html app/templates/registration/password_change_form.html
 msgid "Change password"
 msgstr "Passwort ändern"
 
@@ -159,9 +152,7 @@ msgstr "Ihr Passwort wurde geändert."
 msgid "Please enter your old password, for security’s sake, and then enter your new password twice so we can verify you typed it in correctly."
 msgstr "Bitte geben Sie zur Sicherheit Ihr altes Passwort ein und geben Sie dann Ihr neues Passwort zweimal ein, damit wir überprüfen können, ob Sie es richtig eingegeben haben."
 
-#: app/templates/registration/password_change_form.html
-#: app/templates/registration/password_reset_confirm.html
-#: app/templates/registration/password_reset_form.html
+#: app/templates/registration/password_change_form.html app/templates/registration/password_reset_confirm.html app/templates/registration/password_reset_form.html
 msgid "Submit"
 msgstr "Abschicken"
 
@@ -210,6 +201,10 @@ msgstr "Das Team von %(site_name)s"
 #: projects/models.py
 msgid "name"
 msgstr "Name"
+
+#: projects/models.py
+msgid "slug"
+msgstr "Slug"
 
 #: projects/models.py
 msgid "users"
@@ -283,9 +278,6 @@ msgstr "Mit {count} Elementen"
 
 #~ msgid "title"
 #~ msgstr "Titel"
-
-#~ msgid "slug"
-#~ msgstr "Slug"
 
 #~ msgid "categories"
 #~ msgstr "Kategorien"
