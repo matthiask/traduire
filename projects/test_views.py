@@ -1,13 +1,20 @@
 from authlib.little_auth.models import User
-from django.test import TestCase
+from django.test import Client, TestCase
 
 from projects.models import Project
 
 
 class ProjectsTest(TestCase):
     def test_smoke(self):
-        user = User.objects.create_superuser("admin@example.com", "admin")
-        self.client.force_login(user)
+        superuser = User.objects.create_superuser("admin@example.com", "admin")
+        su_client = Client()
+        su_client.force_login(superuser)
+
+        p2 = Project.objects.create(name="test2", slug="test2")
+        user = User.objects.create_user("user@example.com", "user")
+        user.projects.add(p2)
+        u_client = Client()
+        u_client.force_login(user)
 
         p = Project.objects.create(name="test", slug="test")
         c = p.catalogs.create(
@@ -31,38 +38,48 @@ msgstr[1] "Réinitialisation des mots de passe de %(count)s élèves ."
 """,
         )
 
-        r = self.client.get("/", headers={"accept-language": "en"})
-
+        r = su_client.get("/", headers={"accept-language": "en"})
         self.assertContains(r, '<a href="/project/test/">test</a>')
+        self.assertContains(r, '<a href="/project/test2/">test2</a>')
 
-        r = self.client.get(p.get_absolute_url(), headers={"accept-language": "en"})
+        r = u_client.get("/", headers={"accept-language": "en"})
+        self.assertNotContains(r, '<a href="/project/test/">test</a>')
+        self.assertContains(r, '<a href="/project/test2/">test2</a>')
+
+        r = su_client.get(p.get_absolute_url(), headers={"accept-language": "en"})
         self.assertContains(r, p.token)
         self.assertContains(
             r,
             '<a href="/project/test/catalog/fr/djangojs/">French, djangojs (100%)</a>',
         )
 
-        r = self.client.get(c.get_absolute_url(), headers={"accept-language": "en"})
+        r = u_client.get(p.get_absolute_url(), headers={"accept-language": "en"})
+        self.assertEqual(r.status_code, 404)
+
+        r = u_client.get(p2.get_absolute_url(), headers={"accept-language": "en"})
+        self.assertEqual(r.status_code, 200)
+
+        r = su_client.get(c.get_absolute_url(), headers={"accept-language": "en"})
         self.assertContains(
             r,
             '<input type="hidden" name="msgid_1" value="Copied code!" id="id_msgid_1">',
         )
 
         # API test
-        r = self.client.get("/api/pofile/fr/djangojs/")
+        r = su_client.get("/api/pofile/fr/djangojs/")
         self.assertEqual(r.status_code, 403)
 
-        r = self.client.get(
+        r = su_client.get(
             "/api/pofile/fr/djangojs/", headers={"x-project-token": p.token}
         )
         self.assertEqual(r.content.decode("utf-8"), c.pofile)
 
-        r = self.client.get(
+        r = su_client.get(
             "/api/pofile/de/djangojs/", headers={"x-project-token": p.token}
         )
         self.assertEqual(r.status_code, 404)
 
-        r = self.client.put(
+        r = su_client.put(
             "/api/pofile/fr/djangojs/",
             headers={"x-project-token": p.token},
             data=b"""\
@@ -98,7 +115,7 @@ msgstr ""
         )
 
         # Different language!
-        r = self.client.put(
+        r = su_client.put(
             "/api/pofile/de/djangojs/",
             headers={"x-project-token": p.token},
             data=b"""\
