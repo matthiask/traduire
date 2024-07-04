@@ -5,6 +5,7 @@
   --white: #fdfdfd;
   --darkgray: #777;
   --gray: #aaa;
+  --lightgray: #eee;
 
   --fg: var(--black);
   --bg: var(--white);

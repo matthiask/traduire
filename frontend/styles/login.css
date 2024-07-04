@@ -1,7 +1,6 @@
 .login {
   display: grid;
-  background: var(--petrol-lighter);
-  box-shadow: var(--box-shadow-2);
+  background: var(--lightgray);
   border-radius: 8px;
   padding: 5rem 2rem;
   max-width: 59rem;

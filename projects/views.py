@@ -137,15 +137,15 @@ class EntriesForm(forms.Form):
                         updates += 1
                     break
 
-        po.metadata["Last-Translator"] = "{} {} <{}>".format(
-            getattr(request.user, "first_name", "Anonymous"),
-            getattr(request.user, "last_name", "User"),
-            getattr(request.user, "email", "anonymous@user.tld"),
-        )
-        po.metadata["X-Translated-Using"] = "traduire 0.0.1"
-        po.metadata["PO-Revision-Date"] = localtime().strftime("%Y-%m-%d %H:%M%z")
-
         if updates:
+            po.metadata["Last-Translator"] = "{} {} <{}>".format(
+                getattr(request.user, "first_name", "Anonymous"),
+                getattr(request.user, "last_name", "User"),
+                getattr(request.user, "email", "anonymous@user.tld"),
+            )
+            po.metadata["X-Translated-Using"] = "traduire 0.0.1"
+            po.metadata["PO-Revision-Date"] = localtime().strftime("%Y-%m-%d %H:%M%z")
+
             messages.success(
                 request,
                 ngettext(
