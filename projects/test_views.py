@@ -5,7 +5,7 @@ from django.test import Client, TestCase
 from django.test.utils import override_settings
 
 from projects.models import Catalog, Project
-from projects.translators import TranslationError
+from projects.translators import TranslationError, fix_nls
 
 
 class ProjectsTest(TestCase):
@@ -201,3 +201,15 @@ msgstr "Blab"
     def test_invalid_catalog(self):
         c = Catalog(language_code="it", domain="django", pofile="blub")
         self.assertEqual(str(c), "Italian, django (Invalid)")
+
+    def test_fix_nls(self):
+        for test in [
+            ("", "", ""),
+            ("a\nb", "a\r\nb", "a\nb"),
+            ("\na", "a", "\na"),
+            ("a\n", "a", "a\n"),
+            ("a", "\na\n", "a"),
+            ("a", "\n", ""),
+        ]:
+            with self.subTest(test=test):
+                self.assertEqual(fix_nls(test[0], test[1]), test[2])

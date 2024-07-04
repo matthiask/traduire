@@ -104,29 +104,6 @@ class EntriesForm(forms.Form):
                 )
                 self.entry_rows[-1]["msgstr"].append(self[name])
 
-    def fix_nls(self, in_, out_):
-        # Thanks, django-rosetta!
-        """Fixes submitted translations by filtering carriage returns and pairing
-        newlines at the begging and end of the translated string with the original
-        """
-        if len(in_) == 0 or len(out_) == 0:
-            return out_
-
-        if "\r" in out_ and "\r" not in in_:
-            out_ = out_.replace("\r", "")
-
-        if in_[0] == "\n" and out_[0] != "\n":
-            out_ = "\n" + out_
-        elif in_[0] != "\n" and out_[0] == "\n":
-            out_ = out_.lstrip()
-        if len(out_) == 0:
-            pass
-        elif in_[-1] == "\n" and out_[-1] != "\n":
-            out_ = out_ + "\n"
-        elif in_[-1] != "\n" and out_[-1] == "\n":
-            out_ = out_.rstrip()
-        return out_
-
     def update(self, po, *, user):
         for index in range(ENTRIES_PER_PAGE):
             msgid_with_context = self.cleaned_data.get(f"msgid_{index}")
@@ -138,10 +115,10 @@ class EntriesForm(forms.Form):
 
             for entry in po:
                 if entry.msgid_with_context == msgid_with_context:
-                    entry.msgstr = self.fix_nls(entry.msgid, msgstr)
+                    entry.msgstr = translators.fix_nls(entry.msgid, msgstr)
                     if entry.msgid_plural:
                         for count in entry.msgstr_plural:
-                            entry.msgstr_plural[count] = self.fix_nls(
+                            entry.msgstr_plural[count] = translators.fix_nls(
                                 entry.msgid_plural,
                                 self.cleaned_data.get(f"msgstr_{index}:{count}", ""),
                             )
