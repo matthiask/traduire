@@ -146,18 +146,14 @@ def catalog(request, project, language_code, domain):
         domain=domain,
     )
 
-    entries = list(catalog.po)
+    entries = [entry for entry in catalog.po if not entry.obsolete]
     total = len(entries)
 
     filter_form = FilterForm(request.GET)
     if filter_form.is_valid():
         data = filter_form.cleaned_data
         if data.get("pending"):
-            entries = [
-                entry
-                for entry in entries
-                if not entry.translated() and not entry.obsolete
-            ]
+            entries = [entry for entry in entries if not entry.translated()]
             total = len(entries)
         if query := data.get("query", "").casefold():
             entries = [entry for entry in entries if query in str(entry).casefold()]

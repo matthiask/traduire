@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-04 15:06+0200\n"
+"POT-Creation-Date: 2024-07-04 20:30+0200\n"
 "PO-Revision-Date: 2024-07-04 15:06+0200\n"
 "Last-Translator: Anonymous User <dev@feinheit.ch>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -49,23 +49,6 @@ msgstr "Diese Seite wurde nicht gefunden"
 #: app/templates/404.html
 msgid "404: Sorry, we could not find the page you requested."
 msgstr "404: Leider haben wir die gewünschte Seite nicht gefunden."
-
-#: app/templates/404.html
-msgid "Try the following links:"
-msgstr "Versuchen Sie es mit folgenden Links:"
-
-#: app/templates/404.html
-msgid "go to Homepage"
-msgstr "zur Startseite"
-
-#: app/templates/404.html
-msgid "Homepage"
-msgstr "Startseite"
-
-#: app/templates/404.html
-#, python-format
-msgid "go to page %(title)s"
-msgstr "zur Seite %(title)s"
 
 #: app/templates/projects/catalog.html
 msgid "Apply"
@@ -151,14 +134,8 @@ msgid "Change password"
 msgstr "Passwort ändern"
 
 #: app/templates/registration/login.html
-#: app/templates/registration/password_change_done.html
-#: app/templates/registration/password_change_form.html
-#: app/templates/registration/password_reset_complete.html
-#: app/templates/registration/password_reset_confirm.html
-#: app/templates/registration/password_reset_done.html
-#: app/templates/registration/password_reset_form.html
-msgid "Dashboard"
-msgstr "Dashboard"
+msgid "Login"
+msgstr "Anmelden"
 
 #: app/templates/registration/login.html
 #: app/templates/registration/password_reset_complete.html
@@ -167,14 +144,6 @@ msgstr "Dashboard"
 #: app/templates/registration/password_reset_form.html
 msgid "Reset password"
 msgstr "Passwort zurücksetzen"
-
-#: app/templates/registration/login.html
-msgid "Login"
-msgstr "Anmelden"
-
-#: app/templates/registration/login.html
-msgid "scroll to content"
-msgstr "Forum der Zukunft"
 
 #: app/templates/registration/password_change_done.html
 msgid "Your password was changed."
@@ -288,6 +257,25 @@ msgstr "Vorschlagen"
 #, python-brace-format
 msgid "With {count} items"
 msgstr "Mit {count} Elementen"
+
+#~ msgid "Try the following links:"
+#~ msgstr "Versuchen Sie es mit folgenden Links:"
+
+#~ msgid "go to Homepage"
+#~ msgstr "zur Startseite"
+
+#~ msgid "Homepage"
+#~ msgstr "Startseite"
+
+#, python-format
+#~ msgid "go to page %(title)s"
+#~ msgstr "zur Seite %(title)s"
+
+#~ msgid "Dashboard"
+#~ msgstr "Dashboard"
+
+#~ msgid "scroll to content"
+#~ msgstr "Forum der Zukunft"
 
 #~ msgid "Flags"
 #~ msgstr "Flags"
