@@ -224,7 +224,7 @@ def catalog(request, project, language_code, domain):
             if start - ENTRIES_PER_PAGE >= 0
             else None,
             "next_url": query_string(None, request.GET, start=start + ENTRIES_PER_PAGE)
-            if entries
+            if start + ENTRIES_PER_PAGE < total
             else None,
             "start": start + 1,
             "end": min(total, start + ENTRIES_PER_PAGE),
