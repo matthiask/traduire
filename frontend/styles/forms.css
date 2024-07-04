@@ -33,8 +33,10 @@ fieldset.field {
   padding: 0;
 }
 
-.field:has(>input[type=checkbox]) {
-  input { order: -1 };
+.field:has(> input[type="checkbox"]) {
+  input {
+    order: -1;
+  }
 }
 
 .field:has(select) {
@@ -61,14 +63,6 @@ fieldset.field {
   }
 }
 
-.results__noresponse {
-  margin-block-start: 1.25rem;
-
-  @media (--media-md) {
-    margin-block-start: 2.5rem;
-  }
-}
-
 .field.has-error {
   > label {
     color: var(--error-fg);
@@ -86,84 +80,8 @@ ul.errorlist {
   color: var(--error-fg);
 }
 
-.field--button {
-  width: auto;
-  display: inline-block;
-
-  input {
-    position: absolute;
-    visibility: hidden;
-    top: 0;
-    left: 0;
-  }
-
-  label {
-    --flow-space: 1.5rem;
-    cursor: pointer;
-    display: inline-block;
-    user-select: none;
-    text-decoration: none;
-    width: auto;
-    text-align: center;
-    padding: 7px 23px;
-    border-radius: 1.5rem;
-    white-space: nowrap;
-    transition:
-      color 200ms ease-in-out,
-      background-color 200ms ease-in-out,
-      border-color 200ms ease-in-out;
-
-    color: var(--button-filter-fg);
-    background: var(--button-filter-bg);
-    border: 1px solid var(--button-filter-border);
-
-    &:hover,
-    &:active {
-      color: var(--button-filter-hover-fg);
-      background: var(--button-filter-hover-bg);
-      border-color: var(--button-filter-hover-border);
-    }
-  }
-
-  input:checked + label {
-    color: var(--button-filter-active-fg);
-    background: var(--button-filter-active-bg);
-    border-color: var(--button-filter-active-border);
-  }
-
-  input[type="radio"]:checked + label {
-    cursor: not-allowed;
-  }
-}
-
-main.main--login,
-.dashboard {
-  input[type="text"],
-  input[type="email"],
-  input[type="number"],
-  input[type="password"],
-  input[type="url"],
-  select,
-  textarea {
-    display: inline-block;
-    border-radius: 0.25rem;
-    border: 1px solid var(--primary);
-    background: transparent;
-    min-width: 0;
-    padding: 3px 7px;
-    color: var(--fg);
-    width: 100%;
-
-    label + & {
-      margin-top: 0.5rem;
-    }
-  }
-
-  @media (--media-md) {
-    .field {
-      width: 100%;
-    }
-  }
+.helptext {
+  font-size: 80%;
 }
 
 .form--filter {

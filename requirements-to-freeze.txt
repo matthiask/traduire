@@ -2,9 +2,7 @@ blacknoise
 django-authlib
 django-canonical-domain
 django-debug-toolbar
-django-htmx
 django-ratelimit
-django-template-partials
 django>=5.1b1
 granian
 hiredis

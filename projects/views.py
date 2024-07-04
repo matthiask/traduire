@@ -45,7 +45,7 @@ class FilterForm(forms.Form):
 def _help_text(msgid, language_code):
     if settings.DEEPL_AUTH_KEY:
         return format_html(
-            '<small data-suggest="{}" data-language-code="{}">{}</small>',
+            '<a href="#" data-suggest="{}" data-language-code="{}"><small>{}</small></a>',
             msgid,
             language_code,
             _("Suggest"),

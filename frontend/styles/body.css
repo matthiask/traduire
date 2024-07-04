@@ -6,7 +6,7 @@ html {
     env(safe-area-inset-bottom) env(safe-area-inset-left);
 }
 
-@media (--media-sm-only) {
+@media (max-width: 639px) {
   #djDebug {
     display: none;
   }
@@ -39,4 +39,12 @@ body {
   width: 100%;
   margin-left: auto;
   margin-right: auto;
+}
+
+a {
+  color: var(--primary);
+}
+
+summary {
+  cursor: pointer;
 }

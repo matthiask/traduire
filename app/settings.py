@@ -85,7 +85,6 @@ MIDDLEWARE = [
         "django.contrib.auth.middleware.AuthenticationMiddleware",
         "django.contrib.messages.middleware.MessageMiddleware",
         "django.middleware.clickjacking.XFrameOptionsMiddleware",
-        "django_htmx.middleware.HtmxMiddleware",
     ]
     if m
 ]
@@ -98,7 +97,6 @@ TEMPLATES = [
         "OPTIONS": {
             "builtins": [
                 "form_rendering",
-                "template_partials.templatetags.partials",
             ],
             "context_processors": [
                 "django.template.context_processors.debug",
@@ -131,8 +129,6 @@ INSTALLED_APPS = [
         "app",
         "projects",
         "canonical_domain",
-        "django_htmx",
-        "template_partials",
         "debug_toolbar" if DEBUG else "",
     ]
     if app

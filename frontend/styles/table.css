@@ -8,7 +8,7 @@
     padding: 4px;
   }
 
-  tbody tr:nth-child(2n+1) {
+  tbody tr:nth-child(2n + 1) {
     background: #eee;
   }
 
@@ -19,4 +19,8 @@
   .field {
     width: 100%;
   }
+}
+
+.table--fixed {
+  table-layout: fixed;
 }

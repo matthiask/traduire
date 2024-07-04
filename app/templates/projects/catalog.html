@@ -22,7 +22,12 @@
 <h3>{% translate 'Entries' %} <small>{{ start }} - {{ end }} / {{ total }}</small></h3>
 <form method="post" class="form flow">
   {% csrf_token %}
-  <table class="table">
+  <table class="table table--fixed">
+    <colgroup>
+      <col width="50%">
+      <col width="50%">
+      <col width="80">
+    </colgroup>
     <thead>
       <tr>
         <th>{% translate 'Original' %}</th>
@@ -32,8 +37,27 @@
     </thead>
     <tbody>
     {% for entry in form.entry_rows %}
-    <tr>
-      <td><pre>{{ entry.entry }}</pre> {{ entry.msgid }}</td>
+    <tr class="entry">
+      <td class="entry__msgid">
+        {{ entry.msgid }} {# Hidden field #}
+
+        {% if entry.entry.msgctxt %}
+          <small>{% translate 'Context' %}: {{ entry.entry.msgctxt }}</small><br>
+        {% endif %}
+
+        {% if entry.entry.comment or entry.entry.tcomment %}
+          <small>{% translate 'Comment' %}: {{ entry.entry.comment }} {{ entry.entry.tcomment }}</small><br>
+        {% endif %}
+
+        <small>{% translate 'Occurrences' %}: {% for path, lineno in entry.entry.occurrences %}{{ path }}{% if lineno %}:{{ lineno }}{% endif %}{% if not forloop.last %}, {% endif %}{% endfor %}</small><br>
+
+        {% if entry.entry.msgid_plural %}
+          {{ entry.entry.msgid }}<br>
+          {{ entry.entry.msgid_plural }}
+        {% else %}
+          {{ entry.entry.msgid }}
+        {% endif %}
+      </td>
       <td class="flow">
         {% for field in entry.msgstr %}
           {{ field.as_field_group }}

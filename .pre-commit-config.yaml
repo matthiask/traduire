@@ -24,6 +24,12 @@ repos:
         pass_filenames: false
         language: system
         always_run: true
+      - id: prettier
+        name: prettier
+        entry: npx prettier@3.3.1 --no-semi --write
+        language: system
+        types_or: [css, scss]
+        require_serial: true
   - repo: https://github.com/adamchainz/django-upgrade
     rev: 1.18.0
     hooks:

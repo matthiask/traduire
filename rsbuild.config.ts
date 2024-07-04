@@ -1,7 +1,5 @@
 import fs from "node:fs"
 import { defineConfig } from "@rsbuild/core"
-import { pluginImageCompress } from "@rsbuild/plugin-image-compress"
-import { pluginPreact } from "@rsbuild/plugin-preact"
 
 /* Django and fablib integration starts here */
 const development = process.env.NODE_ENV === "development"
@@ -36,7 +34,6 @@ const integration = {
 
 export default defineConfig({
   ...integration,
-  plugins: [pluginPreact(), pluginImageCompress()],
   source: {
     entry: {
       main: "./frontend/main.js",
@@ -44,14 +41,7 @@ export default defineConfig({
   },
   tools: {
     postcss(config, { addPlugins }) {
-      addPlugins([
-        require("@csstools/postcss-global-data")({
-          files: ["./frontend/styles/custom-media.css"],
-        }),
-        require("postcss-custom-media")(),
-        require("postcss-nesting")(),
-        require("autoprefixer")(),
-      ])
+      addPlugins([require("postcss-nesting")(), require("autoprefixer")()])
     },
   },
 })

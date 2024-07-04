@@ -1,5 +1,4 @@
-window.htmx = require("htmx.org")
-import("htmx.org/dist/ext/response-targets.js")
+// window.htmx = require("htmx.org")
 
 import "./styles/reset.css"
 import "./styles/functional.css"
@@ -11,20 +10,10 @@ import "./styles/body.css"
 import "./styles/header.css"
 import "./styles/forms.css"
 import "./styles/table.css"
+import "./styles/entries.css"
+import "./styles/login.css"
 
-import "./dashboard/base.css"
-import "./dashboard/login.css"
-import "./dashboard/objects.css"
-
-import { onReady, qsa, qs, getCSSVariableValue } from "./js/utils.js"
-
-onReady(() => {
-  document.body.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      window["menu-toggle"].checked = false
-    }
-  })
-})
+import { onReady } from "./js/utils.js"
 
 onReady(() => {
   document.body.addEventListener("change", (e) => {
