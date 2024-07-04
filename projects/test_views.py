@@ -161,6 +161,7 @@ msgstr "Blab"
 
         self.assertIn(
             """\
+#: conf/strings.js frontend/intro/intro.js frontend/people/person.js
 msgid "Continue"
 msgstr "Blub"
 """,
@@ -171,6 +172,51 @@ msgstr "Blub"
             """\
 msgid "Hello World"
 msgstr "Blab"
+""",
+            c.pofile,
+        )
+
+        # Modifications
+
+        r = su_client.post(
+            c.get_absolute_url() + "?query=continue",
+            {
+                "msgid_0": "Continue",
+                "msgstr_0": "Onward!",  # Obviously incorrect.
+                "fuzzy_0": "on",
+            },
+            headers={"accept-language": "en"},
+        )
+        self.assertRedirects(r, c.get_absolute_url() + "?query=continue&start=0")
+
+        c.refresh_from_db()
+        self.assertIn(
+            """\
+#: conf/strings.js frontend/intro/intro.js frontend/people/person.js
+#, fuzzy
+msgid "Continue"
+msgstr "Onward!"
+""",
+            c.pofile,
+        )
+
+        r = su_client.post(
+            c.get_absolute_url() + "?query=continue",
+            {
+                "msgid_0": "Continue",
+                "msgstr_0": "Onward!",  # Obviously incorrect.
+                "fuzzy_0": "",
+            },
+            headers={"accept-language": "en"},
+        )
+        self.assertRedirects(r, c.get_absolute_url() + "?query=continue&start=0")
+
+        c.refresh_from_db()
+        self.assertIn(
+            """\
+#: conf/strings.js frontend/intro/intro.js frontend/people/person.js
+msgid "Continue"
+msgstr "Onward!"
 """,
             c.pofile,
         )
