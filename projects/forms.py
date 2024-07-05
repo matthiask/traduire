@@ -46,6 +46,7 @@ class EntriesForm(forms.Form):
             self.fields[f"msgid_{index}"] = forms.CharField(
                 widget=forms.HiddenInput,
                 initial=entry.msgid_with_context,
+                required=False,
             )
             self.fields[f"fuzzy_{index}"] = forms.BooleanField(
                 label="Fuzzy",

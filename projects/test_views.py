@@ -209,15 +209,18 @@ msgstr "Blab"
         # Modifications
 
         r = su_client.post(
-            c.get_absolute_url() + "?query=continue",
+            c.get_absolute_url(),
             {
                 "msgid_0": "Continue",
                 "msgstr_0": "Onward!",  # Obviously incorrect.
                 "fuzzy_0": "on",
+                "msgid_1": "not exists",
+                "msgstr_1": "not exists",
+                "fuzzy_1": "",
             },
             headers={"accept-language": "en"},
         )
-        self.assertRedirects(r, c.get_absolute_url() + "?query=continue&start=0")
+        self.assertRedirects(r, c.get_absolute_url() + "?start=0")
 
         c.refresh_from_db()
         self.assertIn(
@@ -229,6 +232,9 @@ msgstr "Onward!"
 """,
             c.pofile,
         )
+
+        # Didn't exist, is ignored
+        self.assertNotIn("not exists", c.pofile)
 
         r = su_client.post(
             c.get_absolute_url() + "?query=continue",

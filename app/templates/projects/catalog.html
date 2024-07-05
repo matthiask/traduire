@@ -24,6 +24,7 @@
 <h3>{% translate 'Entries' %} <small>{{ start }} - {{ end }} / {{ total }}</small></h3>
 <form method="post" class="form flow">
   {% csrf_token %}
+  {{ form.errors }}
   <table class="table table--fixed">
     <colgroup>
       <col width="50%">
