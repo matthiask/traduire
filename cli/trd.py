@@ -16,6 +16,10 @@ def _progress(msg):
     print(msg)
 
 
+def _version():
+    return version("traduire_cli")
+
+
 def current_project():
     config = Path.home() / ".config" / "traduire.toml"
     if not config.exists():
@@ -51,13 +55,15 @@ def url_from_pofile(project, pofile):
 
 def main():
     if len(sys.argv) != 3 or sys.argv[1] not in {"get", "submit", "replace"}:
-        _terminate(f"Usage: {sys.argv[0]} [get,submit,replace] path")
+        _terminate(
+            f"traduire-cli {_version()}\nUsage: {Path(sys.argv[0]).name} [get,submit,replace] path"
+        )
 
     project = current_project()
     session = requests.Session()
     session.headers = {
         "x-token": project["token"],
-        "x-cli-version": version("traduire_cli"),
+        "x-cli-version": _version(),
     }
 
     if sys.argv[1] == "get":
