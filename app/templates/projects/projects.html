@@ -8,6 +8,8 @@
 
 <h1>{% blocktranslate with user=request.user %}Hello, {{ user }}{% endblocktranslate %}</h1>
 
+{% include 'includes/messages.html' %}
+
 <h2>{% translate 'Your projects' %}</h2>
 <ul>
   {% for project in projects %}

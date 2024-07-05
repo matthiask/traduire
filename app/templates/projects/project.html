@@ -8,6 +8,8 @@
 
 <h1>{{ project }}</h1>
 
+{% include 'includes/messages.html' %}
+
 <h2>{% translate 'catalogs'|capfirst %}</h2>
 <ul>
   {% for catalog in project.catalogs.all %}

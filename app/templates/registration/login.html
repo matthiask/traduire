@@ -15,6 +15,7 @@
             <button class="button" type="submit">{% translate "Login" %}</button>
 
             <a href="{% url 'password_reset' %}">{% translate "Reset password" %}</a>
+            <a href="{% url 'admin_oauth' %}?next={{ request.GET.next|default:"/" }}">{% translate 'Single sign on' %}</a>
           </div>
         </form>
       {% endblock content %}
