@@ -26,7 +26,7 @@ class ChoicesCharField(models.CharField):
 
 class ProjectQuerySet(models.QuerySet):
     def for_user(self, user):
-        return self if user.is_superuser else self.filter(users=user)
+        return self if user.is_staff else self.filter(users=user)
 
 
 class Project(models.Model):
@@ -66,7 +66,7 @@ class Project(models.Model):
 
 class CatalogQuerySet(models.QuerySet):
     def for_user(self, user):
-        return self if user.is_superuser else self.filter(project__users=user)
+        return self if user.is_staff else self.filter(project__users=user)
 
 
 class Catalog(models.Model):

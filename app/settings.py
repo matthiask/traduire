@@ -1,7 +1,9 @@
 import os
 import sys
+from functools import partial
 from pathlib import Path
 
+from authlib.roles import allow_deny_globs
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from speckenv import env
@@ -133,6 +135,7 @@ INSTALLED_APPS = [
 
 AUTH_USER_MODEL = "little_auth.user"
 AUTHENTICATION_BACKENDS = [
+    "authlib.backends.PermissionsBackend",
     "authlib.backends.EmailBackend",
     "django.contrib.auth.backends.ModelBackend",
 ]
@@ -185,6 +188,19 @@ else:
 SSO_DOMAINS = env("SSO_DOMAINS", default=r"^.*@feinheit\.ch$")
 ADMIN_OAUTH_PATTERNS = [(SSO_DOMAINS, lambda match: match[0])]
 ADMIN_OAUTH_CREATE_USER_CALLBACK = "app.sso.create_user_callback"
+AUTHLIB_ROLES = {
+    "default": {"title": _("default")},
+    "manager": {
+        "title": _("projects manager"),
+        "callback": partial(
+            allow_deny_globs,
+            allow={
+                "*.view_*",
+                "projects.*",
+            },
+        ),
+    },
+}
 
 LOGIN_URL = reverse_lazy("login")
 LOGIN_REDIRECT_URL = "/"
