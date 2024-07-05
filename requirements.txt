@@ -9,7 +9,7 @@ click==8.1.7
 django==5.1b1
 django-authlib==0.16.6
 django-canonical-domain==0.9.2
-django-debug-toolbar==4.4.2
+django-debug-toolbar==4.4.3
 django-ratelimit==4.1.0
 granian==1.4.4
 idna==3.7
