@@ -31,8 +31,7 @@ on [django-rosetta](https://github.com/mbi/django-rosetta/).
 
 ## What's missing?
 
-- Unit tests
-- Documentation
+- More documentation
 - An easy way to get this thing up and running. All it needs is a Django
   hosting environment and a database. It shouldn't be too hard to throw
   together a Docker compose file or something. I'm deploying it in my
