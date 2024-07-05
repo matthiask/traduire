@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-04 15:06+0200\n"
-"PO-Revision-Date: 2024-07-04 20:58+0200\n"
-"Last-Translator: Anonymous User <dev@feinheit.ch>\n"
+"POT-Creation-Date: 2024-07-05 10:30+0200\n"
+"PO-Revision-Date: 2024-07-05 10:28+0200\n"
+"Last-Translator: Anonymous User <mk@feinheit.ch>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -18,21 +18,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Translated-Using: traduire 0.0.1\n"
 
-#: app/elements.py
-msgid "copyright"
-msgstr "Urheberrecht"
+#: accounts/apps.py
+msgid "Authentication"
+msgstr "Authentifizierung"
 
-#: app/elements.py
-msgid "download"
-msgstr "Download"
+#: accounts/models.py
+msgid "full name"
+msgstr "Name"
 
-#: app/elements.py
-msgid "caption"
-msgstr "Legende"
-
-#: app/elements.py
-msgid "downloads"
-msgstr "Downloads"
+#: accounts/models.py
+msgid "token"
+msgstr "Token"
 
 #: app/settings.py
 msgid "English"
@@ -41,6 +37,14 @@ msgstr "Englisch"
 #: app/settings.py
 msgid "German"
 msgstr "Deutsch"
+
+#: app/settings.py
+msgid "default"
+msgstr "standard"
+
+#: app/settings.py
+msgid "projects manager"
+msgstr "Projektmanager:in"
 
 #: app/templates/404.html
 msgid "This page was not found"
@@ -106,7 +110,7 @@ msgstr "Kataloge"
 msgid "CLI configuration"
 msgstr "Kommandozeilen-Konfiguration"
 
-#: app/templates/projects/projects.html projects/models.py
+#: app/templates/projects/projects.html projects/apps.py projects/models.py
 msgid "projects"
 msgstr "Projekte"
 
@@ -127,17 +131,23 @@ msgstr "Konto"
 msgid "Log out"
 msgstr "Abmelden"
 
-#: app/templates/projects/projects.html app/templates/registration/password_change_done.html app/templates/registration/password_change_form.html
+#: app/templates/projects/projects.html
+#: app/templates/registration/password_change_done.html
+#: app/templates/registration/password_change_form.html
 msgid "Change password"
 msgstr "Passwort ändern"
-
-#: app/templates/registration/login.html app/templates/registration/password_reset_complete.html app/templates/registration/password_reset_confirm.html app/templates/registration/password_reset_done.html app/templates/registration/password_reset_form.html
-msgid "Reset password"
-msgstr "Passwort zurücksetzen"
 
 #: app/templates/registration/login.html
 msgid "Login"
 msgstr "Anmelden"
+
+#: app/templates/registration/login.html
+#: app/templates/registration/password_reset_complete.html
+#: app/templates/registration/password_reset_confirm.html
+#: app/templates/registration/password_reset_done.html
+#: app/templates/registration/password_reset_form.html
+msgid "Reset password"
+msgstr "Passwort zurücksetzen"
 
 #: app/templates/registration/password_change_done.html
 msgid "Your password was changed."
@@ -147,7 +157,9 @@ msgstr "Ihr Passwort wurde geändert."
 msgid "Please enter your old password, for security’s sake, and then enter your new password twice so we can verify you typed it in correctly."
 msgstr "Bitte geben Sie zur Sicherheit Ihr altes Passwort ein und geben Sie dann Ihr neues Passwort zweimal ein, damit wir überprüfen können, ob Sie es richtig eingegeben haben."
 
-#: app/templates/registration/password_change_form.html app/templates/registration/password_reset_confirm.html app/templates/registration/password_reset_form.html
+#: app/templates/registration/password_change_form.html
+#: app/templates/registration/password_reset_confirm.html
+#: app/templates/registration/password_reset_form.html
 msgid "Submit"
 msgstr "Abschicken"
 
@@ -197,6 +209,34 @@ msgstr "Das Team von %(site_name)s"
 msgid "explicit users"
 msgstr "Explizite Accounts"
 
+#: projects/forms.py
+msgid "Pending"
+msgstr "Nicht erledigt"
+
+#: projects/forms.py
+msgid "Query"
+msgstr "Anfrage"
+
+#: projects/forms.py
+msgid "Suggest"
+msgstr "Vorschlagen"
+
+#: projects/forms.py
+#, python-brace-format
+msgid "With {count} items"
+msgstr "Mit {count} Elementen"
+
+#: projects/forms.py
+#, python-brace-format
+msgid "Successfully updated {count} message."
+msgid_plural "Successfully updated {count} messages."
+msgstr[0] "Erfolgreich {count} Einträge aktualisiert."
+msgstr[1] "Erfolgreich {count} Eintrag aktualisiert."
+
+#: projects/forms.py
+msgid "No changes detected."
+msgstr "Keine Änderungen festgestellt."
+
 #: projects/models.py
 msgid "name"
 msgstr "Name"
@@ -208,10 +248,6 @@ msgstr "Slug"
 #: projects/models.py
 msgid "users"
 msgstr "Nutzer:innen"
-
-#: projects/models.py
-msgid "token"
-msgstr "Token"
 
 #: projects/models.py
 msgid "project"
@@ -228,570 +264,3 @@ msgstr "Domäne"
 #: projects/models.py
 msgid "catalog"
 msgstr "Katalog"
-
-#: projects/views.py
-msgid "Pending"
-msgstr "Nicht erledigt"
-
-#: projects/views.py
-msgid "Query"
-msgstr "Anfrage"
-
-#: projects/views.py
-msgid "Start"
-msgstr "Start"
-
-#: projects/views.py
-msgid "Suggest"
-msgstr "Vorschlagen"
-
-#: projects/views.py
-#, python-brace-format
-msgid "With {count} items"
-msgstr "Mit {count} Elementen"
-
-#: projects/views.py
-#, python-brace-format
-msgid "Successfully updated {count} message."
-msgid_plural "Successfully updated {count} messages."
-msgstr[0] "Erfolgreich {count} Einträge aktualisiert."
-msgstr[1] "Erfolgreich {count} Eintrag aktualisiert."
-
-#: projects/views.py
-msgid "No changes detected."
-msgstr "Keine Änderungen festgestellt."
-
-#~ msgid "Try the following links:"
-#~ msgstr "Versuchen Sie es mit folgenden Links:"
-
-#~ msgid "go to Homepage"
-#~ msgstr "zur Startseite"
-
-#~ msgid "Homepage"
-#~ msgstr "Startseite"
-
-#, python-format
-#~ msgid "go to page %(title)s"
-#~ msgstr "zur Seite %(title)s"
-
-#~ msgid "Dashboard"
-#~ msgstr "Dashboard"
-
-#~ msgid "scroll to content"
-#~ msgstr "Forum der Zukunft"
-
-#~ msgid "Flags"
-#~ msgstr "Flags"
-
-#~ msgid "All"
-#~ msgstr "Alle"
-
-#~ msgid "Untranslated"
-#~ msgstr "Nicht übersetzt"
-
-#~ msgid "parish"
-#~ msgstr "Pfarrei"
-
-#~ msgid "category"
-#~ msgstr "Kategorie"
-
-#~ msgid "search in the agenda"
-#~ msgstr "In der Agenda suchen"
-
-#~ msgid "agenda"
-#~ msgstr "Agenda"
-
-#~ msgid "identifier"
-#~ msgstr "Identifikator"
-
-#~ msgid "API key"
-#~ msgstr "API-Schlüssel"
-
-#~ msgid "verowa credentials"
-#~ msgstr "Verowa-Anmeldedaten"
-
-#~ msgid "title"
-#~ msgstr "Titel"
-
-#~ msgid "categories"
-#~ msgstr "Kategorien"
-
-#~ msgid "created at"
-#~ msgstr "erstellt um"
-
-#~ msgid "date from"
-#~ msgstr "Datum von"
-
-#~ msgid "date until"
-#~ msgstr "Datum bis"
-
-#~ msgid "image"
-#~ msgstr "Bild"
-
-#~ msgid "alternative text"
-#~ msgstr "alternativer Text"
-
-#~ msgid "Describe the contents, e.g. for screenreaders."
-#~ msgstr "Beschreibe die Inhalte, zB für Screenreader."
-
-#~ msgid "image copyright"
-#~ msgstr "Bild-Urheberrecht"
-
-#~ msgid "description"
-#~ msgstr "Beschreibung"
-
-#~ msgid "external identifier"
-#~ msgstr "externer Identifikator"
-
-#~ msgid "recurrence rule"
-#~ msgstr "Wiederholungsregel"
-
-#~ msgid "event"
-#~ msgstr "Veranstaltung"
-
-#~ msgid "events"
-#~ msgstr "Veranstaltungen"
-
-#~ msgid "Image copyrights are required."
-#~ msgstr "Bild-Urheberrechte werden benötigt."
-
-#~ msgid "Recurrence rule is invalid: {}"
-#~ msgstr "Wiederholungsregel ist ungültig: {}"
-
-#~ msgid "parent"
-#~ msgstr "übergeordnetes"
-
-#~ msgid "interesting event"
-#~ msgstr "interessanter Artikel"
-
-#~ msgid "interesting events"
-#~ msgstr "interessante Veranstaltungen"
-
-#~ msgid "initial event"
-#~ msgstr "Erste Veranstaltung"
-
-#~ msgid "event customized at"
-#~ msgstr "Veranstaltung wurde angepasst um"
-
-#~ msgid "Customized events are not changed or removed automatically when changing the original event or the recurrence rule."
-#~ msgstr "Angepasste Veranstaltungen werden nicht automatisch verändert oder gelöscht wenn die Wiederholungsregel der ersten Veranstaltung angepasst wird."
-
-#~ msgid "generated event"
-#~ msgstr "generierte Veranstaltung"
-
-#~ msgid "generated events"
-#~ msgstr "generierte Veranstaltungen"
-
-#~ msgid "further events"
-#~ msgstr "weitere Veranstaltungen"
-
-#~ msgid "Agenda"
-#~ msgstr "Agenda"
-
-#~ msgid "all events"
-#~ msgstr "alle Veranstaltungen"
-
-#~ msgid "reset search"
-#~ msgstr "Suche zurücksetzen"
-
-#~ msgid "Load more events"
-#~ msgstr "Mehr Veranstaltungen laden"
-
-#~ msgid "generate PDF"
-#~ msgstr "PDF generieren"
-
-#~ msgid "No events found"
-#~ msgstr "Keine Events gefunden"
-
-#~ msgid "more"
-#~ msgstr "mehr"
-
-#~ msgid "Published on"
-#~ msgstr "Erschienen am"
-
-#~ msgid "in"
-#~ msgstr "in"
-
-#~ msgid "Even more %(title)s"
-#~ msgstr "Noch mehr %(title)s"
-
-#~ msgid "This might also interest you"
-#~ msgstr "Das könnte Sie auch interessieren"
-
-#~ msgid "No articles found"
-#~ msgstr "Keine Artikel gefunden"
-
-#~ msgid "to the article"
-#~ msgstr "zum Artikel"
-
-#~ msgid "rubric overview"
-#~ msgstr "Rubrik-Übersicht"
-
-#~ msgid "toggle menu"
-#~ msgstr "Menü ein-/aufklappen"
-
-#~ msgid "Publisher"
-#~ msgstr "Herausgeberin"
-
-#~ msgid ""
-#~ "\n"
-#~ "            Forum Foundation – Parish bulletin of<br>\n"
-#~ "            the Catholic Church in the Canton of Zurich<br>\n"
-#~ "            Hirschengraben 72<br>\n"
-#~ "            8001 Zurich\n"
-#~ "            "
-#~ msgstr ""
-#~ "\n"
-#~ "            Stiftung forum – Pfarrblatt der<br>\n"
-#~ "            katholischen Kirche im Kanton Zürich<br>\n"
-#~ "            Hirschengraben 72<br>\n"
-#~ "            8001 Zürich\n"
-#~ "            "
-
-#~ msgid "Contact"
-#~ msgstr "Kontakt"
-
-#~ msgid "Services"
-#~ msgstr "Dienste"
-
-#~ msgid "Archive"
-#~ msgstr "Archiv"
-
-#~ msgid "Our agenda"
-#~ msgstr "Unsere Agenda"
-
-#~ msgid "Add"
-#~ msgstr "Hinzufügen"
-
-#~ msgid "The parish"
-#~ msgstr "Die Pfarrei"
-
-#~ msgid "Parish life"
-#~ msgstr "Pfarreileben"
-
-#~ msgid "About us"
-#~ msgstr "Wir über uns"
-
-#~ msgid "Next printing date"
-#~ msgstr "Nächster Drucktermin"
-
-#~ msgid "Hey"
-#~ msgstr "Hallo"
-
-#~ msgid "previous month"
-#~ msgstr "vorherige Monat"
-
-#~ msgid "next month"
-#~ msgstr "nächster Monat"
-
-#~ msgid "to the agenda"
-#~ msgstr "zur Agenda"
-
-#~ msgid "Parish"
-#~ msgstr "Pfarrei"
-
-#~ msgid "important information"
-#~ msgstr "wichtige Informationen"
-
-#~ msgid "Editorial articles"
-#~ msgstr "Redaktionelle Beiträge"
-
-#~ msgid "No parishes found"
-#~ msgstr "Keine Pfarreien gefunden"
-
-#~ msgid "Mission"
-#~ msgstr "Mission"
-
-#~ msgid "Topics and discussions directly in the mailbox"
-#~ msgstr "Themen und Diskussionen direkt in die Mailbox"
-
-#~ msgid "Subscribe to newsletter"
-#~ msgstr "Newsletter abonnieren"
-
-#~ msgid "Issue"
-#~ msgstr "Ausgabe"
-
-#~ msgid "Publication date"
-#~ msgstr "Erscheinungstag"
-
-#~ msgid "Holidays"
-#~ msgstr "Festtage"
-
-#~ msgid "Advertising deadline"
-#~ msgstr "Inserateschluss"
-
-#~ msgid "resource"
-#~ msgstr "Quelle"
-
-#~ msgid "holder of rights"
-#~ msgstr "Rechteinhaber:in"
-
-#~ msgid "this week"
-#~ msgstr "Diese Woche"
-
-#~ msgid "highlights"
-#~ msgstr "Highlights"
-
-#~ msgid "to the magazine"
-#~ msgstr "Zum Magazin"
-
-#~ msgid "rubric"
-#~ msgstr "Rubrik"
-
-#~ msgid "filter by rubric"
-#~ msgstr "Filtern nach Rubrik"
-
-#~ msgid "current edition"
-#~ msgstr "Aktuelle Ausgabe"
-
-#~ msgid "search in the magazine"
-#~ msgstr "Im Magazin suchen"
-
-#~ msgid "articles"
-#~ msgstr "Artikel"
-
-#~ msgid "color"
-#~ msgstr "Farbe"
-
-#~ msgid "rubrics"
-#~ msgstr "Rubriken"
-
-#~ msgid "Main"
-#~ msgstr "Haupt"
-
-#~ msgid "published at"
-#~ msgstr "veröffentlicht um"
-
-#~ msgid "issue"
-#~ msgstr "Ausgabe"
-
-#~ msgid "lead image"
-#~ msgstr "Lead-Bild"
-
-#~ msgid "lead text"
-#~ msgstr "Leadtext"
-
-#~ msgid "is image dark?"
-#~ msgstr "Bild ist dunkel"
-
-#~ msgid "Text on the image should be colored white if the background is dark."
-#~ msgstr "Der Text auf dem Bild sollte weiß gefärbt sein, wenn der Hintergrund dunkel ist."
-
-#~ msgid "authors"
-#~ msgstr "Autor:innen"
-
-#~ msgid "article"
-#~ msgstr "Artikel"
-
-#~ msgid "interesting object"
-#~ msgstr "interessante/r/s Artikel/Veranstaltung/Pfarrei/Rubrik"
-
-#~ msgid "Select exactly one interesting object please."
-#~ msgstr "Wählen Sie bitte genau eins aus."
-
-#~ msgid "Only choose articles from the same rubric please."
-#~ msgstr "Wählen Sie bitte nur Artikel aus der gleichen Rubrik."
-
-#~ msgid "info box"
-#~ msgstr "Infobox"
-
-#~ msgid "dashboard"
-#~ msgstr "Dashboard"
-
-#~ msgid "You do not have editing rights here."
-#~ msgstr "Sie haben hier keine Bearbeitungsrechte."
-
-#~ msgid "Thank you!"
-#~ msgstr "Danke"
-
-#~ msgid "issues"
-#~ msgstr "Ausgaben"
-
-#~ msgid "published on"
-#~ msgstr "veröffentlicht am"
-
-#~ msgid "cover"
-#~ msgstr "Titelseite"
-
-#~ msgid "contents submitted on"
-#~ msgstr "Inhalte übermittelt am"
-
-#~ msgid "The final date when contents will be submitted to the print shop."
-#~ msgstr "Das endgültige Datum, an dem die Inhalte an die Druckerei übermittelt werden."
-
-#~ msgid "static path"
-#~ msgstr "statischer Pfad"
-
-#~ msgid "redirects"
-#~ msgstr "Weiterleitungen"
-
-#~ msgid "pages"
-#~ msgstr "Seiten"
-
-#~ msgid "standard"
-#~ msgstr "Standard"
-
-#~ msgid "parishes"
-#~ msgstr "Pfarreien"
-
-#~ msgid "privacy policy"
-#~ msgstr "Datenschutzerklärung"
-
-#~ msgid "Main menu"
-#~ msgstr "Hauptmenü"
-
-#~ msgid "Footer menu"
-#~ msgstr "Footermenü"
-
-#~ msgid "reference"
-#~ msgstr "Quellenangabe"
-
-#~ msgid "publishing plan"
-#~ msgstr "Erscheinungsplan"
-
-#~ msgid "number"
-#~ msgstr "Nummer"
-
-#~ msgid "festive days"
-#~ msgstr "Festtage"
-
-#~ msgid "advertisement deadline"
-#~ msgstr "Inserateschluss"
-
-#~ msgid "Layout"
-#~ msgstr "Layout"
-
-#~ msgid "one article"
-#~ msgstr "Ein Artikel"
-
-#~ msgid "One large article"
-#~ msgstr "Ein grosser Artikel"
-
-#~ msgid "One large article with the issue and calendar on the side"
-#~ msgstr "Ein grosser Artikel mit der Ausgabe und dem Kalender auf der Seite"
-
-#~ msgid "two articles"
-#~ msgstr "Zwei Artikel"
-
-#~ msgid "Two equal teasers"
-#~ msgstr "Zwei gleich grosse Teaser"
-
-#~ msgid "three articles"
-#~ msgstr "Drei Artikel"
-
-#~ msgid "Three equal teasers"
-#~ msgstr "Drei gleich grosse Teaser"
-
-#~ msgid "One big and two small teasers"
-#~ msgstr "Ein grosser und zwei kleine Teaser"
-
-#~ msgid "Two small and one big teaser"
-#~ msgstr "Zwei kleine und ein grosser Teaser"
-
-#~ msgid "newsletter form"
-#~ msgstr "Newsletterformular"
-
-#~ msgid "Show upcoming events"
-#~ msgstr "Bevorstehende Ereignisse anzeigen"
-
-#~ msgid "filter by region"
-#~ msgstr "Filtern nach Region"
-
-#~ msgid "select region"
-#~ msgstr "Region auswählen"
-
-#~ msgid "search parish"
-#~ msgstr "Pfarrei suchen"
-
-#~ msgid "region"
-#~ msgstr "Region"
-
-#~ msgid "regions"
-#~ msgstr "Regionen"
-
-#~ msgid "Unable to parse as phone number."
-#~ msgstr "Konnte den Wert nicht als Telefonnummer erkennen."
-
-#~ msgid "Phone number invalid."
-#~ msgstr "Telefonnummer ungültig."
-
-#~ msgid "city"
-#~ msgstr "Ort"
-
-#~ msgid "is mission"
-#~ msgstr "Ist eine Mission"
-
-#~ msgid "postal address"
-#~ msgstr "Postadresse"
-
-#~ msgid "phone"
-#~ msgstr "Telefon"
-
-#~ msgid "email"
-#~ msgstr "E-Mail"
-
-#~ msgid "website"
-#~ msgstr "Webseite"
-
-#~ msgid "subline"
-#~ msgstr "Subline"
-
-#~ msgid "introduction"
-#~ msgstr "Einführung"
-
-#~ msgid "informations"
-#~ msgstr "Informationen"
-
-#~ msgid "about us"
-#~ msgstr "Wir über uns"
-
-#~ msgid "editor"
-#~ msgstr "Redakteur:in"
-
-#~ msgid "editors"
-#~ msgstr "Redakteur:innen"
-
-#~ msgid "full name"
-#~ msgstr "Name"
-
-#~ msgid "function"
-#~ msgstr "Funktion"
-
-#~ msgid "person"
-#~ msgstr "Person"
-
-#~ msgid "people"
-#~ msgstr "Personen"
-
-#~ msgid "Even more"
-#~ msgstr "Noch mehr"
-
-#~ msgid "Edit event"
-#~ msgstr "Veranstaltung bearbeiten"
-
-#~ msgid "Register event"
-#~ msgstr "Veranstaltung erfassen"
-
-#~ msgid "Cancel"
-#~ msgstr "Abbrechen"
-
-#~ msgid "o'clock"
-#~ msgstr "Uhr"
-
-#~ msgid "Edit"
-#~ msgstr "Bearbeiten"
-
-#~ msgid "Highlights"
-#~ msgstr "Highlights"
-
-#~ msgid "teaser excerpt"
-#~ msgstr "Teaser-Auszug"
-
-#~ msgid "with highlights"
-#~ msgstr "mit Highlights"
-
-#~ msgid "search query"
-#~ msgstr "Suchanfrage"
-
-#~ msgid "lead"
-#~ msgstr "Lead"
