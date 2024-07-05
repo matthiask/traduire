@@ -36,6 +36,8 @@ class Project(models.Model):
         settings.AUTH_USER_MODEL,
         related_name="projects",
         verbose_name=_("users"),
+        blank=True,  # Only internal is fine.
+        limit_choices_to={"is_staff": False},
     )
     token = models.CharField(_("token"), max_length=100, editable=False, unique=True)
 

@@ -35,6 +35,8 @@ class Migration(migrations.Migration):
                 (
                     "users",
                     models.ManyToManyField(
+                        blank=True,
+                        limit_choices_to={"is_staff": False},
                         related_name="projects",
                         to=settings.AUTH_USER_MODEL,
                         verbose_name="users",
