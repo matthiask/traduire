@@ -12,11 +12,11 @@ def render_html(plugin, context):
 
 
 def render_download(plugin, context):
-    type = ""
+    type_of_download = ""
     if plugin.download.name.endswith((".wav", ".ogg", ".mp3", ".aac")):
-        type = "audio"
+        type_of_download = "audio"
     return render_in_context(
-        context, "plugins/download.html", {"plugin": plugin, "type": type}
+        context, "plugins/download.html", {"plugin": plugin, "type": type_of_download}
     )
 
 
