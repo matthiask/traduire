@@ -63,6 +63,8 @@ class Project(models.Model):
         self.token = f"{get_random_string(60)}-{self.pk}"
         self.save()
 
+    cycle_token.alters_data = True
+
 
 class CatalogQuerySet(models.QuerySet):
     def for_user(self, user):

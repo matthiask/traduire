@@ -123,9 +123,9 @@ INSTALLED_APPS = [
         "django.contrib.staticfiles",
         "django.forms",
         "authlib.admin_oauth",
-        "authlib.little_auth",
         "django.contrib.admin",
         "app",
+        "accounts",
         "projects",
         "canonical_domain",
         "debug_toolbar" if DEBUG_TOOLBAR else "",
@@ -133,7 +133,7 @@ INSTALLED_APPS = [
     if app
 ]
 
-AUTH_USER_MODEL = "little_auth.user"
+AUTH_USER_MODEL = "accounts.user"
 AUTHENTICATION_BACKENDS = [
     "authlib.backends.PermissionsBackend",
     "authlib.backends.EmailBackend",

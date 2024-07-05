@@ -1,4 +1,4 @@
-from authlib.little_auth.models import User
+from accounts.models import User
 
 
 def create_user_callback(request, user_mail):

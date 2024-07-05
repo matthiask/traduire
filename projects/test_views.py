@@ -1,9 +1,9 @@
 from unittest.mock import Mock, patch
 
-from authlib.little_auth.models import User
 from django.test import Client, TestCase
 from django.test.utils import override_settings
 
+from accounts.models import User
 from projects.models import Catalog, Project
 from projects.translators import TranslationError, fix_nls
 
@@ -229,7 +229,7 @@ msgstr "Onward!"
             r = su_client.get("/admin/projects/project/")
 
         self.assertContains(r, '<td class="field-explicit_users">-</td>')
-        self.assertContains(r, '<td class="field-explicit_users">use***@***.com</td>')
+        self.assertContains(r, '<td class="field-explicit_users">user@example.com</td>')
 
     def test_suggest(self):
         c = Client()
