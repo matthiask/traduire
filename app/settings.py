@@ -182,7 +182,7 @@ if SECURE_SSL_REDIRECT:
 else:
     os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
-SSO_DOMAINS = env("SSO_DOMAINS", default=r"@feinheit\.ch$")
+SSO_DOMAINS = env("SSO_DOMAINS", default=r"^.*@feinheit\.ch$")
 ADMIN_OAUTH_PATTERNS = [(SSO_DOMAINS, lambda match: match[0])]
 ADMIN_OAUTH_CREATE_USER_CALLBACK = "app.sso.create_user_callback"
 
