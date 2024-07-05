@@ -10,17 +10,7 @@ from projects.translators import TranslationError, fix_nls
 
 
 class ProjectsTest(TestCase):
-    def test_smoke(self):
-        superuser = User.objects.create_superuser("admin@example.com", "admin")
-        su_client = Client()
-        su_client.force_login(superuser)
-
-        p2 = Project.objects.create(name="test2", slug="test2")
-        user = User.objects.create_user("user@example.com", "user")
-        user.projects.add(p2)
-        u_client = Client()
-        u_client.force_login(user)
-
+    def create_project_and_catalog(self):
         p = Project.objects.create(name="test", slug="test")
         c = p.catalogs.create(
             language_code="fr",
@@ -42,6 +32,20 @@ msgstr[0] "Réinitialisation du mot de passe de %(count)s élève."
 msgstr[1] "Réinitialisation des mots de passe de %(count)s élèves ."
 """,
         )
+        return p, c
+
+    def test_project_access(self):
+        superuser = User.objects.create_superuser("admin@example.com", "admin")
+        su_client = Client()
+        su_client.force_login(superuser)
+
+        p, _c = self.create_project_and_catalog()
+
+        p2 = Project.objects.create(name="test2", slug="test2")
+        user = User.objects.create_user("user@example.com", "user")
+        user.projects.add(p2)
+        u_client = Client()
+        u_client.force_login(user)
 
         r = su_client.get("/", headers={"accept-language": "en"})
         self.assertContains(r, '<a href="/test/">test</a>')
@@ -63,6 +67,13 @@ msgstr[1] "Réinitialisation des mots de passe de %(count)s élèves ."
 
         r = u_client.get(p2.get_absolute_url(), headers={"accept-language": "en"})
         self.assertEqual(r.status_code, 200)
+
+    def test_filtering(self):
+        superuser = User.objects.create_superuser("admin@example.com", "admin")
+        su_client = Client()
+        su_client.force_login(superuser)
+
+        _p, c = self.create_project_and_catalog()
 
         r = su_client.get(c.get_absolute_url(), headers={"accept-language": "en"})
         self.assertContains(r, "msgid_0")
@@ -94,6 +105,13 @@ msgstr[1] "Réinitialisation des mots de passe de %(count)s élèves ."
             c.get_absolute_url() + "?start=a", headers={"accept-language": "en"}
         )
         self.assertRedirects(r, c.get_absolute_url())
+
+    def test_api(self):
+        superuser = User.objects.create_superuser("admin@example.com", "admin")
+        su_client = Client()
+        su_client.force_login(superuser)
+
+        p, c = self.create_project_and_catalog()
 
         # API test
         r = su_client.get(
@@ -206,7 +224,25 @@ msgstr "Blab"
             c.pofile,
         )
 
-        # Modifications
+        # Delete catalogs through the API. Not currently exposed in the CLI.
+        r = su_client.delete(
+            "/api/pofile/test/fr/djangojs/",
+            headers={"x-token": superuser.token, "x-cli-version": settings.CLI_VERSION},
+        )
+        self.assertEqual(r.status_code, 204)
+
+        r = su_client.delete(
+            "/api/pofile/test/fr/djangojs/",
+            headers={"x-token": superuser.token, "x-cli-version": settings.CLI_VERSION},
+        )
+        self.assertEqual(r.status_code, 404)
+
+    def test_updating(self):
+        superuser = User.objects.create_superuser("admin@example.com", "admin")
+        su_client = Client()
+        su_client.force_login(superuser)
+
+        p, c = self.create_project_and_catalog()
 
         r = su_client.post(
             c.get_absolute_url(),
@@ -295,6 +331,17 @@ msgstr[1] "Blab %(count)s"
         # print(c.pofile)
         # print(list(c.po))
         # print(r, r.content.decode("utf-8"))
+
+    def test_admin(self):
+        superuser = User.objects.create_superuser("admin@example.com", "admin")
+        su_client = Client()
+        su_client.force_login(superuser)
+
+        self.create_project_and_catalog()
+
+        p2 = Project.objects.create(name="test2", slug="test2")
+        user = User.objects.create_user("user@example.com", "user")
+        user.projects.add(p2)
 
         with override_settings(DEBUG=True):  # Disable ManifestStaticFilesStorage
             r = su_client.get("/admin/projects/project/")
