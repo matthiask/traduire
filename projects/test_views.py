@@ -51,7 +51,7 @@ msgstr[1] "Réinitialisation des mots de passe de %(count)s élèves ."
         self.assertContains(r, '<a href="/test2/">test2</a>')
 
         r = su_client.get(p.get_absolute_url(), headers={"accept-language": "en"})
-        self.assertContains(r, p.token)
+        self.assertContains(r, superuser.token)
         self.assertContains(
             r,
             '<a href="/test/fr/djangojs/">French, djangojs (100%)</a>',
