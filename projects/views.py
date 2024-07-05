@@ -42,7 +42,7 @@ def project(request, slug):
 @login_required
 def catalog(request, project, language_code, domain):
     catalog = get_object_or_404(
-        Catalog.objects.for_user(request.user),
+        Catalog.objects.for_user(request.user).select_related("project"),
         project__slug=project,
         language_code=language_code,
         domain=domain,
