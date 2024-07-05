@@ -209,3 +209,5 @@ LOGOUT_REDIRECT_URL = reverse_lazy("login")
 FORM_RENDERER = "form_rendering.FormRendering"
 
 DEEPL_AUTH_KEY = env("DEEPL_AUTH_KEY")
+
+CLI_VERSION = "0.0.3"

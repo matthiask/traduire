@@ -1,5 +1,6 @@
 from unittest.mock import Mock, patch
 
+from django.conf import settings
 from django.test import Client, TestCase
 from django.test.utils import override_settings
 
@@ -87,32 +88,33 @@ msgstr[1] "Réinitialisation des mots de passe de %(count)s élèves ."
 
         # API test
         r = su_client.get(
-            "/api/pofile/test/fr/djangojs/", headers={"x-cli-version": "0.0.3"}
+            "/api/pofile/test/fr/djangojs/",
+            headers={"x-cli-version": settings.CLI_VERSION},
         )
         self.assertEqual(r.status_code, 403)
 
         r = su_client.get(
             "/api/pofile/test/fr/djangojs/",
-            headers={"x-token": superuser.token, "x-cli-version": "0.0.3"},
+            headers={"x-token": superuser.token, "x-cli-version": settings.CLI_VERSION},
         )
         self.assertEqual(r.status_code, 200)
         self.assertEqual(r.content.decode("utf-8"), c.pofile)
 
         r = su_client.patch(
             "/api/pofile/test/fr/djangojs/",
-            headers={"x-token": superuser.token, "x-cli-version": "0.0.3"},
+            headers={"x-token": superuser.token, "x-cli-version": settings.CLI_VERSION},
         )
         self.assertEqual(r.status_code, 405)
 
         r = su_client.get(
             "/api/pofile/test/de/djangojs/",
-            headers={"x-token": superuser.token, "x-cli-version": "0.0.3"},
+            headers={"x-token": superuser.token, "x-cli-version": settings.CLI_VERSION},
         )
         self.assertEqual(r.status_code, 404)
 
         r = su_client.post(
             "/api/pofile/test/fr/djangojs/",
-            headers={"x-token": superuser.token, "x-cli-version": "0.0.3"},
+            headers={"x-token": superuser.token, "x-cli-version": settings.CLI_VERSION},
             data=b"""\
 #: conf/strings.js frontend/intro/intro.js frontend/people/person.js
 msgid "Continue"
@@ -149,7 +151,7 @@ msgstr ""
         # Different language!
         r = su_client.put(
             "/api/pofile/test/de/djangojs/",
-            headers={"x-token": superuser.token, "x-cli-version": "0.0.3"},
+            headers={"x-token": superuser.token, "x-cli-version": settings.CLI_VERSION},
             data=b"""\
 #: conf/strings.js frontend/intro/intro.js frontend/people/person.js
 msgid "Continue"

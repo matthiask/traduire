@@ -132,7 +132,9 @@ def suggest(request):
 
 @csrf_exempt
 def pofile(request, project, language_code, domain):
-    if not (version := request.headers.get("x-cli-version")) or (version != "0.0.3"):
+    if not (version := request.headers.get("x-cli-version")) or (
+        version != settings.CLI_VERSION
+    ):
         return http.HttpResponseBadRequest(f"Incorrect CLI version {version!r}")
 
     user = User.objects.filter(token=request.headers.get("x-token")).first()
