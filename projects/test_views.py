@@ -72,6 +72,15 @@ msgstr[1] "Réinitialisation des mots de passe de %(count)s élèves ."
         )
 
         r = su_client.get(
+            c.get_absolute_url() + "?start=1000", headers={"accept-language": "en"}
+        )
+        self.assertContains(r, "msgid_0")
+        self.assertContains(
+            r,
+            '<input type="hidden" name="msgid_1" value="Copied code!" id="id_msgid_1">',
+        )
+
+        r = su_client.get(
             c.get_absolute_url() + "?pending=on", headers={"accept-language": "en"}
         )
         self.assertNotContains(r, "msgid_0")
@@ -89,9 +98,21 @@ msgstr[1] "Réinitialisation des mots de passe de %(count)s élèves ."
         # API test
         r = su_client.get(
             "/api/pofile/test/fr/djangojs/",
+            headers={"x-cli-version": "anything"},
+        )
+        self.assertEqual(r.status_code, 400)
+
+        r = su_client.get(
+            "/api/pofile/test/fr/djangojs/",
             headers={"x-cli-version": settings.CLI_VERSION},
         )
         self.assertEqual(r.status_code, 403)
+
+        r = su_client.get(
+            "/api/pofile/not-exists/fr/djangojs/",
+            headers={"x-token": superuser.token, "x-cli-version": settings.CLI_VERSION},
+        )
+        self.assertEqual(r.status_code, 404)
 
         r = su_client.get(
             "/api/pofile/test/fr/djangojs/",
