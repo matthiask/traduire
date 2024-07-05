@@ -9,7 +9,7 @@ from django.utils.html import mark_safe
 register = template.Library()
 
 
-def webpack_assets(entry):
+def webpack_assets(entry):  # pragma: no cover
     base = Path.cwd()
     if settings.DEBUG:
         base = base / "tmp" / "dev"
@@ -19,6 +19,6 @@ def webpack_assets(entry):
     return mark_safe(assets)
 
 
-if not settings.DEBUG:
+if not settings.DEBUG:  # pragma: no branch
     webpack_assets = cache(webpack_assets)
 register.simple_tag(webpack_assets)

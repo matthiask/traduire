@@ -13,7 +13,7 @@ admin.site.login = username_ratelimit(rate="3/m")(admin.site.login)
 
 
 def file_response(path):
-    return lambda request: FileResponse(path.open("rb"))
+    return lambda request: FileResponse(path.open("rb"))  # pragma: no cover
 
 
 urlpatterns = [
@@ -26,7 +26,7 @@ urlpatterns = [
     path("", include("projects.urls")),
 ]
 
-if settings.DEBUG:
+if settings.DEBUG:  # pragma: no cover
     from django.conf.urls.static import static
 
     urlpatterns += [path("__debug__/", include("debug_toolbar.urls"))]

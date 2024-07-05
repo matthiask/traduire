@@ -158,24 +158,25 @@ AUTH_PASSWORD_VALIDATORS = [
 GOOGLE_CLIENT_ID = env("GOOGLE_CLIENT_ID")
 GOOGLE_CLIENT_SECRET = env("GOOGLE_CLIENT_SECRET")
 
-if SENTRY_DSN := env("SENTRY_DSN"):
+if SENTRY_DSN := env("SENTRY_DSN"):  # pragma: no cover
     import sentry_sdk
     from sentry_sdk.integrations.django import DjangoIntegration
 
     sentry_sdk.init(dsn=SENTRY_DSN, integrations=[DjangoIntegration()])
 
-if DEBUG:
+if DEBUG:  # pragma: no cover
     INTERNAL_IPS = ["127.0.0.1"]
-    globals().update(django_email_url(env("EMAIL_URL", default="console:")))
-else:
-    globals().update(django_email_url(env("EMAIL_URL", default="smtp:")))
+
+globals().update(
+    django_email_url(env("EMAIL_URL", default="console:" if DEBUG else "smtp:"))
+)
 
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 SESSION_COOKIE_HTTPONLY = True
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
 
-if SECURE_SSL_REDIRECT:
+if SECURE_SSL_REDIRECT:  # pragma: no cover
     SECURE_BROWSER_XSS_FILTER = True
     SECURE_CONTENT_TYPE_NOSNIFF = True
     # SECURE_HSTS_SECONDS = 30 * 86400

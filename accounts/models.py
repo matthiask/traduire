@@ -16,11 +16,8 @@ class User(BaseUser):
     def __str__(self):
         return self.full_name or self.email
 
-    def get_full_name(self):
-        return str(self)
-
-    def get_short_name(self):
-        return str(self)
+    get_full_name = __str__
+    get_short_name = __str__
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
