@@ -92,6 +92,15 @@ msgstr[1] "Réinitialisation des mots de passe de %(count)s élèves ."
         )
 
         r = su_client.get(
+            c.get_absolute_url() + "?start=1", headers={"accept-language": "en"}
+        )
+        self.assertContains(r, "msgid_0")
+        self.assertContains(
+            r,
+            '<input type="hidden" name="msgid_0" value="Copied code!" id="id_msgid_0">',
+        )
+
+        r = su_client.get(
             c.get_absolute_url() + "?pending=on", headers={"accept-language": "en"}
         )
         self.assertNotContains(r, "msgid_0")
@@ -243,6 +252,20 @@ msgstr "Blab"
         su_client.force_login(superuser)
 
         p, c = self.create_project_and_catalog()
+
+        with override_settings(DEEPL_AUTH_KEY="hello"):
+            r = su_client.get(
+                c.get_absolute_url(),
+                headers={"accept-language": "en"},
+            )
+            self.assertContains(r, "data-suggest")
+
+        with override_settings(DEEPL_AUTH_KEY=""):
+            r = su_client.get(
+                c.get_absolute_url(),
+                headers={"accept-language": "en"},
+            )
+            self.assertNotContains(r, "data-suggest")
 
         r = su_client.post(
             c.get_absolute_url(),
