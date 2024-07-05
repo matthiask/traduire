@@ -1,5 +1,8 @@
+.coverage
 .env
 .git
+cli
+htmlcov
 media
 node_modules
 **/__pycache__

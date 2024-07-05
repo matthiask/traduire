@@ -1,11 +1,3 @@
-html {
-  overscroll-behavior: none;
-
-  min-height: calc(100% + env(safe-area-inset-top));
-  padding: env(safe-area-inset-top) env(safe-area-inset-right)
-    env(safe-area-inset-bottom) env(safe-area-inset-left);
-}
-
 @media (max-width: 639px) {
   #djDebug {
     display: none;
@@ -13,24 +5,13 @@ html {
 }
 
 body {
-  position: relative;
-  text-rendering: optimizelegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   color: var(--fg);
   background: var(--bg);
 
   font-family: system-ui;
-
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-
-  /* touch-action: pan-x pan-y; /* Disable zooming on iOS */
 }
 
 .main {
-  flex-grow: 1;
   margin: 2rem 1rem;
 }
 

@@ -43,18 +43,18 @@ msgstr[1] "Réinitialisation des mots de passe de %(count)s élèves ."
         )
 
         r = su_client.get("/", headers={"accept-language": "en"})
-        self.assertContains(r, '<a href="/project/test/">test</a>')
-        self.assertContains(r, '<a href="/project/test2/">test2</a>')
+        self.assertContains(r, '<a href="/test/">test</a>')
+        self.assertContains(r, '<a href="/test2/">test2</a>')
 
         r = u_client.get("/", headers={"accept-language": "en"})
-        self.assertNotContains(r, '<a href="/project/test/">test</a>')
-        self.assertContains(r, '<a href="/project/test2/">test2</a>')
+        self.assertNotContains(r, '<a href="/test/">test</a>')
+        self.assertContains(r, '<a href="/test2/">test2</a>')
 
         r = su_client.get(p.get_absolute_url(), headers={"accept-language": "en"})
         self.assertContains(r, p.token)
         self.assertContains(
             r,
-            '<a href="/project/test/catalog/fr/djangojs/">French, djangojs (100%)</a>',
+            '<a href="/test/fr/djangojs/">French, djangojs (100%)</a>',
         )
 
         r = u_client.get(p.get_absolute_url(), headers={"accept-language": "en"})
@@ -234,29 +234,29 @@ msgstr "Onward!"
     def test_suggest(self):
         c = Client()
 
-        r = c.get("/suggest/")
+        r = c.get("/api/suggest/")
         self.assertEqual(r.status_code, 405)
 
-        r = c.post("/suggest/")
+        r = c.post("/api/suggest/")
         self.assertEqual(r.status_code, 403)
 
         user = User.objects.create_user("user@example.com", "user")
         c.force_login(user)
 
-        r = c.post("/suggest/")
+        r = c.post("/api/suggest/")
         self.assertEqual(r.status_code, 400)
 
         with patch(
             "projects.views.translators.translate_by_deepl", lambda *a: "Bonjour"
         ):
-            r = c.post("/suggest/", {"language_code": "fr", "msgid": "Anything"})
+            r = c.post("/api/suggest/", {"language_code": "fr", "msgid": "Anything"})
             self.assertEqual(r.status_code, 200)
             self.assertEqual(r.json(), {"msgstr": "Bonjour"})
 
         mock = Mock()
         mock.side_effect = TranslationError("Oops")
         with patch("projects.views.translators.translate_by_deepl", mock):
-            r = c.post("/suggest/", {"language_code": "fr", "msgid": "Anything"})
+            r = c.post("/api/suggest/", {"language_code": "fr", "msgid": "Anything"})
             self.assertEqual(r.status_code, 200)
             self.assertEqual(r.json(), {"error": "Oops"})
 

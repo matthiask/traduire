@@ -17,15 +17,6 @@ textarea {
   label + & {
     margin-top: 0.5rem;
   }
-
-  search & {
-    border: 1px solid var(--primary);
-    padding: 7px 15px;
-
-    &:user-valid {
-      background: var(--secondary);
-    }
-  }
 }
 
 fieldset.field {

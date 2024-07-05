@@ -20,9 +20,7 @@ class FilterForm(forms.Form):
         required=False,
         widget=forms.TextInput(attrs={"placeholder": _("Query")}),
     )
-    start = forms.IntegerField(
-        label=_("Start"), widget=forms.HiddenInput, required=False
-    )
+    start = forms.IntegerField(widget=forms.HiddenInput, required=False)
 
 
 def _help_text(msgid, language_code):
