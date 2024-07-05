@@ -23,3 +23,4 @@ class ProjectAdmin(admin.ModelAdmin):
 class CatalogAdmin(admin.ModelAdmin):
     list_display = ["project", "language_code", "domain"]
     list_filter = ["project"]
+    readonly_fields = ["pofile"]
