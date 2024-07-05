@@ -23,8 +23,9 @@ FORMS_URLFIELD_ASSUME_HTTPS = True
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-ADMINS = [("FEINHEIT Developers", "dev@feinheit.ch")]
-MANAGERS = ADMINS
+# These values may be overridden using environment variables. ADMINS as is,
+# DEFAULT_FROM_EMAIL and SERVER_EMAIL using EMAIL_URL
+ADMINS = MANAGERS = env("ADMINS", default=[("FEINHEIT Developers", "dev@feinheit.ch")])
 SERVER_EMAIL = DEFAULT_FROM_EMAIL = "no-reply@feinheit.ch"
 
 DATABASES = {"default": django_database_url(env("DATABASE_URL", required=True))}
@@ -181,7 +182,9 @@ if SECURE_SSL_REDIRECT:
 else:
     os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
-ADMIN_OAUTH_PATTERNS = [(r"@feinheit\.ch", "dev@feinheit.ch")]
+SSO_DOMAINS = env("SSO_DOMAINS", default=r"@feinheit\.ch$")
+ADMIN_OAUTH_PATTERNS = [(SSO_DOMAINS, lambda match: match[0])]
+ADMIN_OAUTH_CREATE_USER_CALLBACK = "app.sso.create_user_callback"
 
 LOGIN_URL = reverse_lazy("login")
 LOGIN_REDIRECT_URL = "/"
