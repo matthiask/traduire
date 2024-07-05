@@ -4,7 +4,6 @@ import polib
 from django.conf import global_settings, settings
 from django.db import models
 from django.urls import reverse
-from django.utils.crypto import get_random_string
 from django.utils.translation import gettext_lazy as _
 
 
@@ -39,7 +38,6 @@ class Project(models.Model):
         blank=True,  # Only internal is fine.
         limit_choices_to={"is_staff": False},
     )
-    token = models.CharField(_("token"), max_length=100, editable=False, unique=True)
 
     objects = ProjectQuerySet.as_manager()
 
@@ -51,21 +49,11 @@ class Project(models.Model):
     def __str__(self):
         return self.name
 
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-        if not self.token:
-            self.cycle_token()
-
-    save.alters_data = True
-
     def get_absolute_url(self):
         return reverse("projects:project", kwargs={"slug": self.slug})
 
-    def cycle_token(self):
-        self.token = f"{get_random_string(60)}-{self.pk}"
-        self.save()
-
-    cycle_token.alters_data = True
+    def get_api_url(self):
+        return f"/api/pofile/{self.slug}/"
 
 
 class CatalogQuerySet(models.QuerySet):

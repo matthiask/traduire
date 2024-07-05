@@ -86,27 +86,28 @@ msgstr[1] "Réinitialisation des mots de passe de %(count)s élèves ."
         self.assertRedirects(r, c.get_absolute_url())
 
         # API test
-        r = su_client.get("/api/pofile/fr/djangojs/")
+        r = su_client.get("/api/pofile/test/fr/djangojs/")
         self.assertEqual(r.status_code, 403)
 
         r = su_client.get(
-            "/api/pofile/fr/djangojs/", headers={"x-project-token": p.token}
+            "/api/pofile/test/fr/djangojs/", headers={"x-token": superuser.token}
         )
+        self.assertEqual(r.status_code, 200)
         self.assertEqual(r.content.decode("utf-8"), c.pofile)
 
         r = su_client.post(
-            "/api/pofile/fr/djangojs/", headers={"x-project-token": p.token}
+            "/api/pofile/test/fr/djangojs/", headers={"x-token": superuser.token}
         )
         self.assertEqual(r.status_code, 405)
 
         r = su_client.get(
-            "/api/pofile/de/djangojs/", headers={"x-project-token": p.token}
+            "/api/pofile/test/de/djangojs/", headers={"x-token": superuser.token}
         )
         self.assertEqual(r.status_code, 404)
 
         r = su_client.put(
-            "/api/pofile/fr/djangojs/",
-            headers={"x-project-token": p.token},
+            "/api/pofile/test/fr/djangojs/",
+            headers={"x-token": superuser.token},
             data=b"""\
 #: conf/strings.js frontend/intro/intro.js frontend/people/person.js
 msgid "Continue"
@@ -141,8 +142,8 @@ msgstr ""
 
         # Different language!
         r = su_client.put(
-            "/api/pofile/de/djangojs/",
-            headers={"x-project-token": p.token},
+            "/api/pofile/test/de/djangojs/",
+            headers={"x-token": superuser.token},
             data=b"""\
 #: conf/strings.js frontend/intro/intro.js frontend/people/person.js
 msgid "Continue"

@@ -7,6 +7,7 @@ from django.template.defaulttags import query_string
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
+from accounts.models import User
 from form_rendering import adapt_rendering
 from projects import translators
 from projects.forms import EntriesForm, FilterForm, SuggestForm
@@ -28,7 +29,14 @@ def projects(request):
 @login_required
 def project(request, slug):
     project = get_object_or_404(Project.objects.for_user(request.user), slug=slug)
-    return render(request, "projects/project.html", {"project": project})
+    return render(
+        request,
+        "projects/project.html",
+        {
+            "project": project,
+            "api_url": request.build_absolute_uri(project.get_api_url()),
+        },
+    )
 
 
 @login_required
@@ -123,12 +131,14 @@ def suggest(request):
 
 
 @csrf_exempt
-def pofile(request, language_code, domain):
-    project = Project.objects.filter(
-        token=request.headers.get("x-project-token")
-    ).first()
-    if not project:
+def pofile(request, project, language_code, domain):
+    user = User.objects.filter(token=request.headers.get("x-token")).first()
+    if not user:
         return http.HttpResponseForbidden()
+
+    project = Project.objects.for_user(user).filter(slug=project).first()
+    if not project:
+        return http.HttpResponseNotFound()
 
     if request.method == "GET":
         if catalog := project.catalogs.filter(

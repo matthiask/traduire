@@ -44,7 +44,7 @@ def find_pofiles(root):
 def url_from_pofile(project, pofile):
     return urljoin(
         project["url"],
-        f"/api/pofile/{pofile.parts[-3]}/{pofile.parts[-1].removesuffix('.po')}/",
+        f"{pofile.parts[-3]}/{pofile.parts[-1].removesuffix('.po')}/",
     )
 
 
@@ -54,7 +54,7 @@ def main():
 
     project = current_project()
     session = requests.Session()
-    session.headers = {"x-project-token": project["token"]}
+    session.headers = {"x-token": project["token"]}
 
     if sys.argv[1] == "get":
         pofiles = find_pofiles(sys.argv[2])

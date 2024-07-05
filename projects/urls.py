@@ -13,5 +13,9 @@ urlpatterns = [
         name="catalog",
     ),
     path("api/suggest/", views.suggest),
-    path("api/pofile/<str:language_code>/<str:domain>/", views.pofile, name="pofile"),
+    path(
+        "api/pofile/<str:project>/<str:language_code>/<str:domain>/",
+        views.pofile,
+        name="pofile",
+    ),
 ]
