@@ -18,7 +18,7 @@ on [django-rosetta](https://github.com/mbi/django-rosetta/).
 
 - Supports several projects out of the box
 - Multi user support, projects can only be seen by explicitly selected users
-  (and superusers)
+  (and staff members)
 - Integrates [DeepL](https://www.deepl.com/) for translation suggestions
 - Has a CLI interface for uploading and downloading translation files, see
   [traduire-cli](https://pypi.org/project/traduire-cli/).
