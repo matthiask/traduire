@@ -251,6 +251,41 @@ msgstr "Onward!"
             c.pofile,
         )
 
+        c = p.catalogs.create(
+            language_code="es",
+            domain="djangojs",
+            pofile="""\
+#: fmw/dashboard/classes/forms.py
+#, python-format
+msgid "Successfully reset the password of %(count)s student."
+msgid_plural "Successfully reset passwords of %(count)s students."
+msgstr[0] "Réinitialisation du mot de passe de %(count)s élève."
+msgstr[1] "Réinitialisation des mots de passe de %(count)s élèves ."
+""",
+        )
+        r = su_client.post(
+            c.get_absolute_url(),
+            {
+                "msgid_0": "Successfully reset the password of %(count)s student.",
+                "msgstr_0:0": "Blub %(count)s",
+                "msgstr_0:1": "Blab %(count)s",
+            },
+            headers={"accept-language": "en"},
+        )
+
+        c.refresh_from_db()
+        self.assertIn(
+            """\
+#: fmw/dashboard/classes/forms.py
+#, python-format
+msgid "Successfully reset the password of %(count)s student."
+msgid_plural "Successfully reset passwords of %(count)s students."
+msgstr[0] "Blub %(count)s"
+msgstr[1] "Blab %(count)s"
+""",
+            c.pofile,
+        )
+
         # print(c.pofile)
         # print(list(c.po))
         # print(r, r.content.decode("utf-8"))
