@@ -132,6 +132,9 @@ def suggest(request):
 
 @csrf_exempt
 def pofile(request, project, language_code, domain):
+    if not (version := request.headers.get("x-cli-version")) or (version != "0.0.3"):
+        return http.HttpResponseBadRequest(f"Incorrect CLI version {version!r}")
+
     user = User.objects.filter(token=request.headers.get("x-token")).first()
     if not user:
         return http.HttpResponseForbidden()
@@ -147,19 +150,27 @@ def pofile(request, project, language_code, domain):
             return http.HttpResponse(catalog.pofile, content_type="text/plain")
         return http.HttpResponseNotFound()
 
-    if request.method == "PUT":
+    if request.method in {"POST", "PUT"}:
         new = polib.pofile(request.body.decode("utf-8"))
-        old, created = project.catalogs.get_or_create(
+        catalog, created = project.catalogs.get_or_create(
             language_code=language_code,
             domain=domain,
             defaults={"pofile": ""},
         )
-        if created:
-            old.pofile = str(new)
+        if request.method == "PUT" or created:
+            catalog.pofile = str(new)
         else:
-            old.po.merge(new)
-            old.pofile = str(old.po)
-        old.save()
+            catalog.po.merge(new)
+            catalog.pofile = str(catalog.po)
+        catalog.save()
         return http.HttpResponse(status=202)  # Accepted
+
+    if request.method == "DELETE":
+        if catalog := project.catalogs.filter(
+            language_code=language_code, domain=domain
+        ).first():
+            catalog.delete()
+            return http.HttpResponse("", status=204)  # No content
+        return http.HttpResponseNotFound()
 
     return http.HttpResponse(status=405)  # Method Not Allowed
