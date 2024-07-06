@@ -36,7 +36,7 @@ onReady(() => {
       const body = new FormData()
       body.append("language_code", t.dataset.languageCode)
       body.append("msgid", t.dataset.suggest)
-      const r = await fetch("/suggest/", {
+      const r = await fetch("/api/suggest/", {
         method: "POST",
         credentials: "same-origin",
         headers: {
