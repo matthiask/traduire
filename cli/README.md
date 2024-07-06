@@ -19,9 +19,7 @@ The name, token, and URL are taken from your Traduire installation. The path is
 the folder where your local checkout of the project resides. The `trd` client
 uses the configured path to automatically find the correct settings. Right now
 there's no support forspecifying the necessary token and URL parameters
-directly. (Contributions would be very welcome for this! I think the CLI should
-be rewritten to use [Click](https://click.palletsprojects.com/) under the
-hood.)
+directly. (Contributions would be very welcome for this!)
 
 Then, assuming you have your gettext `.po` files inside `project/locale` you
 you should first ensure that they are up-to-date:

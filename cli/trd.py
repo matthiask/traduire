@@ -3,17 +3,82 @@ from importlib.metadata import version
 from pathlib import Path
 from urllib.parse import urljoin
 
+import click
 import requests
 import tomllib
 
 
+def _session(project):
+    session = requests.Session()
+    session.headers = {
+        "x-token": project["token"],
+        "x-cli-version": _version(),
+    }
+    return session
+
+
+@click.group()
+def cli():
+    pass
+
+
+@click.command()
+@click.argument("folder", type=click.Path(exists=True))
+def get(folder):
+    """Fetch all pofiles from the server"""
+    project = current_project()
+    session = _session(project)
+    pofiles = find_pofiles(folder)
+    for pofile in pofiles:
+        url = url_from_pofile(project, pofile)
+        r = session.get(url, timeout=10)
+        if r.ok:
+            pofile.write_text(r.content.decode("utf-8"))
+            click.echo(f"Updated {pofile}")
+        else:
+            _terminate(r.text)
+
+
+@click.command()
+@click.argument("folder", type=click.Path(exists=True))
+def submit(folder):
+    """Submit updated pofiles to the server for translation"""
+    project = current_project()
+    session = _session(project)
+    pofiles = find_pofiles(sys.argv[2])
+    for pofile in pofiles:
+        url = url_from_pofile(project, pofile)
+        r = session.post(url, data=pofile.read_bytes())
+        if r.ok:
+            click.echo(f"Submitted {pofile} to the server for translation")
+        else:
+            _terminate(r.text)
+
+
+@click.command()
+@click.argument("folder", type=click.Path(exists=True))
+def replace(folder):
+    """Replace pofiles on the server"""
+    project = current_project()
+    session = _session(project)
+    pofiles = find_pofiles(sys.argv[2])
+    for pofile in pofiles:
+        url = url_from_pofile(project, pofile)
+        r = session.put(url, data=pofile.read_bytes())
+        if r.ok:
+            click.echo(f"Replaced {pofile} on the server")
+        else:
+            _terminate(r.text)
+
+
+cli.add_command(get)
+cli.add_command(submit)
+cli.add_command(replace)
+
+
 def _terminate(msg):
-    print(msg, file=sys.stderr)
+    click.echo(msg, file=sys.stderr)
     sys.exit(1)
-
-
-def _progress(msg):
-    print(msg)
 
 
 def _version():
@@ -53,50 +118,5 @@ def url_from_pofile(project, pofile):
     )
 
 
-def main():
-    if len(sys.argv) != 3 or sys.argv[1] not in {"get", "submit", "replace"}:
-        _terminate(
-            f"traduire-cli {_version()}\nUsage: {Path(sys.argv[0]).name} [get,submit,replace] path"
-        )
-
-    project = current_project()
-    session = requests.Session()
-    session.headers = {
-        "x-token": project["token"],
-        "x-cli-version": _version(),
-    }
-
-    if sys.argv[1] == "get":
-        pofiles = find_pofiles(sys.argv[2])
-        for pofile in pofiles:
-            url = url_from_pofile(project, pofile)
-            r = session.get(url, timeout=10)
-            if r.ok:
-                pofile.write_text(r.content.decode("utf-8"))
-                _progress(f"Updated {pofile}")
-            else:
-                _terminate(r.text)
-
-    elif sys.argv[1] in "submit":
-        pofiles = find_pofiles(sys.argv[2])
-        for pofile in pofiles:
-            url = url_from_pofile(project, pofile)
-            r = session.post(url, data=pofile.read_bytes())
-            if r.ok:
-                _progress(f"Submitted {pofile} to the server for translation")
-            else:
-                _terminate(r.text)
-
-    elif sys.argv[1] in "replace":
-        pofiles = find_pofiles(sys.argv[2])
-        for pofile in pofiles:
-            url = url_from_pofile(project, pofile)
-            r = session.put(url, data=pofile.read_bytes())
-            if r.ok:
-                _progress(f"Replaced {pofile} on the server")
-            else:
-                _terminate(r.text)
-
-
 if __name__ == "__main__":
-    main()
+    cli()
