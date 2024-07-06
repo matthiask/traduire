@@ -24,4 +24,4 @@ dependencies = [
 ]
 urls."Bug Tracker" = "https://github.com/matthiask/traduire/issues"
 urls."Homepage" = "https://github.com/matthiask/traduire"
-scripts.trd = "trd:main"
+scripts.trd = "trd:cli"
