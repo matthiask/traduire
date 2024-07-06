@@ -68,7 +68,9 @@ class Catalog(models.Model):
         related_name="catalogs",
         verbose_name=_("project"),
     )
-    language_code = ChoicesCharField(_("language"), choices=global_settings.LANGUAGES)
+    language_code = ChoicesCharField(
+        _("language"), max_length=10, choices=global_settings.LANGUAGES
+    )
     domain = models.CharField(_("domain"), max_length=20, default="django")
     pofile = models.TextField("pofile")
 
