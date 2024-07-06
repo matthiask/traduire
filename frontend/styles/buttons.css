@@ -7,16 +7,8 @@
 }
 
 button {
-  padding: 0;
-  overflow: visible;
-  border: 0;
-  font: inherit;
-  -webkit-font-smoothing: inherit;
-  letter-spacing: inherit;
-  color: inherit;
-  background: none;
+  all: unset;
   cursor: pointer;
-  appearance: none;
 }
 
 .button {
