@@ -26,7 +26,7 @@ It is built using [Django](https://www.djangoproject.com/) and relies on
   (and staff members).
 - Integrates [DeepL](https://www.deepl.com/) for translation suggestions
 - Has a CLI interface for uploading and downloading translation files, see
-  [traduire-cli](https://pypi.org/project/traduire-cli/).
+  [traduire-cli](https://github.com/matthiask/traduire/tree/main/cli).
 
 ## Non-goals
 

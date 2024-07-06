@@ -42,8 +42,11 @@ You probably want to compile the catalogs now:
 
     python manage.py compilemessages
 
-Submitting pofiles only uses the `msgid` values (it does the same thing
-`msgmerge` does by default). Also, it doesn't delete obsolete strings. If you
-know what you're doing you can replace the `.po` files on the server:
+Submitting pofiles only uses the `msgid` values except on the first submit.
+Also, it doesn't delete obsolete strings. If you know what you're doing you can
+replace the `.po` files on the server:
 
     trd replace project/locale
+
+The CLI currently doesn't support deleting translation catalogs, that's
+restricted to the administration interface.
