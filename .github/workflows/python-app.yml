@@ -10,16 +10,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    services:
-      postgres:
-        image: postgres:16
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: postgres
-        ports: ["5432:5432"]
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python 3.12
@@ -33,7 +23,7 @@ jobs:
     - name: Test with the Django testsuite
       env:
         ALLOWED_HOSTS: '["*"]'
-        DATABASE_URL: postgres://postgres:postgres@localhost:${{ job.services.postgres.ports[5432] }}/postgres
+        DATABASE_URL: "sqlite://traduire.db"
         DEBUG: 'True'
         NAMESPACE: test
         SECRET_KEY: unsafe
