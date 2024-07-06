@@ -1,5 +1,4 @@
 import sys
-from importlib.metadata import version
 from pathlib import Path
 from urllib.parse import urljoin
 
@@ -8,11 +7,14 @@ import requests
 import tomllib
 
 
+CLI_API = "1"  # Bump this when changing the API in incompatible ways
+
+
 def _session(project):
     session = requests.Session()
     session.headers = {
         "x-token": project["token"],
-        "x-cli-version": _version(),
+        "x-cli-api": CLI_API,
     }
     return session
 
@@ -79,10 +81,6 @@ cli.add_command(replace)
 def _terminate(msg):
     click.echo(msg, file=sys.stderr)
     sys.exit(1)
-
-
-def _version():
-    return version("traduire_cli")
 
 
 def current_project():

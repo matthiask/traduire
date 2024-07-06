@@ -125,44 +125,44 @@ msgstr[1] "Réinitialisation des mots de passe de %(count)s élèves ."
         # API test
         r = su_client.get(
             "/api/pofile/test/fr/djangojs/",
-            headers={"x-cli-version": "anything"},
+            headers={"x-cli-api": "anything"},
         )
         self.assertEqual(r.status_code, 400)
 
         r = su_client.get(
             "/api/pofile/test/fr/djangojs/",
-            headers={"x-cli-version": settings.CLI_VERSION},
+            headers={"x-cli-api": settings.CLI_API},
         )
         self.assertEqual(r.status_code, 403)
 
         r = su_client.get(
             "/api/pofile/not-exists/fr/djangojs/",
-            headers={"x-token": superuser.token, "x-cli-version": settings.CLI_VERSION},
+            headers={"x-token": superuser.token, "x-cli-api": settings.CLI_API},
         )
         self.assertEqual(r.status_code, 404)
 
         r = su_client.get(
             "/api/pofile/test/fr/djangojs/",
-            headers={"x-token": superuser.token, "x-cli-version": settings.CLI_VERSION},
+            headers={"x-token": superuser.token, "x-cli-api": settings.CLI_API},
         )
         self.assertEqual(r.status_code, 200)
         self.assertEqual(r.content.decode("utf-8"), c.pofile)
 
         r = su_client.patch(
             "/api/pofile/test/fr/djangojs/",
-            headers={"x-token": superuser.token, "x-cli-version": settings.CLI_VERSION},
+            headers={"x-token": superuser.token, "x-cli-api": settings.CLI_API},
         )
         self.assertEqual(r.status_code, 405)
 
         r = su_client.get(
             "/api/pofile/test/de/djangojs/",
-            headers={"x-token": superuser.token, "x-cli-version": settings.CLI_VERSION},
+            headers={"x-token": superuser.token, "x-cli-api": settings.CLI_API},
         )
         self.assertEqual(r.status_code, 404)
 
         r = su_client.post(
             "/api/pofile/test/fr/djangojs/",
-            headers={"x-token": superuser.token, "x-cli-version": settings.CLI_VERSION},
+            headers={"x-token": superuser.token, "x-cli-api": settings.CLI_API},
             data=b"""\
 #: conf/strings.js frontend/intro/intro.js frontend/people/person.js
 msgid "Continue"
@@ -199,7 +199,7 @@ msgstr ""
         # Different language!
         r = su_client.put(
             "/api/pofile/test/de/djangojs/",
-            headers={"x-token": superuser.token, "x-cli-version": settings.CLI_VERSION},
+            headers={"x-token": superuser.token, "x-cli-api": settings.CLI_API},
             data=b"""\
 #: conf/strings.js frontend/intro/intro.js frontend/people/person.js
 msgid "Continue"
@@ -236,13 +236,13 @@ msgstr "Blab"
         # Delete catalogs through the API. Not currently exposed in the CLI.
         r = su_client.delete(
             "/api/pofile/test/fr/djangojs/",
-            headers={"x-token": superuser.token, "x-cli-version": settings.CLI_VERSION},
+            headers={"x-token": superuser.token, "x-cli-api": settings.CLI_API},
         )
         self.assertEqual(r.status_code, 204)
 
         r = su_client.delete(
             "/api/pofile/test/fr/djangojs/",
-            headers={"x-token": superuser.token, "x-cli-version": settings.CLI_VERSION},
+            headers={"x-token": superuser.token, "x-cli-api": settings.CLI_API},
         )
         self.assertEqual(r.status_code, 404)
 
