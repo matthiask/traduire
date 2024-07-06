@@ -6,7 +6,7 @@ requires = [
 
 [project]
 name = "traduire-cli"
-version = "0.0.3"
+version = "0.0.4"
 description = "Traduire CLI"
 readme = "README.md"
 authors = [
