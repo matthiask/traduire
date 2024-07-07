@@ -68,7 +68,9 @@ I'm deploying a container image built using [podman](https://podman.io/) in a
 Kubernetes cluster. The `Containerfile` doesn't use a multi-stage build because
 it was annoying to set up. Instead, the frontend code is bundled outside the
 container, and only the Python image is used. (Contributions to improve this
-are welcome as long as they don't slow the development side of things.)
+are welcome as long as they don't slow the development side of things.) You
+don't have to deploy it in such an environment however, any Django hosting is
+fine.
 
 Traduire needs a few environment variables to be set. The following list should
 get you started. All variables are parsed by
@@ -76,9 +78,11 @@ get you started. All variables are parsed by
 unsure about the `*_URL` variables.
 
     ADMINS="[('Developers', 'dev@example.com')]"
-    ALLOWED_HOSTS="['.feinheit.dev']"
+    ALLOWED_HOSTS="['.example.com']"
     DEBUG="False"
     SECRET_KEY="insert-something-secure-here!"
+    # I like PostgreSQL, everything should also work fine with other database
+    # engines, we're not doing anything exotic.
     DATABASE_URL="postgres://dbuser:dbpass@dbhost/dbname"
 
     # Using SSL is always a good idea:
@@ -99,3 +103,5 @@ unsure about the `*_URL` variables.
     # Sentry is always a good idea:
     SENTRY_DSN="..."
     SENTRY_ENVIRONMENT="production"
+
+Environment variables are automatically read from the `.env` file if it exists.
