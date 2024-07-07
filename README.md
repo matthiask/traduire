@@ -43,3 +43,59 @@ It is built using [Django](https://www.djangoproject.com/) and relies on
   Kubernetes cluster though, so it's not really my itch to scratch.
 
 More issues on [GitHub](https://github.com/matthiask/traduire/issues).
+
+## Development
+
+Right now, the fabfile uses [fh-fablib](https://github.com/feinheit/fh-fablib);
+if you have fh-fablib installed (preferrably using pipx) you can run:
+
+    fl local
+    python manage.py makemigrations
+    python manage.py migrate
+    python manage.py createsuperuser
+    fl dev
+
+And then access the development server at `http://127.0.0.1:8000/`. The
+prerequisites are Python 3.12 or better, yarn, and a local PostgreSQL database
+where you can connect without any authentication whatsoever.
+
+The code is formatted using [pre-commit](https://pre-commit.com/) and I welcome
+all sorts of contributions. Please open an issue first if you have big ideas.
+
+## Deployment
+
+I'm deploying a container image built using [podman](https://podman.io/) in a
+Kubernetes cluster. The `Containerfile` doesn't use a multi-stage build because
+it was annoying to set up. Instead, the frontend code is bundled outside the
+container, and only the Python image is used. (Contributions to improve this
+are welcome as long as they don't slow the development side of things.)
+
+Traduire needs a few environment variables to be set. The following list should
+get you started. All variables are parsed by
+[speckenv](https://github.com/matthiask/speckenv/), check it out if you're
+unsure about the `*_URL` variables.
+
+    ADMINS="[('Developers', 'dev@example.com')]"
+    ALLOWED_HOSTS="['.feinheit.dev']"
+    DEBUG="False"
+    SECRET_KEY="insert-something-secure-here!"
+    DATABASE_URL="postgres://dbuser:dbpass@dbhost/dbname"
+
+    # Using SSL is always a good idea:
+    SECURE_SSL_HOST="traduire.example.com"
+    SECURE_SSL_REDIRECT="True"
+
+    # You probably want to specify your email settings here:
+    EMAIL_URL="smtp://docker-postfix-mail:587?_default_from_email=no-reply@example.com"
+
+    # Optional:
+    DEEPL_AUTH_KEY="..."
+
+    # If you want SSO sign ins into the admin panel and elsewhere:
+    GOOGLE_CLIENT_ID="..."
+    GOOGLE_CLIENT_SECRET="..."
+    SSO_DOMAINS="^.*@example\\.com$"
+
+    # Sentry is always a good idea:
+    SENTRY_DSN="..."
+    SENTRY_ENVIRONMENT="production"
