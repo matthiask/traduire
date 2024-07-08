@@ -99,7 +99,16 @@ def register(request, *, code=None):
         email, _payload = decode(code, max_age=3600)
     except ValidationError as exc:
         [messages.error(request, msg) for msg in exc.messages]
-        return redirect("../")
+        return redirect("login")
+
+    if User.objects.filter(email=email).exists():
+        messages.error(
+            request,
+            _("An account with the email address {email} exists already.").format(
+                email=email
+            ),
+        )
+        return redirect("login")
 
     args = [request.POST] if request.method == "POST" else []
     user = User(email=email)
