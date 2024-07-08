@@ -1,8 +1,11 @@
 from authlib.base_user import BaseUser
 from authlib.roles import RoleField
+from django.contrib.auth import signals
 from django.db import models
 from django.utils.crypto import get_random_string
 from django.utils.translation import gettext_lazy as _
+
+from projects.models import Project
 
 
 class User(BaseUser):
@@ -31,3 +34,13 @@ class User(BaseUser):
         self.save()
 
     cycle_token.alters_data = True
+
+
+def add_user_to_projects(sender, user, **kwargs):
+    domain = user.email.rsplit("@")[-1]
+    for project in Project.objects.filter(_email_domains__icontains=domain):
+        if domain in project.email_domains:
+            project.users.add(user)
+
+
+signals.user_logged_in.connect(add_user_to_projects)

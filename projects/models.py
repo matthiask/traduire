@@ -2,6 +2,7 @@ from functools import cached_property
 
 import polib
 from django.conf import global_settings, settings
+from django.core import validators
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -41,6 +42,13 @@ class Project(models.Model):
         blank=True,  # Only internal is fine.
         limit_choices_to={"is_staff": False},
     )
+    _email_domains = models.TextField(
+        _("email domains"),
+        blank=True,
+        help_text=_(
+            "User accounts on these domains will automatically get access to this project. One domain per line."
+        ),
+    )
 
     objects = ProjectQuerySet.as_manager()
 
@@ -54,6 +62,17 @@ class Project(models.Model):
 
     def get_absolute_url(self):
         return reverse("projects:project", kwargs={"slug": self.slug})
+
+    @property
+    def email_domains(self):
+        return [v.strip() for v in self._email_domains.strip().splitlines()]
+
+    def clean(self):
+        validator = validators.DomainNameValidator(
+            message=_("Some of the lines are not valid domain names.")
+        )
+        for domain in self.email_domains:
+            validator(domain)
 
     def get_api_url(self):
         return f"/api/pofile/{self.slug}/"
