@@ -14,7 +14,12 @@
 {% if projects %}
 <ul>
   {% for project in projects %}
-  <li><a href="{{ project.get_absolute_url }}">{{ project.name }}</a></li>
+  <li>
+    <a href="{{ project.get_absolute_url }}">{{ project.name }}</a>
+    <small>
+      {% blocktranslate with timesince=project.pretty_timesince trimmed %}Updated {{ timesince }} ago.{% endblocktranslate %}
+    </small>
+  </li>
   {% endfor %}
 </ul>
 {% else %}

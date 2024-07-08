@@ -13,7 +13,12 @@
 <h2>{% translate 'catalogs'|capfirst %}</h2>
 <ul>
   {% for catalog in project.catalogs.all %}
-  <li><a href="{{ catalog.get_absolute_url }}">{{ catalog }}</a></li>
+  <li>
+    <a href="{{ catalog.get_absolute_url }}">{{ catalog }}</a>
+    <small>
+      {% blocktranslate with timesince=project.pretty_timesince trimmed %}Updated {{ timesince }} ago.{% endblocktranslate %}
+    </small>
+  </li>
   {% endfor %}
 </ul>
 

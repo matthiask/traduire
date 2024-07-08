@@ -5,6 +5,7 @@ from django.conf import global_settings, settings
 from django.core import validators
 from django.db import models
 from django.urls import reverse
+from django.utils.timesince import timesince
 from django.utils.translation import gettext_lazy as _
 
 
@@ -77,6 +78,10 @@ class Project(models.Model):
     def get_api_url(self):
         return f"/api/pofile/{self.slug}/"
 
+    @property
+    def pretty_timesince(self):
+        return timesince(self.updated_at, depth=1)
+
 
 class CatalogQuerySet(models.QuerySet):
     def for_user(self, user):
@@ -129,3 +134,7 @@ class Catalog(models.Model):
     @cached_property
     def po(self):
         return polib.pofile(self.pofile, wrapwidth=0)
+
+    @property
+    def pretty_timesince(self):
+        return timesince(self.updated_at, depth=1)
