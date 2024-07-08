@@ -1,16 +1,27 @@
 import re
 
+from authlib.email import decode
 from authlib.google import GoogleOAuth2Client
-from authlib.views import retrieve_next, set_next_cookie
+from authlib.views import EmailRegistrationForm, retrieve_next, set_next_cookie
 from django.conf import settings
 from django.contrib import auth, messages
+from django.core.exceptions import ValidationError
 from django.http import HttpResponseRedirect
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from django.views.decorators.cache import never_cache
 
+from accounts.forms import UserForm
 from accounts.models import User
+
+
+def logout(request):
+    auth.logout(request)
+    messages.success(request, _("You have been signed out."))
+    response = redirect("login")
+    response.delete_cookie("login_hint")
+    return response
 
 
 @never_cache
@@ -74,9 +85,30 @@ def google_sso(request):
     return response
 
 
-def logout(request):
-    auth.logout(request)
-    messages.success(request, _("You have been signed out."))
-    response = redirect("login")
-    response.delete_cookie("login_hint")
-    return response
+def register(request, *, code=None):
+    if code is None:
+        args = [request.POST] if request.method == "POST" else []
+        form = EmailRegistrationForm(*args, request=request)
+        if form.is_valid():
+            form.send_mail()
+            messages.success(request, _("Please check your mailbox."))
+            return redirect(".")
+        return render(request, "registration/register.html", {"form": form})
+
+    try:
+        email, _payload = decode(code, max_age=3600)
+    except ValidationError as exc:
+        [messages.error(request, msg) for msg in exc.messages]
+        return redirect("../")
+
+    args = [request.POST] if request.method == "POST" else []
+    user = User(email=email)
+    form = UserForm(*args, instance=user)
+    if form.is_valid():
+        form.save()
+
+        auth.login(request, auth.authenticate(request, email=email))
+        messages.info(request, _("Welcome, {}!").format(user.get_full_name()))
+        return HttpResponseRedirect("/")
+
+    return render(request, "registration/register.html", {"form": form})

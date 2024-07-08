@@ -1,0 +1,7 @@
+Traduire
+
+Visit the following link to complete your registration:
+
+{{ url }}
+
+The link is only valid for a short amount of time. After that you have to request a new link.

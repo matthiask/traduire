@@ -6,5 +6,7 @@ from accounts import views
 urlpatterns = [
     path("logout/", views.logout, name="logout"),
     path("google-sso/", views.google_sso, name="google-sso"),
+    path("register/", views.register, name="register"),
+    path("register/<str:code>/", views.register, name="email_registration_confirm"),
     path("", include("django.contrib.auth.urls")),
 ]

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-07-04 15:06+0200\n"
-"PO-Revision-Date: 2024-07-08 12:26+0200\n"
+"PO-Revision-Date: 2024-07-08 17:23+0200\n"
 "Last-Translator: Anonymous User <mk@feinheit.ch>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -119,7 +119,7 @@ msgstr "Passwort ändern"
 msgid "Reset password"
 msgstr "Passwort zurücksetzen"
 
-#: app/templates/registration/login.html
+#: app/templates/registration/login.html app/templates/registration/register.html
 msgid "Login"
 msgstr "Anmelden"
 
@@ -294,6 +294,35 @@ msgstr "erstellt am"
 #: projects/models.py
 msgid "updated at"
 msgstr "aktualisiert am"
+
+#: accounts/views.py
+msgid "Please check your mailbox."
+msgstr "Bitte prüfen Sie Ihren Mailbox."
+
+#: app/templates/registration/login.html app/templates/registration/register.html
+msgid "Register"
+msgstr "Registrieren"
+
+#: projects/models.py
+msgid "email domains"
+msgstr "E-Mail-Domains"
+
+#: projects/models.py
+msgid "User accounts on these domains will automatically get access to this project. One domain per line."
+msgstr "Benutzerkonten auf diesen Domänen erhalten automatisch Zugang zu diesem Projekt. Eine Domäne pro Zeile."
+
+#: projects/models.py
+msgid "Some of the lines are not valid domain names."
+msgstr "Einige der Zeilen sind keine gültigen Domänennamen."
+
+#: accounts/forms.py
+#| msgid "Reset password"
+msgid "New password"
+msgstr "Neues Passwort"
+
+#: accounts/forms.py
+msgid "New password confirmation"
+msgstr "Neues Passwort bestätigen"
 
 #~ msgid "Single sign on"
 #~ msgstr "Anmeldung per SSO"

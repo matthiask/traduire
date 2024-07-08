@@ -14,6 +14,10 @@ textarea {
   color: var(--fg);
   width: 100%;
 
+  &[disabled] {
+    opacity: 0.5;
+  }
+
   label + & {
     margin-top: 0.5rem;
   }
