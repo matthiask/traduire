@@ -74,9 +74,7 @@ def catalog(request, project, language_code, domain):
     form = EntriesForm(*data, entries=entries, language_code=language_code)
 
     if form.is_valid():
-        form.update(catalog.po, request=request)
-        catalog.pofile = str(catalog.po)
-        catalog.save()
+        form.update(catalog, request=request)
 
         return http.HttpResponseRedirect(
             query_string(

@@ -83,7 +83,7 @@ class EntriesForm(forms.Form):
                 )
                 self.entry_rows[-1]["msgstr"].append(self[name])
 
-    def update(self, po, *, request):
+    def update(self, catalog, *, request):
         updates = 0
 
         for index in range(ENTRIES_PER_PAGE):
@@ -97,7 +97,7 @@ class EntriesForm(forms.Form):
             # Better be safe than sorry -- do not modify the entries in
             # self.entries, find the entry in the current version of the pofile
             # instead.
-            for entry in po:
+            for entry in catalog.po:
                 if entry.msgid_with_context == msgid_with_context:
                     old = copy.deepcopy(entry)
                     entry.msgstr = translators.fix_nls(entry.msgid, msgstr)
@@ -109,21 +109,24 @@ class EntriesForm(forms.Form):
                             )
                     if fuzzy and not entry.fuzzy:
                         entry.fuzzy = True
-                    if not fuzzy and entry.fuzzy:
+                        updates += 1
+                    elif not fuzzy and entry.fuzzy:
                         entry.fuzzy = False
-
-                    if old != entry:
+                        updates += 1
+                    elif old != entry:
                         updates += 1
                     break
 
         if updates:
-            po.metadata["Last-Translator"] = "{} {} <{}>".format(
+            catalog.po.metadata["Last-Translator"] = "{} {} <{}>".format(
                 getattr(request.user, "first_name", "Anonymous"),
                 getattr(request.user, "last_name", "User"),
                 getattr(request.user, "email", "anonymous@user.tld"),
             )
-            po.metadata["X-Translated-Using"] = "traduire 0.0.1"
-            po.metadata["PO-Revision-Date"] = localtime().strftime("%Y-%m-%d %H:%M%z")
+            catalog.po.metadata["X-Translated-Using"] = "traduire 0.0.1"
+            catalog.po.metadata["PO-Revision-Date"] = localtime().strftime(
+                "%Y-%m-%d %H:%M%z"
+            )
 
             messages.success(
                 request,
@@ -133,6 +136,10 @@ class EntriesForm(forms.Form):
                     updates,
                 ).format(count=updates),
             )
+
+            catalog.pofile = str(catalog.po)
+            catalog.save()
+
         else:
             messages.info(request, _("No changes detected."))
 
