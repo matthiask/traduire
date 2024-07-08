@@ -108,5 +108,4 @@ omit = [
 ]
 
 [tool.coverage.report]
-skip_covered = true
 show_missing = true
