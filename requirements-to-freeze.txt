@@ -1,4 +1,5 @@
 blacknoise
+coverage
 django-authlib
 django-canonical-domain
 django-debug-toolbar
@@ -9,3 +10,4 @@ polib
 psycopg[binary]
 sentry-sdk
 speckenv
+time-machine

@@ -1,7 +1,8 @@
+import datetime as dt
 import re
-import time
 from urllib.parse import unquote
 
+import time_machine
 from authlib.email import (
     decode,
     get_confirmation_code,
@@ -13,6 +14,7 @@ from django.test import Client, TestCase
 from django.test.client import RequestFactory
 
 from accounts.models import User
+from projects.models import Project
 
 
 def _messages(response):
@@ -21,7 +23,11 @@ def _messages(response):
 
 class RegistrationTest(TestCase):
     def test_registration(self):
+        p1 = Project.objects.create(slug="p1", _email_domains="example.com")
+        p2 = Project.objects.create(slug="p2", _email_domains="example.org")
+
         client = Client()
+
         response = client.get("/accounts/register/")
 
         response = client.post(
@@ -43,6 +49,9 @@ class RegistrationTest(TestCase):
             "http://testserver/accounts/register/dGVzdEBleGFtcGxlLmNvbTo:" in url
         )
 
+        response = client.get(url)
+        self.assertContains(response, "new_password1")
+
         response = client.post(
             url,
             {
@@ -52,9 +61,18 @@ class RegistrationTest(TestCase):
             },
             headers={"accept-language": "en"},
         )
-
         self.assertRedirects(response, "/", fetch_redirect_response=False)
         # print(response, response.content.decode("utf-8"))
+
+        response = client.get("/")
+        # print(response)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(_messages(response), ["Welcome, Max Muster!"])
+
+        user = User.objects.get()
+        self.assertEqual(user.full_name, "Max Muster")
+        self.assertSequenceEqual(set(p1.users.all()), {user})
+        self.assertSequenceEqual(set(p2.users.all()), set())
 
         response = client.post("/accounts/register/", {"email": "test2@example.com"})
         self.assertContains(response, "does not match the email of the account you")
@@ -95,8 +113,10 @@ class RegistrationTest(TestCase):
 
         self.assertEqual(decode(code, max_age=5), ["test@example.com", ""])
 
-        with self.assertRaises(ValidationError) as cm:
-            time.sleep(2)
+        with (
+            time_machine.travel(dt.timedelta(hours=24)),
+            self.assertRaises(ValidationError) as cm,
+        ):
             decode(code, max_age=1)
 
         self.assertEqual(
