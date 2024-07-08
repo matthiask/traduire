@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-08 12:05+0200\n"
-"PO-Revision-Date: 2024-07-08 12:05+0200\n"
+"POT-Creation-Date: 2024-07-04 15:06+0200\n"
+"PO-Revision-Date: 2024-07-08 12:26+0200\n"
 "Last-Translator: Anonymous User <mk@feinheit.ch>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -18,40 +18,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Translated-Using: traduire 0.0.1\n"
 
-#: accounts/apps.py
-msgid "Authentication"
-msgstr "Authentifizierung"
-
-#: accounts/models.py
-msgid "full name"
-msgstr "Name"
-
-#: accounts/models.py
-msgid "token"
-msgstr "Token"
-
-#: accounts/views.py
-msgid "Error while fetching user data. Please try again."
-msgstr "Fehler beim Abrufen von Benutzerdaten. Bitte versuchen Sie es erneut."
-
-#: accounts/views.py
-#, python-format
-msgid "The user with email address %s is inactive."
-msgstr "Der Benutzer mit der E-Mail Adresse %s ist inaktiv."
-
-#: accounts/views.py
-msgid "Welcome, {}!"
-msgstr "Willkommen, {}!"
-
-#: accounts/views.py
-#, python-brace-format
-msgid "No user with email address {email} found and email address isn't automatically allowed."
-msgstr "Kein Benutzer mit E-Mail-Adresse {email} gefunden und E-Mail-Adresse ist nicht automatisch erlaubt."
-
-#: accounts/views.py
-msgid "You have been signed out."
-msgstr "Sie wurden abgemeldet."
-
 #: app/settings.py
 msgid "English"
 msgstr "Englisch"
@@ -59,14 +25,6 @@ msgstr "Englisch"
 #: app/settings.py
 msgid "German"
 msgstr "Deutsch"
-
-#: app/settings.py
-msgid "default"
-msgstr "standard"
-
-#: app/settings.py
-msgid "projects manager"
-msgstr "Projektmanager:in"
 
 #: app/templates/404.html
 msgid "This page was not found"
@@ -146,10 +104,6 @@ msgid "Your projects"
 msgstr "Deine Projekte"
 
 #: app/templates/projects/projects.html
-msgid "You do not have access to any projects. Sorry."
-msgstr "Sie haben keinen Zugang zu den Projekten. Entschuldigung."
-
-#: app/templates/projects/projects.html
 msgid "Account"
 msgstr "Konto"
 
@@ -157,27 +111,17 @@ msgstr "Konto"
 msgid "Log out"
 msgstr "Abmelden"
 
-#: app/templates/projects/projects.html
-#: app/templates/registration/password_change_done.html
-#: app/templates/registration/password_change_form.html
+#: app/templates/projects/projects.html app/templates/registration/password_change_done.html app/templates/registration/password_change_form.html
 msgid "Change password"
 msgstr "Passwort ändern"
 
-#: app/templates/registration/login.html
-msgid "Login"
-msgstr "Anmelden"
-
-#: app/templates/registration/login.html
-#: app/templates/registration/password_reset_complete.html
-#: app/templates/registration/password_reset_confirm.html
-#: app/templates/registration/password_reset_done.html
-#: app/templates/registration/password_reset_form.html
+#: app/templates/registration/login.html app/templates/registration/password_reset_complete.html app/templates/registration/password_reset_confirm.html app/templates/registration/password_reset_done.html app/templates/registration/password_reset_form.html
 msgid "Reset password"
 msgstr "Passwort zurücksetzen"
 
 #: app/templates/registration/login.html
-msgid "Login with Google"
-msgstr "Anmeldung mit Google"
+msgid "Login"
+msgstr "Anmelden"
 
 #: app/templates/registration/password_change_done.html
 msgid "Your password was changed."
@@ -187,9 +131,7 @@ msgstr "Ihr Passwort wurde geändert."
 msgid "Please enter your old password, for security’s sake, and then enter your new password twice so we can verify you typed it in correctly."
 msgstr "Bitte geben Sie zur Sicherheit Ihr altes Passwort ein und geben Sie dann Ihr neues Passwort zweimal ein, damit wir überprüfen können, ob Sie es richtig eingegeben haben."
 
-#: app/templates/registration/password_change_form.html
-#: app/templates/registration/password_reset_confirm.html
-#: app/templates/registration/password_reset_form.html
+#: app/templates/registration/password_change_form.html app/templates/registration/password_reset_confirm.html app/templates/registration/password_reset_form.html
 msgid "Submit"
 msgstr "Abschicken"
 
@@ -239,6 +181,34 @@ msgstr "Das Team von %(site_name)s"
 msgid "explicit users"
 msgstr "Explizite Accounts"
 
+#: projects/models.py
+msgid "name"
+msgstr "Name"
+
+#: projects/models.py
+msgid "slug"
+msgstr "Slug"
+
+#: projects/models.py
+msgid "users"
+msgstr "Nutzer:innen"
+
+#: projects/models.py
+msgid "project"
+msgstr "Projekt"
+
+#: projects/models.py
+msgid "language"
+msgstr "Sprache"
+
+#: projects/models.py
+msgid "domain"
+msgstr "Domäne"
+
+#: projects/models.py
+msgid "catalog"
+msgstr "Katalog"
+
 #: projects/forms.py
 msgid "Pending"
 msgstr "Nicht erledigt"
@@ -267,33 +237,63 @@ msgstr[1] "Erfolgreich {count} Eintrag aktualisiert."
 msgid "No changes detected."
 msgstr "Keine Änderungen festgestellt."
 
-#: projects/models.py
-msgid "name"
+#: app/settings.py
+msgid "default"
+msgstr "standard"
+
+#: app/settings.py
+msgid "projects manager"
+msgstr "Projektmanager:in"
+
+#: accounts/models.py
+msgid "token"
+msgstr "Token"
+
+#: accounts/models.py
+msgid "full name"
 msgstr "Name"
 
-#: projects/models.py
-msgid "slug"
-msgstr "Slug"
+#: accounts/apps.py
+msgid "Authentication"
+msgstr "Authentifizierung"
+
+#: accounts/views.py
+msgid "Error while fetching user data. Please try again."
+msgstr "Fehler beim Abrufen von Benutzerdaten. Bitte versuchen Sie es erneut."
+
+#: accounts/views.py
+#, python-format
+msgid "The user with email address %s is inactive."
+msgstr "Der Benutzer mit der E-Mail Adresse %s ist inaktiv."
+
+#: accounts/views.py
+msgid "Welcome, {}!"
+msgstr "Willkommen, {}!"
+
+#: accounts/views.py
+#, python-brace-format
+msgid "No user with email address {email} found and email address isn't automatically allowed."
+msgstr "Kein Benutzer mit E-Mail-Adresse {email} gefunden und E-Mail-Adresse ist nicht automatisch erlaubt."
+
+#: accounts/views.py
+msgid "You have been signed out."
+msgstr "Sie wurden abgemeldet."
+
+#: app/templates/projects/projects.html
+msgid "You do not have access to any projects. Sorry."
+msgstr "Sie haben keinen Zugang zu den Projekten. Entschuldigung."
+
+#: app/templates/registration/login.html
+msgid "Login with Google"
+msgstr "Anmeldung mit Google"
 
 #: projects/models.py
-msgid "users"
-msgstr "Nutzer:innen"
+msgid "created at"
+msgstr "erstellt am"
 
 #: projects/models.py
-msgid "project"
-msgstr "Projekt"
-
-#: projects/models.py
-msgid "language"
-msgstr "Sprache"
-
-#: projects/models.py
-msgid "domain"
-msgstr "Domäne"
-
-#: projects/models.py
-msgid "catalog"
-msgstr "Katalog"
+msgid "updated at"
+msgstr "aktualisiert am"
 
 #~ msgid "Single sign on"
 #~ msgstr "Anmeldung per SSO"
