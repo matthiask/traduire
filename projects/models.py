@@ -29,6 +29,9 @@ class ProjectQuerySet(models.QuerySet):
 
 
 class Project(models.Model):
+    created_at = models.DateTimeField(_("created at"), auto_now_add=True)
+    updated_at = models.DateTimeField(_("updated at"), auto_now=True)
+
     name = models.CharField(_("name"), max_length=100)
     slug = models.SlugField(_("slug"), unique=True)
     users = models.ManyToManyField(
@@ -62,6 +65,9 @@ class CatalogQuerySet(models.QuerySet):
 
 
 class Catalog(models.Model):
+    created_at = models.DateTimeField(_("created at"), auto_now_add=True)
+    updated_at = models.DateTimeField(_("updated at"), auto_now=True)
+
     project = models.ForeignKey(
         Project,
         on_delete=models.CASCADE,
