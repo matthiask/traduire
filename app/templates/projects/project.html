@@ -22,6 +22,11 @@
   {% endfor %}
 </ul>
 
+<h2>{% translate 'users'|capfirst %}</h2>
+<p>
+{% for user in project.all_users %}<a href="mailto:{{ user.email }}">{{ user.get_full_name }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}
+</p>
+
 <h2>{% translate 'CLI configuration' %}</h2>
 <details>
   <summary><code>~/.config/traduire.toml</code></summary>

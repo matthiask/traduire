@@ -4,9 +4,12 @@ import polib
 from django.conf import global_settings, settings
 from django.core import validators
 from django.db import models
+from django.db.models import Q
 from django.urls import reverse
 from django.utils.timesince import timesince
 from django.utils.translation import gettext_lazy as _
+
+from accounts.models import User
 
 
 class ChoicesCharField(models.CharField):
@@ -81,6 +84,12 @@ class Project(models.Model):
     @property
     def pretty_timesince(self):
         return timesince(self.updated_at, depth=1)
+
+    @cached_property
+    def all_users(self):
+        return User.objects.filter(
+            Q(is_active=True) & (Q(is_staff=True) | Q(projects=self))
+        )
 
 
 class CatalogQuerySet(models.QuerySet):
