@@ -17,10 +17,12 @@ class User(BaseUser):
         ordering = ["full_name", "email"]
 
     def __str__(self):
+        return f"{self.full_name} <{self.email}>"
+
+    def get_short_name(self):
         return self.full_name or self.email
 
-    get_full_name = __str__
-    get_short_name = __str__
+    get_full_name = get_short_name
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

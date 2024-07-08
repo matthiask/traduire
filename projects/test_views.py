@@ -370,7 +370,9 @@ msgstr[1] "Blab %(count)s"
             r = su_client.get("/admin/projects/project/")
 
         self.assertContains(r, '<td class="field-explicit_users">-</td>')
-        self.assertContains(r, '<td class="field-explicit_users">user@example.com</td>')
+        self.assertContains(
+            r, '<td class="field-explicit_users"> &lt;user@example.com&gt;</td>'
+        )
 
     def test_suggest(self):
         c = Client()

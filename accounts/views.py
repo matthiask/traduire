@@ -57,7 +57,7 @@ def google_sso(request):
         user.save()
 
         auth.login(request, auth.authenticate(request, email=email))
-        messages.info(request, _("Welcome, {}!").format(user))
+        messages.info(request, _("Welcome, {}!").format(user.get_full_name()))
 
         response = redirect(retrieve_next(request) or "/")
         response.set_cookie("login_hint", user.email, expires=180 * 86400)
