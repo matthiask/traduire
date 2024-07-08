@@ -38,7 +38,9 @@ class User(BaseUser):
 
 def add_user_to_projects(sender, user, **kwargs):
     domain = user.email.rsplit("@")[-1]
-    for project in Project.objects.filter(_email_domains__icontains=domain):
+    for project in Project.objects.filter(_email_domains__icontains=domain).exclude(
+        users=user
+    ):
         if domain in project.email_domains:
             project.users.add(user)
 
