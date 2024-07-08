@@ -122,7 +122,6 @@ INSTALLED_APPS = [
         "django.contrib.messages",
         "django.contrib.staticfiles",
         "django.forms",
-        "authlib.admin_oauth",
         "django.contrib.admin",
         "app",
         "accounts",
@@ -187,8 +186,6 @@ else:
     os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
 SSO_DOMAINS = env("SSO_DOMAINS", default=r"^.*@feinheit\.ch$")
-ADMIN_OAUTH_PATTERNS = [(SSO_DOMAINS, lambda match: match[0])]
-ADMIN_OAUTH_CREATE_USER_CALLBACK = "app.sso.create_user_callback"
 AUTHLIB_ROLES = {
     "default": {"title": _("default")},
     "manager": {

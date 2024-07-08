@@ -17,7 +17,6 @@ def file_response(path):
 
 
 urlpatterns = [
-    path("", include("authlib.admin_oauth.urls")),
     path("admin/", admin.site.urls),
     path("404/", render, {"template_name": "404.html"}),
     path("favicon.ico", file_response(settings.BASE_DIR / "htdocs" / "favicon.ico")),

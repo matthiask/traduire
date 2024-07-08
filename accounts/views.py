@@ -50,7 +50,9 @@ def google_sso(request):
         return response
 
     if re.search(settings.SSO_DOMAINS, email):
-        user = User(email=email, full_name=user_data.get("full_name", ""))
+        user = User(
+            email=email, full_name=user_data.get("full_name", ""), role="manager"
+        )
         user.set_unusable_password()
         user.save()
 
