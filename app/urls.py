@@ -18,11 +18,11 @@ def file_response(path):
 
 urlpatterns = [
     path("", include("authlib.admin_oauth.urls")),
-    path("accounts/", include("django.contrib.auth.urls")),
     path("admin/", admin.site.urls),
     path("404/", render, {"template_name": "404.html"}),
     path("favicon.ico", file_response(settings.BASE_DIR / "htdocs" / "favicon.ico")),
     path("favicon.png", file_response(settings.BASE_DIR / "htdocs" / "favicon.png")),
+    path("accounts/", include("accounts.urls")),
     path("", include("projects.urls")),
 ]
 

@@ -8,6 +8,8 @@
       {% block content %}
         <form method="post" class="form form--login flow">
           <h1 class="login__title">Traduire</h1>
+          {% include 'includes/messages.html' %}
+
           {% csrf_token %}
           {{ form|adapt_rendering }}
 
@@ -15,7 +17,8 @@
             <button class="button" type="submit">{% translate "Login" %}</button>
 
             <a href="{% url 'password_reset' %}">{% translate "Reset password" %}</a>
-            <a href="{% url 'admin_oauth' %}?next={{ request.GET.next|default:"/" }}">{% translate 'Single sign on' %}</a>
+            <a href="{% url 'google-sso' %}?next={{ request.GET.next|default:"/" }}{% if request.GET.error %}&amp;select=1{% endif %}">{% translate 'Login with Google' %}</a>
+
           </div>
         </form>
       {% endblock content %}

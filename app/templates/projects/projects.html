@@ -11,11 +11,15 @@
 {% include 'includes/messages.html' %}
 
 <h2>{% translate 'Your projects' %}</h2>
+{% if projects %}
 <ul>
   {% for project in projects %}
   <li><a href="{{ project.get_absolute_url }}">{{ project.name }}</a></li>
   {% endfor %}
 </ul>
+{% else %}
+<p>{% translate 'You do not have access to any projects. Sorry.' %}</p>
+{% endif %}
 
 <h2>{% translate 'Account' %}</h2>
 <form class="buttons">
