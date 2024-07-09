@@ -7,7 +7,13 @@ from projects import models
 @admin.register(models.Project)
 class ProjectAdmin(admin.ModelAdmin):
     filter_horizontal = ["users"]
-    list_display = ["name", "explicit_users"]
+    list_display = [
+        "name",
+        "explicit_users",
+        "email_domains",
+        "created_at",
+        "updated_at",
+    ]
     list_filter = ["users"]
     prepopulated_fields = {"slug": ["name"]}
 
@@ -21,6 +27,7 @@ class ProjectAdmin(admin.ModelAdmin):
 
 @admin.register(models.Catalog)
 class CatalogAdmin(admin.ModelAdmin):
-    list_display = ["project", "language_code", "domain"]
+    list_display = ["project", "language_code", "domain", "created_at", "updated_at"]
     list_filter = ["project"]
     readonly_fields = ["pofile"]
+    ordering = ["project", *models.Catalog._meta.ordering]
