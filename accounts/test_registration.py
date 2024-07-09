@@ -49,6 +49,17 @@ class RegistrationTest(TestCase):
             "http://testserver/accounts/register/dGVzdEBleGFtcGxlLmNvbTo:" in url
         )
 
+        response = client.get(url.rstrip("/") + "0/")
+        self.assertRedirects(
+            response, "/accounts/login/", fetch_redirect_response=False
+        )
+        response = client.get("/accounts/login/")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            _messages(response),
+            ["Unable to verify the signature. Please request a new registration link."],
+        )
+
         response = client.get(url)
         self.assertContains(response, "new_password1")
 
