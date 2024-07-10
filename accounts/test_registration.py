@@ -43,7 +43,9 @@ class RegistrationTest(TestCase):
 
         self.assertEqual(len(mail.outbox), 1)
         body = mail.outbox[0].body
-        url = unquote(next(line for line in body.splitlines() if "testserver" in line))
+        url = unquote(
+            next(line for line in body.splitlines() if "testserver" in line)
+        )  # pragma: no branch
 
         self.assertTrue(
             "http://testserver/accounts/register/dGVzdEBleGFtcGxlLmNvbTo:" in url
@@ -99,7 +101,9 @@ class RegistrationTest(TestCase):
 
         self.assertEqual(len(mail.outbox), 1)
         body = mail.outbox[0].body
-        url = unquote(next(line for line in body.splitlines() if "testserver" in line))
+        url = unquote(
+            next(line for line in body.splitlines() if "testserver" in line)
+        )  # pragma: no branch
 
         self.assertTrue(
             re.match(
