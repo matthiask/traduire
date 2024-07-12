@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="256"
+   height="256"
+   viewBox="0 0 67.733332 67.733333"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3.2 (091e20ef0f, 2023-11-25)"
+   sodipodi:docname="favicon.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     inkscape:zoom="1.8511925"
+     inkscape:cx="168.54001"
+     inkscape:cy="153.95482"
+     inkscape:window-width="1479"
+     inkscape:window-height="1026"
+     inkscape:window-x="801"
+     inkscape:window-y="337"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="display:inline">
+    <circle
+       style="fill:#007cb0;fill-opacity:1;stroke:none;stroke-width:4.49027"
+       id="path1"
+       cx="33.866665"
+       cy="-33.866665"
+       transform="scale(1,-1)"
+       r="33.866665" />
+    <text
+       xml:space="preserve"
+       style="font-size:50.8px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:4"
+       x="18.271065"
+       y="51.494267"
+       id="text1"><tspan
+         sodipodi:role="line"
+         id="tspan1"
+         style="font-style:normal;font-variant:normal;font-weight:800;font-stretch:normal;font-size:50.8px;font-family:Cantarell;-inkscape-font-specification:'Cantarell Ultra-Bold';fill:#ffffff;fill-opacity:1;stroke-width:4"
+         x="18.271065"
+         y="51.494267">T</tspan></text>
+  </g>
+</svg>
