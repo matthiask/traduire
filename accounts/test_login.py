@@ -15,8 +15,13 @@ class FakeFlow:
     EMAIL = "user@example.com"
     RAISE_EXCEPTION = False
 
+    def __init__(self, *args, **kwargs):
+        self.args = args
+        self.kwargs = kwargs
+
     def get_authentication_url(self):
-        return "http://example.com/auth/"
+        auth_params = self.kwargs["authorization_params"]
+        return f"http://example.com/auth/?prompt={auth_params.get('prompt', '')}"
 
     def get_user_data(self):
         if self.RAISE_EXCEPTION:
@@ -24,7 +29,7 @@ class FakeFlow:
         return {"email": self.EMAIL}
 
 
-views.GoogleOAuth2Client = lambda *a, **kw: FakeFlow()
+views.GoogleOAuth2Client = FakeFlow
 
 
 @override_settings(SSO_DOMAINS=r"^.*@example.com$")
@@ -66,9 +71,13 @@ class LoginTestCase(TestCase):
         FakeFlow.RAISE_EXCEPTION = False
 
         client = Client()
+
+        response = client.get("/accounts/login/")
+        self.assertNotContains(response, "select=1")
+
         response = client.get("/accounts/google-sso/")
         self.assertRedirects(
-            response, "http://example.com/auth/", fetch_redirect_response=False
+            response, "http://example.com/auth/?prompt=", fetch_redirect_response=False
         )
 
         response = client.get("/accounts/google-sso/?code=x", HTTP_ACCEPT_LANGUAGE="en")
@@ -78,6 +87,16 @@ class LoginTestCase(TestCase):
             [
                 "No user with email address user@example.org found and email address isn't automatically allowed."
             ],
+        )
+
+        response = client.get("/accounts/login/?error=1")
+        self.assertContains(response, "select=1")
+
+        response = client.get("/accounts/google-sso/?select=1")
+        self.assertRedirects(
+            response,
+            "http://example.com/auth/?prompt=consent select_account",
+            fetch_redirect_response=False,
         )
 
         FakeFlow.EMAIL = "user@example.com"
