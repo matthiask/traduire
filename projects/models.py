@@ -28,12 +28,24 @@ class ChoicesCharField(models.CharField):
         return name, "django.db.models.CharField", args, kwargs
 
 
+class TimestampedModel(models.Model):
+    created_at = models.DateTimeField(_("created at"), auto_now_add=True)
+    updated_at = models.DateTimeField(_("updated at"), auto_now=True)
+
+    class Meta:
+        abstract = True
+
+    @property
+    def pretty_timesince(self):
+        return timesince(self.updated_at, depth=1)
+
+
 class ProjectQuerySet(models.QuerySet):
     def for_user(self, user):
         return self if user.is_staff else self.filter(users=user)
 
 
-class Project(models.Model):
+class Project(TimestampedModel):
     created_at = models.DateTimeField(_("created at"), auto_now_add=True)
     updated_at = models.DateTimeField(_("updated at"), auto_now=True)
 
@@ -81,10 +93,6 @@ class Project(models.Model):
     def get_api_url(self):
         return f"/api/pofile/{self.slug}/"
 
-    @property
-    def pretty_timesince(self):
-        return timesince(self.updated_at, depth=1)
-
     @cached_property
     def all_users(self):
         return User.objects.filter(
@@ -97,7 +105,7 @@ class CatalogQuerySet(models.QuerySet):
         return self if user.is_staff else self.filter(project__users=user)
 
 
-class Catalog(models.Model):
+class Catalog(TimestampedModel):
     created_at = models.DateTimeField(_("created at"), auto_now_add=True)
     updated_at = models.DateTimeField(_("updated at"), auto_now=True)
 
@@ -143,7 +151,3 @@ class Catalog(models.Model):
     @cached_property
     def po(self):
         return polib.pofile(self.pofile, wrapwidth=0)
-
-    @property
-    def pretty_timesince(self):
-        return timesince(self.updated_at, depth=1)
