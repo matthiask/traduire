@@ -38,6 +38,9 @@ const integration = {
     proxy: {
       "/": {
         target: `http://${host}:${backend}`,
+        headers: {
+          origin: `http://${host}:${backend}`,
+        },
         bypass(req, res, proxyOptions) {
           if (req.url.includes("/rsbuild/")) return req.url
           return null
