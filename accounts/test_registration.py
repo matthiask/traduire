@@ -24,7 +24,7 @@ def _messages(response):
 class RegistrationTest(TestCase):
     def test_registration(self):
         p1 = Project.objects.create(slug="p1", _email_domains="example.com")
-        p2 = Project.objects.create(slug="p2", _email_domains="example.org")
+        p2 = Project.objects.create(slug="p2", _email_domains="blub.example.com")
 
         client = Client()
 
@@ -138,3 +138,13 @@ class RegistrationTest(TestCase):
             cm.exception.messages,
             ["The link is expired. Please request another registration link."],
         )
+
+    def test_email_domains_validation(self):
+        p = Project(name="test", slug="test")
+
+        p._email_domains = "hello.example.com\nexample.org"
+        p.full_clean()  # Valid
+
+        p._email_domains = "example.com\n\nexample.org"
+        with self.assertRaises(ValidationError):
+            p.full_clean()

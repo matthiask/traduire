@@ -1,7 +1,6 @@
 from unittest.mock import Mock, patch
 
 from django.conf import settings
-from django.core.exceptions import ValidationError
 from django.test import Client, TestCase
 from django.test.utils import override_settings
 
@@ -419,13 +418,3 @@ msgstr[1] "Blab %(count)s"
         ]:
             with self.subTest(test=test):
                 self.assertEqual(fix_nls(test[0], test[1]), test[2])
-
-    def test_email_domains_validation(self):
-        p = Project(name="test", slug="test")
-
-        p._email_domains = "hello.example.com\nexample.org"
-        p.full_clean()  # Valid
-
-        p._email_domains = "example.com\n\nexample.org"
-        with self.assertRaises(ValidationError):
-            p.full_clean()
