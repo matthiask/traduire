@@ -22,6 +22,7 @@ const integration = {
   },
   dev: {
     assetPrefix: true,
+    client: { port: 3000 } /* FIXME hardcoded port number is bad */,
     writeToDisk: (path) => /\.html$/.test(path),
   },
   html: {
