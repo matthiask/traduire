@@ -1,12 +1,17 @@
 from unittest.mock import Mock, patch
 
 from django.conf import settings
+from django.contrib.messages import get_messages
 from django.test import Client, TestCase
 from django.test.utils import override_settings
 
 from accounts.models import User
 from projects.models import Catalog, Project
 from projects.translators import TranslationError, fix_nls
+
+
+def messages(response):
+    return [m.message for m in get_messages(response.wsgi_request)]
 
 
 class ProjectsTest(TestCase):
@@ -315,6 +320,24 @@ msgstr "Onward!"
 """,
             c.pofile,
         )
+
+        r = su_client.post(
+            c.get_absolute_url() + "?query=continue",
+            {
+                "msgid_0": "Continue",
+                "msgstr_0": "Onward!",  # Obviously incorrect.
+                "fuzzy_0": "",
+            },
+            headers={"accept-language": "en"},
+        )
+        self.assertRedirects(
+            r,
+            c.get_absolute_url() + "?query=continue&start=0",
+            fetch_redirect_response=False,
+        )
+
+        response = su_client.get(c.get_absolute_url())
+        self.assertEqual(messages(response), ["No changes detected."])
 
         c = p.catalogs.create(
             language_code="es",
