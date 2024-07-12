@@ -30,12 +30,6 @@
 <h2>{% translate 'CLI configuration' %}</h2>
 <details>
   <summary><code>~/.config/traduire.toml</code></summary>
-  <pre>
-[[project]]
-name = "{{ project.name }}"
-token = "{{ user.token }}"
-url = "{{ api_url }}"
-path = "" # Add the absolute path of your local project!
-</pre>
+  <pre>{{ toml }}</pre>
 </details>
 {% endblock %}

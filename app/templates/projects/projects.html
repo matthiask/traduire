@@ -22,6 +22,7 @@
   </li>
   {% endfor %}
 </ul>
+<a download="traduire.toml" href="{% url 'projects:traduire_toml' %}">{% translate 'Download the configuration file' %}</a>
 {% else %}
 <p>{% translate 'You do not have access to any projects. Sorry.' %}</p>
 {% endif %}

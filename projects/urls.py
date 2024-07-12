@@ -18,4 +18,9 @@ urlpatterns = [
         views.pofile,
         name="pofile",
     ),
+    path(
+        "traduire.toml",
+        views.traduire_toml,
+        name="traduire_toml",
+    ),
 ]

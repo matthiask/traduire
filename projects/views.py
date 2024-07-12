@@ -34,7 +34,7 @@ def project(request, slug):
         "projects/project.html",
         {
             "project": project,
-            "api_url": request.build_absolute_uri(project.get_api_url()),
+            "toml": project.toml(request=request),
         },
     )
 
@@ -174,3 +174,12 @@ def pofile(request, project, language_code, domain):
         return http.HttpResponseNotFound()
 
     return http.HttpResponse(status=405)  # Method Not Allowed
+
+
+@login_required
+def traduire_toml(request):
+    toml = "\n".join(
+        project.toml(request=request)
+        for project in Project.objects.for_user(request.user)
+    )
+    return http.HttpResponse(toml, content_type="text/plain")

@@ -99,6 +99,15 @@ class Project(TimestampedModel):
             Q(is_active=True) & (Q(is_staff=True) | Q(projects=self))
         )
 
+    def toml(self, *, request):
+        return f"""\
+[[project]]
+name = "{self.name}"
+token = "{request.user.token}"
+url = "{request.build_absolute_uri(self.get_api_url())}"
+path = "" # Add the absolute path of your local project!
+"""
+
 
 class CatalogQuerySet(models.QuerySet):
     def for_user(self, user):
