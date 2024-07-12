@@ -139,7 +139,6 @@ class EntriesForm(forms.Form):
 
             catalog.pofile = str(catalog.po)
             catalog.save()
-            catalog.project.save()
 
         else:
             messages.info(request, _("No changes detected."))

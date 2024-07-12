@@ -147,6 +147,12 @@ class Catalog(TimestampedModel):
             f"{self.get_language_code_display()}, {self.domain} ({percent_translated})"
         )
 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        self.project.save()
+
+    save.alters_data = True
+
     def get_absolute_url(self):
         return reverse(
             "projects:catalog",
