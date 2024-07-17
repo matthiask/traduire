@@ -98,7 +98,7 @@ unsure about the `*_URL` variables.
     # If you want SSO sign ins into the admin panel and elsewhere:
     GOOGLE_CLIENT_ID="..."
     GOOGLE_CLIENT_SECRET="..."
-    SSO_DOMAINS="^.*@example\\.com$"
+    STAFF_EMAIL_DOMAINS="['example.com']"
 
     # Sentry is always a good idea:
     SENTRY_DSN="..."

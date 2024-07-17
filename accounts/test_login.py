@@ -32,7 +32,7 @@ class FakeFlow:
 views.GoogleOAuth2Client = FakeFlow
 
 
-@override_settings(SSO_DOMAINS=r"^.*@example.com$")
+@override_settings(STAFF_EMAIL_DOMAINS=["example.com"])
 class LoginTestCase(TestCase):
     def tearDown(self):
         deactivate_all()

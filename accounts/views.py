@@ -1,5 +1,3 @@
-import re
-
 from authlib.email import decode
 from authlib.google import GoogleOAuth2Client
 from authlib.views import EmailRegistrationForm, retrieve_next, set_next_cookie
@@ -60,7 +58,8 @@ def google_sso(request):
         response.delete_cookie("login_hint")
         return response
 
-    if re.search(settings.SSO_DOMAINS, email):
+    domain = email.rsplit("@", 1)[-1]
+    if domain in settings.STAFF_EMAIL_DOMAINS:
         user = User(
             email=email, full_name=user_data.get("full_name", ""), role="manager"
         )
