@@ -34,6 +34,9 @@
   {% if request.user.has_usable_password %}
     <a class="button" href="{% url 'password_change' %}">{% translate 'Change password' %}</a>
   {% endif %}
+  {% if request.user.is_staff %}
+    <a class="button" href="{% url 'admin:index' %}">{% translate 'Site administration' %}</a>
+  {% endif %}
 </form>
 
 {% endblock %}
