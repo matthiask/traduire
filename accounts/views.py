@@ -1,7 +1,11 @@
 from authlib.email import decode
 from authlib.google import GoogleOAuth2Client
-from authlib.views import EmailRegistrationForm, retrieve_next, set_next_cookie
-from django.conf import settings
+from authlib.views import (
+    REDIRECT_COOKIE_NAME,
+    EmailRegistrationForm,
+    retrieve_next,
+    set_next_cookie,
+)
 from django.contrib import auth, messages
 from django.core.exceptions import ValidationError
 from django.http import HttpResponseRedirect
@@ -44,9 +48,8 @@ def google_sso(request):
     user = auth.authenticate(request, email=email)
     if user and user.is_active:
         auth.login(request, user)
-        next = request.get_signed_cookie("next", default=None, salt="next")
-        response = redirect(next if next else "/")
-        response.delete_cookie("next")
+        response = redirect(retrieve_next(request) or "/")
+        response.delete_cookie(REDIRECT_COOKIE_NAME)
         response.set_cookie("login_hint", user.email, expires=180 * 86400)
         return response
 
@@ -58,29 +61,12 @@ def google_sso(request):
         response.delete_cookie("login_hint")
         return response
 
-    domain = email.rsplit("@", 1)[-1]
-    if domain in settings.STAFF_EMAIL_DOMAINS:
-        user = User(
-            email=email, full_name=user_data.get("full_name", ""), role="manager"
-        )
-        user.set_unusable_password()
-        user.save()
-
-        auth.login(request, auth.authenticate(request, email=email))
-        messages.info(request, _("Welcome, {}!").format(user.get_full_name()))
-
-        response = redirect(retrieve_next(request) or "/")
-        response.set_cookie("login_hint", user.email, expires=180 * 86400)
-        return response
-
-    messages.error(
-        request,
-        _(
-            "No user with email address {email} found and email address isn't automatically allowed."
-        ).format(email=email),
-    )
-    response = HttpResponseRedirect("{}?error=1".format(reverse("login")))
-    response.delete_cookie("login_hint")
+    request.session["user_data"] = {
+        "email": email,
+        "full_name": user_data.get("full_name", ""),
+    }
+    response = redirect("create")
+    response.set_cookie("login_hint", email, expires=180 * 86400)
     return response
 
 
@@ -109,13 +95,25 @@ def register(request, *, code=None):
         )
         return redirect("login")
 
+    request.session["user_data"] = {"email": email}
+    return redirect("create")
+
+
+def create(request):
+    user_data = request.session.get("user_data")
+    if not user_data:
+        messages.error(
+            request, _("Verified user data couldn't be found. Please try again.")
+        )
+        return redirect("login")
+
     args = [request.POST] if request.method == "POST" else []
-    user = User(email=email)
+    user = User(**user_data)
     form = UserForm(*args, instance=user)
     if form.is_valid():
         form.save()
 
-        auth.login(request, auth.authenticate(request, email=email))
+        auth.login(request, auth.authenticate(request, email=user.email))
         messages.info(request, _("Welcome, {}!").format(user.get_full_name()))
         return HttpResponseRedirect("/")
 
