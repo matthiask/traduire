@@ -11,7 +11,7 @@ from accounts.models import User
 from form_rendering import adapt_rendering
 from projects import translators
 from projects.forms import EntriesForm, FilterForm, SuggestForm
-from projects.models import Catalog, Project
+from projects.models import Catalog, Event, Project
 
 
 ENTRIES_PER_PAGE = 20
@@ -75,6 +75,12 @@ def catalog(request, project, language_code, domain):
 
     if form.is_valid():
         form.update(catalog, request=request)
+
+        Event.objects.create(
+            user=request.user,
+            action=Event.Action.CATALOG_UPDATED,
+            catalog=catalog,
+        )
 
         return http.HttpResponseRedirect(
             query_string(
@@ -163,12 +169,31 @@ def pofile(request, project, language_code, domain):
             catalog.po.merge(new)
             catalog.pofile = str(catalog.po)
         catalog.save()
+
+        Event.objects.create(
+            user=request.user,
+            action=(
+                Event.Action.CATALOG_CREATED
+                if created
+                else Event.Action.CATALOG_REPLACED
+                if request.method == "PUT"
+                else Event.Action.CATALOG_UPDATED
+            ),
+            catalog=catalog,
+        )
+
         return http.HttpResponse(status=202)  # Accepted
 
     if request.method == "DELETE":
         if catalog := project.catalogs.filter(
             language_code=language_code, domain=domain
         ).first():
+            Event.objects.create(
+                user=request.user,
+                action=Event.Action.CATALOG_DELETED,
+                catalog=catalog,
+            )
+
             catalog.delete()
             return http.HttpResponse("", status=204)  # No content
         return http.HttpResponseNotFound()

@@ -166,3 +166,65 @@ class Catalog(TimestampedModel):
     @cached_property
     def po(self):
         return polib.pofile(self.pofile, wrapwidth=0)
+
+
+class Event(models.Model):
+    class Action(models.TextChoices):
+        CATALOG_CREATED = "catalog-created", _("created catalog")
+        CATALOG_UPDATED = "catalog-updated", _("updated catalog")
+        CATALOG_SUBMITTED = "catalog-submitted", _("submitted catalog")
+        CATALOG_REPLACED = "catalog-replaced", _("replaced catalog")
+        CATALOG_DELETED = "catalog-deleted", _("deleted catalog")
+
+    created_at = models.DateTimeField(_("created at"), auto_now_add=True)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="events",
+        verbose_name=_("user"),
+    )
+    action = models.CharField(_("action"), max_length=20, choices=Action)
+
+    project = models.ForeignKey(
+        Project,
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="events",
+        verbose_name=_("project"),
+    )
+    catalog = models.ForeignKey(
+        Catalog,
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="events",
+        verbose_name=_("catalog"),
+    )
+
+    user_string = models.CharField(_("user string"), max_length=1000)
+    project_string = models.CharField(_("project string"), max_length=1000)
+    catalog_string = models.CharField(_("catalog string"), max_length=1000)
+
+    class Meta:
+        ordering = ["-created_at"]
+        verbose_name = _("event")
+        verbose_name_plural = _("events")
+
+    def __str__(self):
+        return self.get_action_display()
+
+    def save(self, *args, **kwargs):
+        if not self.project and self.catalog:
+            self.project = self.catalog.project
+        if not self.user_string and self.user:
+            self.user_string = str(self.user)
+        if not self.project_string and self.project:
+            self.project_string = str(self.project)
+        if not self.catalog_string and self.catalog:
+            self.catalog_string = str(self.catalog)
+        super().save(*args, **kwargs)
+
+    save.alters_data = True

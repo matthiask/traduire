@@ -31,3 +31,14 @@ class CatalogAdmin(admin.ModelAdmin):
     list_filter = ["project"]
     readonly_fields = ["pofile"]
     ordering = ["project", *models.Catalog._meta.ordering]
+
+
+@admin.register(models.Event)
+class EventAdmin(admin.ModelAdmin):
+    list_display = ["created_at", "user", "action", "project_string", "catalog_string"]
+
+    def has_add_permission(self, request, obj=None):
+        return False
+
+    has_change_permission = has_add_permission
+    has_delete_permission = has_add_permission
