@@ -63,10 +63,13 @@ class RegistrationTest(TestCase):
         )
 
         response = client.get(url)
+        response = self.assertRedirects(response, "/accounts/create/")
+
+        response = client.get("/accounts/create/")
         self.assertContains(response, "new_password1")
 
         response = client.post(
-            url,
+            "/accounts/create/",
             {
                 "full_name": "Max Muster",
                 "new_password1": "alksjdlkj23lkrjwlkddlkfj",

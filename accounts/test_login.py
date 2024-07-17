@@ -81,13 +81,7 @@ class LoginTestCase(TestCase):
         )
 
         response = client.get("/accounts/google-sso/?code=x", HTTP_ACCEPT_LANGUAGE="en")
-        self.assertRedirects(response, "/accounts/login/?error=1")
-        self.assertEqual(
-            messages(response),
-            [
-                "No user with email address user@example.org found and email address isn't automatically allowed."
-            ],
-        )
+        self.assertRedirects(response, "/accounts/create/")
 
         response = client.get("/accounts/login/?error=1")
         self.assertContains(response, "select=1")
@@ -101,14 +95,21 @@ class LoginTestCase(TestCase):
 
         FakeFlow.EMAIL = "user@example.com"
         response = client.get("/accounts/google-sso/?code=x", HTTP_ACCEPT_LANGUAGE="en")
-        self.assertEqual(messages(response), ["Welcome, user@example.com!"])
-        self.assertRedirects(response, "/")
+        self.assertRedirects(response, "/accounts/create/")
+
         response = client.post(
-            "/accounts/update/",
+            "/accounts/create/",
             {
-                "full_name": "Test",
+                "full_name": "Blub Blubber",
+                "new_password1": "blubblubblubblub123412341234",
+                "new_password2": "blubblubblubblub123412341234",
             },
+            headers={"accept-language": "en"},
         )
+        self.assertRedirects(response, "/", fetch_redirect_response=False)
+
+        response = client.get("/")
+        self.assertEqual(messages(response), ["Welcome, Blub Blubber!"])
         self.assertEqual(client.cookies.get("login_hint").value, FakeFlow.EMAIL)
 
         client = Client()
@@ -128,21 +129,6 @@ class LoginTestCase(TestCase):
             ["The user with email address user@example.com is inactive."],
         )
 
-        client = Client()
-        client.cookies.load({"login_hint": FakeFlow.EMAIL})
-
-        FakeFlow.EMAIL = "user@example.org"
-        response = client.get("/accounts/google-sso/?code=x", HTTP_ACCEPT_LANGUAGE="en")
-        self.assertRedirects(response, "/accounts/login/?error=1")
-        self.assertEqual(
-            messages(response),
-            [
-                "No user with email address user@example.org found and email address isn't automatically allowed."
-            ],
-        )
-        # Login hint cookie has been removed when login fails
-        self.assertEqual(client.cookies.get("login_hint").value, "")
-
     def test_server_flow_user_data_failure(self):
         """Failing to fetch user data shouldn't produce an internal server error"""
         FakeFlow.EMAIL = "user@example.com"
@@ -155,7 +141,12 @@ class LoginTestCase(TestCase):
             ["Fehler beim Abrufen von Benutzerdaten. Bitte versuchen Sie es erneut."],
         )
 
-    def test_accounts_update_404(self):
-        """No authentication and no saved email address --> 404"""
-        response = self.client.get("/accounts/update/")
-        self.assertEqual(response.status_code, 404)
+    def test_no_user_data(self):
+        response = self.client.get(
+            "/accounts/create/", headers={"accept-language": "en"}
+        )
+        self.assertRedirects(response, "/accounts/login/")
+        self.assertEqual(
+            messages(response),
+            ["Verified user data couldn't be found. Please try again."],
+        )

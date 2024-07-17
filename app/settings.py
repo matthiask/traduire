@@ -185,7 +185,7 @@ if SECURE_SSL_REDIRECT:  # pragma: no cover
 else:
     os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
-STAFF_EMAIL_DOMAINS = env("STAFF_EMAIL_DOMAINS", default=["feinheit.ch"])
+STAFF_EMAIL_DOMAINS = env("STAFF_EMAIL_DOMAINS", default=["feinheit.ch", "406.ch"])
 AUTHLIB_ROLES = {
     "default": {"title": _("default")},
     "manager": {
