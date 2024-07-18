@@ -170,13 +170,17 @@ class Catalog(TimestampedModel):
 
 class Event(models.Model):
     class Action(models.TextChoices):
+        USER_CREATED = "user-created", _("user created")
+        USER_LOGGED_IN = "user-logged-in", _("user logged in")
+        PROJECT_CREATED = "project-created", _("created project")
+        PROJECT_ACCESS_GRANTED = "project-access-granted", _("project access granted")
         CATALOG_CREATED = "catalog-created", _("created catalog")
         CATALOG_UPDATED = "catalog-updated", _("updated catalog")
         CATALOG_SUBMITTED = "catalog-submitted", _("submitted catalog")
         CATALOG_REPLACED = "catalog-replaced", _("replaced catalog")
         CATALOG_DELETED = "catalog-deleted", _("deleted catalog")
 
-    created_at = models.DateTimeField(_("created at"), auto_now_add=True)
+    created_at = models.DateTimeField(_("created at"), auto_now_add=True, db_index=True)
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         blank=True,
@@ -185,7 +189,7 @@ class Event(models.Model):
         related_name="events",
         verbose_name=_("user"),
     )
-    action = models.CharField(_("action"), max_length=20, choices=Action)
+    action = models.CharField(_("action"), max_length=40, choices=Action)
 
     project = models.ForeignKey(
         Project,

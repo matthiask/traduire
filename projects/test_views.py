@@ -447,12 +447,7 @@ msgstr[1] "Blab %(count)s"
 
     def test_event_save(self):
         user = User.objects.create_superuser("admin@example.com", "admin")
-        p = Project.objects.create(name="test", slug="test")
-        c = p.catalogs.create(
-            language_code="fr",
-            domain="djangojs",
-            pofile="",
-        )
+        p, c = self.create_project_and_catalog()
 
         p2 = Project.objects.create(name="test2", slug="test2")
 
@@ -484,3 +479,24 @@ msgstr[1] "Blab %(count)s"
             project=p2,
         )
         self.assertEqual(str(e), "created catalog")
+
+        self.assertEqual(
+            list(Event.objects.values_list("action", flat=True)),
+            [
+                "catalog-created",
+                "catalog-created",
+                "catalog-created",
+                "catalog-created",
+                "project-created",
+                "project-created",
+                "user-created",
+            ],
+        )
+
+    def test_event_log(self):
+        self.create_project_and_catalog()
+
+        self.assertEqual(
+            list(Event.objects.values_list("action", flat=True)),
+            ["project-created"],
+        )
