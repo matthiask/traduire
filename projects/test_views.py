@@ -6,7 +6,7 @@ from django.test import Client, TestCase
 from django.test.utils import override_settings
 
 from accounts.models import User
-from projects.models import Catalog, Project
+from projects.models import Catalog, Event, Project
 from projects.translators import TranslationError, fix_nls
 
 
@@ -444,3 +444,43 @@ msgstr[1] "Blab %(count)s"
         ]:
             with self.subTest(test=test):
                 self.assertEqual(fix_nls(test[0], test[1]), test[2])
+
+    def test_event_save(self):
+        user = User.objects.create_superuser("admin@example.com", "admin")
+        p = Project.objects.create(name="test", slug="test")
+        c = p.catalogs.create(
+            language_code="fr",
+            domain="djangojs",
+            pofile="",
+        )
+
+        p2 = Project.objects.create(name="test2", slug="test2")
+
+        e = Event.objects.create(
+            user=user,
+            action=Event.Action.CATALOG_CREATED,
+            catalog=c,
+        )
+        self.assertEqual(str(e), "created catalog")
+        self.assertEqual(e.project, p)
+
+        e = Event.objects.create(
+            user=user,
+            action=Event.Action.CATALOG_CREATED,
+            catalog=c,
+            project=p2,  # Makes no sense but is allowed
+        )
+        self.assertEqual(str(e), "created catalog")
+        self.assertEqual(e.project, p2)
+
+        e = Event.objects.create(
+            action=Event.Action.CATALOG_CREATED,
+        )
+        self.assertEqual(str(e), "created catalog")
+
+        e = Event.objects.create(
+            user=user,
+            action=Event.Action.CATALOG_CREATED,
+            project=p2,
+        )
+        self.assertEqual(str(e), "created catalog")
