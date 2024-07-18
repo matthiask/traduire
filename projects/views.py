@@ -171,7 +171,7 @@ def pofile(request, project, language_code, domain):
         catalog.save()
 
         Event.objects.create(
-            user=request.user,
+            user=user,
             action=(
                 Event.Action.CATALOG_CREATED
                 if created
@@ -189,7 +189,7 @@ def pofile(request, project, language_code, domain):
             language_code=language_code, domain=domain
         ).first():
             Event.objects.create(
-                user=request.user,
+                user=user,
                 action=Event.Action.CATALOG_DELETED,
                 catalog=catalog,
             )
