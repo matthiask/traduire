@@ -3,7 +3,7 @@ from django import http
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render
-from django.template.defaulttags import query_string
+from django.template.defaulttags import querystring
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
@@ -83,7 +83,7 @@ def catalog(request, project, language_code, domain):
         )
 
         return http.HttpResponseRedirect(
-            query_string(
+            querystring(
                 None,
                 request.GET,
                 start=start,
@@ -100,12 +100,12 @@ def catalog(request, project, language_code, domain):
             "filter_form": adapt_rendering(filter_form),
             "form": adapt_rendering(form),
             "entries": entries,
-            "previous_url": query_string(
+            "previous_url": querystring(
                 None, request.GET, start=start - ENTRIES_PER_PAGE
             )
             if start - ENTRIES_PER_PAGE >= 0
             else None,
-            "next_url": query_string(None, request.GET, start=start + ENTRIES_PER_PAGE)
+            "next_url": querystring(None, request.GET, start=start + ENTRIES_PER_PAGE)
             if start + ENTRIES_PER_PAGE < total
             else None,
             "start": start + 1,
