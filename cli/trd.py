@@ -89,10 +89,11 @@ def current_project():
         _terminate(f"Config file {config} doesn't exist.")
 
     data = tomllib.loads(config.read_text())
-    cwd = str(Path.cwd()).rstrip("/")
+    cwd = Path.cwd()
 
     for project in data.get("project", ()):
-        if project["path"].rstrip("/") == cwd:
+        path = Path(project["path"]).expanduser()
+        if path == cwd:
             return project
 
     _terminate(f"Couldn't find a project for the current working directory {cwd}")  # noqa: RET503
