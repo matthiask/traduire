@@ -207,4 +207,4 @@ def traduire_toml(request):
         project.toml(request=request)
         for project in Project.objects.for_user(request.user)
     )
-    return http.HttpResponse(toml, content_type="text/plain")
+    return http.HttpResponse(toml, content_type="text/plain; charset=utf-8")
