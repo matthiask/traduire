@@ -20,6 +20,7 @@ def _session(project):
 
 
 @click.group()
+@click.version_option(package_name="traduire-cli")
 def cli():
     pass
 
