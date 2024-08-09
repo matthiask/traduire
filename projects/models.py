@@ -9,6 +9,7 @@ from django.urls import reverse
 from django.utils.formats import date_format
 from django.utils.html import format_html
 from django.utils.timesince import timesince
+from django.utils.timezone import localtime
 from django.utils.translation import gettext_lazy as _
 
 from accounts.models import User
@@ -243,7 +244,7 @@ class Event(models.Model):
   {user} {action} {catalog}
 </p>
             """,
-            created_at=date_format(self.created_at, "Y-m-d H:i"),
+            created_at=date_format(localtime(self.created_at), "Y-m-d H:i"),
             action=self.get_action_display(),
             user=self.user or self.user_string,
             project=self.project or self.project_string,
