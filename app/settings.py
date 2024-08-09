@@ -35,7 +35,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 SECRET_KEY = env("SECRET_KEY", required=True)
 
 TIME_ZONE = "Europe/Zurich"
-LANGUAGE_CODE = "de"
+LANGUAGE_CODE = "en"
 LANGUAGES = (
     ("en", _("English")),
     ("de", _("German")),

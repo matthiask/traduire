@@ -134,7 +134,9 @@ class LoginTestCase(TestCase):
         FakeFlow.EMAIL = "user@example.com"
         FakeFlow.RAISE_EXCEPTION = True
 
-        response = self.client.get("/accounts/google-sso/?code=x")
+        response = self.client.get(
+            "/accounts/google-sso/?code=x", headers={"accept-language": "de"}
+        )
         self.assertRedirects(response, "/accounts/login/")
         self.assertEqual(
             messages(response),
