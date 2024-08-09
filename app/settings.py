@@ -39,7 +39,7 @@ LANGUAGE_CODE = "de"
 LANGUAGES = (
     ("en", _("English")),
     ("de", _("German")),
-    # ("fr", _("French")),
+    ("fr", _("French")),
     # ("it", _("Italian")),
 )
 
