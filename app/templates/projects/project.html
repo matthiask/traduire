@@ -32,4 +32,7 @@
   <summary><code>~/.config/traduire.toml</code></summary>
   <pre>{{ toml }}</pre>
 </details>
+
+<h2>{% translate 'Latest activity' %}</h2>
+{% for a in activity %}{{ a.as_html }}{% empty %}<p>{% translate 'None' %}</p>{% endfor %}
 {% endblock %}

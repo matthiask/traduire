@@ -6,6 +6,8 @@ from django.core import validators
 from django.db import models
 from django.db.models import Q
 from django.urls import reverse
+from django.utils.formats import date_format
+from django.utils.html import format_html
 from django.utils.timesince import timesince
 from django.utils.translation import gettext_lazy as _
 
@@ -232,3 +234,18 @@ class Event(models.Model):
         super().save(*args, **kwargs)
 
     save.alters_data = True
+
+    def as_html(self):
+        return format_html(
+            """\
+<p>
+  <small>{created_at}</small><br>
+  {user} {action} {catalog}
+</p>
+            """,
+            created_at=date_format(self.created_at, "Y-m-d H:i"),
+            action=self.get_action_display(),
+            user=self.user or self.user_string,
+            project=self.project or self.project_string,
+            catalog=self.catalog or self.catalog_string,
+        )

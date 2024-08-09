@@ -35,6 +35,9 @@ def project(request, slug):
         {
             "project": project,
             "toml": project.toml(request=request),
+            "activity": Event.objects.filter(project=project).select_related(
+                "user", "project", "catalog"
+            )[:30],
         },
     )
 
