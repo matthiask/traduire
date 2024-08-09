@@ -80,7 +80,9 @@ class LoginTestCase(TestCase):
             response, "http://example.com/auth/?prompt=", fetch_redirect_response=False
         )
 
-        response = client.get("/accounts/google-sso/?code=x", HTTP_ACCEPT_LANGUAGE="en")
+        response = client.get(
+            "/accounts/google-sso/?code=x", headers={"accept-language": "en"}
+        )
         self.assertRedirects(response, "/accounts/create/")
 
         response = client.get("/accounts/login/?error=1")
@@ -94,7 +96,9 @@ class LoginTestCase(TestCase):
         )
 
         FakeFlow.EMAIL = "user@example.com"
-        response = client.get("/accounts/google-sso/?code=x", HTTP_ACCEPT_LANGUAGE="en")
+        response = client.get(
+            "/accounts/google-sso/?code=x", headers={"accept-language": "en"}
+        )
         self.assertRedirects(response, "/accounts/create/")
 
         response = client.post(
@@ -122,7 +126,9 @@ class LoginTestCase(TestCase):
         User.objects.update(is_active=False)
         client = Client()
         FakeFlow.EMAIL = "user@example.com"
-        response = client.get("/accounts/google-sso/?code=x", HTTP_ACCEPT_LANGUAGE="en")
+        response = client.get(
+            "/accounts/google-sso/?code=x", headers={"accept-language": "en"}
+        )
         self.assertRedirects(response, "/accounts/login/?error=1")
         self.assertEqual(
             messages(response),
