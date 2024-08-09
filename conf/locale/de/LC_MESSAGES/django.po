@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-07-04 15:06+0200\n"
-"PO-Revision-Date: 2024-07-08 17:23+0200\n"
+"PO-Revision-Date: 2024-08-09 14:32+0200\n"
 "Last-Translator: Anonymous User <mk@feinheit.ch>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -189,7 +189,7 @@ msgstr "Name"
 msgid "slug"
 msgstr "Slug"
 
-#: projects/models.py
+#: app/templates/projects/project.html projects/models.py
 msgid "users"
 msgstr "Nutzer:innen"
 
@@ -271,11 +271,6 @@ msgid "Welcome, {}!"
 msgstr "Willkommen, {}!"
 
 #: accounts/views.py
-#, python-brace-format
-msgid "No user with email address {email} found and email address isn't automatically allowed."
-msgstr "Kein Benutzer mit E-Mail-Adresse {email} gefunden und E-Mail-Adresse ist nicht automatisch erlaubt."
-
-#: accounts/views.py
 msgid "You have been signed out."
 msgstr "Sie wurden abgemeldet."
 
@@ -316,13 +311,122 @@ msgid "Some of the lines are not valid domain names."
 msgstr "Einige der Zeilen sind keine gültigen Domänennamen."
 
 #: accounts/forms.py
-#| msgid "Reset password"
 msgid "New password"
 msgstr "Neues Passwort"
 
 #: accounts/forms.py
 msgid "New password confirmation"
 msgstr "Neues Passwort bestätigen"
+
+#: accounts/views.py
+#, python-brace-format
+msgid "An account with the email address {email} exists already."
+msgstr "Es existiert bereits ein Konto mit der E-Mail-Adresse {email}."
+
+#: accounts/views.py
+#| msgid "Error while fetching user data. Please try again."
+msgid "Verified user data couldn't be found. Please try again."
+msgstr "Es konnten keine verifizierten Benutzerdaten gefunden werden. Bitte versuchen Sie es erneut."
+
+#: app/templates/projects/project.html app/templates/projects/projects.html
+#, python-format
+msgid "Updated %(timesince)s ago."
+msgstr "Aktualisiert vor %(timesince)s."
+
+#: app/templates/projects/project.html
+msgid "Latest activity"
+msgstr "Letzte Aktivität"
+
+#: app/templates/projects/project.html
+msgid "None"
+msgstr "Keinee"
+
+#: app/templates/projects/projects.html
+msgid "Download the configuration file"
+msgstr "Konfigurationsdatei herunterladen"
+
+#: app/templates/projects/projects.html
+msgid "Site administration"
+msgstr "Verwaltung der Website"
+
+#: projects/models.py
+#| msgid "created at"
+msgid "user created"
+msgstr "Nutzer:in erstellt"
+
+#: projects/models.py
+msgid "user logged in"
+msgstr "Nutzer:in angemeldet"
+
+#: projects/models.py
+#| msgid "created at"
+msgid "created project"
+msgstr "Projekt erstellt"
+
+#: projects/models.py
+#| msgid "projects manager"
+msgid "project access granted"
+msgstr "Projektzugriff erteilt"
+
+#: projects/models.py
+#| msgid "created at"
+msgid "created catalog"
+msgstr "Katalog erstellt"
+
+#: projects/models.py
+#| msgid "updated at"
+msgid "updated catalog"
+msgstr "Katalog aktualisiert"
+
+#: projects/models.py
+msgid "submitted catalog"
+msgstr "Katalog eingereicht"
+
+#: projects/models.py
+#| msgid "catalog"
+msgid "replaced catalog"
+msgstr "Katalog ersetzt"
+
+#: projects/models.py
+#| msgid "catalog"
+msgid "deleted catalog"
+msgstr "Katalog gelöscht"
+
+#: projects/models.py
+#| msgid "users"
+msgid "user"
+msgstr "Nutzer:in"
+
+#: projects/models.py
+msgid "action"
+msgstr "Aktion"
+
+#: projects/models.py
+#| msgid "users"
+msgid "user string"
+msgstr "Beschreibung der Nutzer:in"
+
+#: projects/models.py
+#| msgid "projects"
+msgid "project string"
+msgstr "Beschreibung des Projektes"
+
+#: projects/models.py
+#| msgid "catalogs"
+msgid "catalog string"
+msgstr "Beschreibung des Katalogs"
+
+#: projects/models.py
+msgid "event"
+msgstr "Event"
+
+#: projects/models.py
+msgid "events"
+msgstr "Events"
+
+#, python-brace-format
+#~ msgid "No user with email address {email} found and email address isn't automatically allowed."
+#~ msgstr "Kein Benutzer mit E-Mail-Adresse {email} gefunden und E-Mail-Adresse ist nicht automatisch erlaubt."
 
 #~ msgid "Single sign on"
 #~ msgstr "Anmeldung per SSO"

@@ -1,0 +1,414 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-08-09 14:25+0200\n"
+"PO-Revision-Date: 2024-08-09 14:34+0200\n"
+"Last-Translator: Anonymous User <mk@feinheit.ch>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"X-Translated-Using: traduire 0.0.1\n"
+
+#: accounts/apps.py
+msgid "Authentication"
+msgstr "Authentification"
+
+#: accounts/forms.py
+msgid "New password"
+msgstr "Nouveau mot de passe"
+
+#: accounts/forms.py
+msgid "New password confirmation"
+msgstr "Confirmation du nouveau mot de passe"
+
+#: accounts/models.py
+msgid "full name"
+msgstr "nom complet"
+
+#: accounts/models.py
+msgid "token"
+msgstr "jeton"
+
+#: accounts/views.py
+msgid "You have been signed out."
+msgstr "Vous avez été déconnecté."
+
+#: accounts/views.py
+msgid "Error while fetching user data. Please try again."
+msgstr "Erreur lors de la récupération des données de l'utilisateur. Veuillez réessayer."
+
+#: accounts/views.py
+#, python-format
+msgid "The user with email address %s is inactive."
+msgstr "L'utilisateur dont l'adresse électronique est %s est inactif."
+
+#: accounts/views.py
+msgid "Please check your mailbox."
+msgstr "Veuillez consulter votre boîte aux lettres."
+
+#: accounts/views.py
+#, python-brace-format
+msgid "An account with the email address {email} exists already."
+msgstr "Un compte avec l'adresse e-mail {email} existe déjà."
+
+#: accounts/views.py
+msgid "Verified user data couldn't be found. Please try again."
+msgstr "Les données de l'utilisateur vérifié n'ont pas été trouvées. Veuillez réessayer."
+
+#: accounts/views.py
+msgid "Welcome, {}!"
+msgstr "Bienvenue, {} !"
+
+#: app/settings.py
+msgid "English"
+msgstr "Anglais"
+
+#: app/settings.py
+msgid "German"
+msgstr "Allemand"
+
+#: app/settings.py
+msgid "default"
+msgstr "par défaut"
+
+#: app/settings.py
+msgid "projects manager"
+msgstr "chef de projets"
+
+#: app/templates/404.html
+msgid "This page was not found"
+msgstr "Cette page n'a pas été trouvée"
+
+#: app/templates/404.html
+msgid "404: Sorry, we could not find the page you requested."
+msgstr "404 : Désolé, nous n'avons pas trouvé la page que vous avez demandée."
+
+#: app/templates/projects/catalog.html
+msgid "Apply"
+msgstr "Appliquer"
+
+#: app/templates/projects/catalog.html
+msgid "Reset"
+msgstr "Réinitialisation"
+
+#: app/templates/projects/catalog.html
+msgid "Entries"
+msgstr "Entrées"
+
+#: app/templates/projects/catalog.html
+msgid "Original"
+msgstr "Original"
+
+#: app/templates/projects/catalog.html
+msgid "Translation"
+msgstr "Traduction"
+
+#: app/templates/projects/catalog.html
+msgid "Fuzzy"
+msgstr "Fuzzy"
+
+#: app/templates/projects/catalog.html
+msgid "Context"
+msgstr "Contexte"
+
+#: app/templates/projects/catalog.html
+msgid "Comment"
+msgstr "Comment"
+
+#: app/templates/projects/catalog.html
+msgid "Occurrences"
+msgstr "Occurrences"
+
+#: app/templates/projects/catalog.html
+msgid "Save"
+msgstr "Enregistrer"
+
+#: app/templates/projects/catalog.html
+msgid "Previous page"
+msgstr "Page précédente"
+
+#: app/templates/projects/catalog.html
+msgid "Next page"
+msgstr "Page suivante"
+
+#: app/templates/projects/project.html projects/models.py
+msgid "catalogs"
+msgstr "catalogues"
+
+#: app/templates/projects/project.html app/templates/projects/projects.html
+#, python-format
+msgid "Updated %(timesince)s ago."
+msgstr "Mise à jour il y a %(timesince)s."
+
+#: app/templates/projects/project.html projects/models.py
+msgid "users"
+msgstr "utilisateurs"
+
+#: app/templates/projects/project.html
+msgid "CLI configuration"
+msgstr "Configuration CLI"
+
+#: app/templates/projects/project.html
+msgid "Latest activity"
+msgstr "Dernière activité"
+
+#: app/templates/projects/project.html
+msgid "None"
+msgstr "Aucun"
+
+#: app/templates/projects/projects.html projects/apps.py projects/models.py
+msgid "projects"
+msgstr "projets"
+
+#: app/templates/projects/projects.html
+#, python-format
+msgid "Hello, %(user)s"
+msgstr "Bonjour, %(user)s"
+
+#: app/templates/projects/projects.html
+msgid "Your projects"
+msgstr "Vos projets"
+
+#: app/templates/projects/projects.html
+msgid "Download the configuration file"
+msgstr "Télécharger le fichier de configuration"
+
+#: app/templates/projects/projects.html
+msgid "You do not have access to any projects. Sorry."
+msgstr "Vous n'avez accès à aucun projet. Désolé."
+
+#: app/templates/projects/projects.html
+msgid "Account"
+msgstr "Compte"
+
+#: app/templates/projects/projects.html
+msgid "Log out"
+msgstr "Déconnexion"
+
+#: app/templates/projects/projects.html app/templates/registration/password_change_done.html app/templates/registration/password_change_form.html
+msgid "Change password"
+msgstr "Modifier le mot de passe"
+
+#: app/templates/projects/projects.html
+msgid "Site administration"
+msgstr "Administration du site"
+
+#: app/templates/registration/login.html app/templates/registration/register.html
+msgid "Login"
+msgstr "Connexion"
+
+#: app/templates/registration/login.html app/templates/registration/register.html
+msgid "Register"
+msgstr "Registre"
+
+#: app/templates/registration/login.html app/templates/registration/password_reset_complete.html app/templates/registration/password_reset_confirm.html app/templates/registration/password_reset_done.html app/templates/registration/password_reset_form.html
+msgid "Reset password"
+msgstr "Réinitialiser le mot de passe"
+
+#: app/templates/registration/login.html
+msgid "Login with Google"
+msgstr "Se connecter avec Google"
+
+#: app/templates/registration/password_change_done.html
+msgid "Your password was changed."
+msgstr "Votre mot de passe a été modifié."
+
+#: app/templates/registration/password_change_form.html
+msgid "Please enter your old password, for security’s sake, and then enter your new password twice so we can verify you typed it in correctly."
+msgstr "Veuillez saisir votre ancien mot de passe, par mesure de sécurité, puis saisissez deux fois votre nouveau mot de passe afin que nous puissions vérifier que vous l'avez saisi correctement."
+
+#: app/templates/registration/password_change_form.html app/templates/registration/password_reset_confirm.html app/templates/registration/password_reset_form.html
+msgid "Submit"
+msgstr "Envoyer"
+
+#: app/templates/registration/password_reset_complete.html
+msgid "Your password has been set.  You may go ahead and log in now."
+msgstr "Votre mot de passe a été défini.  Vous pouvez maintenant vous connecter."
+
+#: app/templates/registration/password_reset_complete.html
+msgid "Log in"
+msgstr "Se connecter"
+
+#: app/templates/registration/password_reset_confirm.html
+msgid "The password reset link was invalid, possibly because it has already been used.  Please request a new password reset."
+msgstr "Le lien de réinitialisation du mot de passe n'était pas valide, peut-être parce qu'il a déjà été utilisé.  Veuillez demander une nouvelle réinitialisation du mot de passe."
+
+#: app/templates/registration/password_reset_done.html
+msgid "We’ve emailed you instructions for setting your password, if an account exists with the email you entered. You should receive them shortly."
+msgstr "Nous vous avons envoyé par courrier électronique des instructions pour définir votre mot de passe, si un compte existe avec l'adresse électronique que vous avez indiquée. Vous devriez les recevoir sous peu."
+
+#: app/templates/registration/password_reset_done.html
+msgid "If you don’t receive an email, please make sure you’ve entered the address you registered with, and check your spam folder."
+msgstr "Si vous ne recevez pas d'e-mail, assurez-vous d'avoir saisi l'adresse avec laquelle vous vous êtes inscrit et vérifiez votre dossier de courrier indésirable."
+
+#: app/templates/registration/password_reset_email.html
+#, python-format
+msgid "You're receiving this email because you requested a password reset for your user account at %(site_name)s."
+msgstr "Vous recevez cet e-mail parce que vous avez demandé la réinitialisation du mot de passe de votre compte utilisateur chez %(site_name)s."
+
+#: app/templates/registration/password_reset_email.html
+msgid "Please go to the following page and choose a new password:"
+msgstr "Veuillez vous rendre à la page suivante et choisir un nouveau mot de passe :"
+
+#: app/templates/registration/password_reset_email.html
+msgid "Your username, in case you’ve forgotten:"
+msgstr "Votre nom d'utilisateur, au cas où vous l'auriez oublié :"
+
+#: app/templates/registration/password_reset_email.html
+msgid "Thanks for using our site!"
+msgstr "Merci d'utiliser notre site !"
+
+#: app/templates/registration/password_reset_email.html
+#, python-format
+msgid "The %(site_name)s team"
+msgstr "L'équipe de %(site_name)s"
+
+#: projects/admin.py
+msgid "explicit users"
+msgstr "utilisateurs explicites"
+
+#: projects/forms.py
+msgid "Pending"
+msgstr "En attente"
+
+#: projects/forms.py
+msgid "Query"
+msgstr "Recherche"
+
+#: projects/forms.py
+msgid "Suggest"
+msgstr "Suggérer"
+
+#: projects/forms.py
+#, python-brace-format
+msgid "With {count} items"
+msgstr "Avec {count} éléments"
+
+#: projects/forms.py
+#, python-brace-format
+msgid "Successfully updated {count} message."
+msgid_plural "Successfully updated {count} messages."
+msgstr[0] "Mise à jour réussie de {count} messages."
+msgstr[1] "Mise à jour réussie de {count} messages."
+
+#: projects/forms.py
+msgid "No changes detected."
+msgstr "Aucun changement n'a été détecté."
+
+#: projects/models.py
+msgid "created at"
+msgstr "créé à"
+
+#: projects/models.py
+msgid "updated at"
+msgstr "mis à jour à"
+
+#: projects/models.py
+msgid "name"
+msgstr "nom"
+
+#: projects/models.py
+msgid "slug"
+msgstr "slug"
+
+#: projects/models.py
+msgid "email domains"
+msgstr "domaines de e-mail"
+
+#: projects/models.py
+msgid "User accounts on these domains will automatically get access to this project. One domain per line."
+msgstr "Les comptes utilisateurs de ces domaines auront automatiquement accès à ce projet. Un domaine par ligne."
+
+#: projects/models.py
+msgid "project"
+msgstr "projet"
+
+#: projects/models.py
+msgid "Some of the lines are not valid domain names."
+msgstr "Certaines lignes ne sont pas des noms de domaine valides."
+
+#: projects/models.py
+msgid "language"
+msgstr "langue"
+
+#: projects/models.py
+msgid "domain"
+msgstr "domaine"
+
+#: projects/models.py
+msgid "catalog"
+msgstr "catalogue"
+
+#: projects/models.py
+msgid "user created"
+msgstr "utilisateur créé"
+
+#: projects/models.py
+msgid "user logged in"
+msgstr "utilisateur connecté"
+
+#: projects/models.py
+msgid "created project"
+msgstr "projet créé"
+
+#: projects/models.py
+msgid "project access granted"
+msgstr "accès au projet accordé"
+
+#: projects/models.py
+msgid "created catalog"
+msgstr "catalogue créé"
+
+#: projects/models.py
+msgid "updated catalog"
+msgstr "catalogue actualisé"
+
+#: projects/models.py
+msgid "submitted catalog"
+msgstr "catalogue soumis"
+
+#: projects/models.py
+msgid "replaced catalog"
+msgstr "catalogue remplacé"
+
+#: projects/models.py
+msgid "deleted catalog"
+msgstr "catalogue supprimé"
+
+#: projects/models.py
+msgid "user"
+msgstr "utilisateur"
+
+#: projects/models.py
+msgid "action"
+msgstr "action"
+
+#: projects/models.py
+msgid "user string"
+msgstr "chaîne de caractères de l'utilisateur"
+
+#: projects/models.py
+msgid "project string"
+msgstr "chaîne de caractères de projet"
+
+#: projects/models.py
+msgid "catalog string"
+msgstr "chaîne de caractères de catalogue"
+
+#: projects/models.py
+msgid "event"
+msgstr "événement"
+
+#: projects/models.py
+msgid "events"
+msgstr "événements"
