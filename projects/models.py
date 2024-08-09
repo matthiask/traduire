@@ -247,5 +247,5 @@ class Event(models.Model):
             action=self.get_action_display(),
             user=self.user or self.user_string,
             project=self.project or self.project_string,
-            catalog=self.catalog or self.catalog_string,
+            catalog=self.catalog_string,
         )
