@@ -23,4 +23,5 @@ urlpatterns = [
         views.traduire_toml,
         name="traduire_toml",
     ),
+    path("<slug:slug>/messages.csv", views.messages_csv, name="messages_csv"),
 ]

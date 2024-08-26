@@ -70,6 +70,9 @@ msgstr[1] "Réinitialisation des mots de passe de %(count)s élèves ."
         r = su_client.get("/traduire.toml")
         self.assertContains(r, f'token = "{superuser.token}"')
 
+        r = su_client.get("/test/messages.csv")
+        self.assertContains(r, ",Continue,")
+
         r = u_client.get(p.get_absolute_url(), headers={"accept-language": "en"})
         self.assertEqual(r.status_code, 404)
 

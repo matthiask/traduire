@@ -1,7 +1,10 @@
+import csv
+
 import polib
 from django import http
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.template.defaulttags import querystring
 from django.views.decorators.csrf import csrf_exempt
@@ -10,6 +13,7 @@ from django.views.decorators.http import require_POST
 from accounts.models import User
 from form_rendering import adapt_rendering
 from projects import translators
+from projects.foreign import messages_as_table
 from projects.forms import EntriesForm, FilterForm, SuggestForm
 from projects.models import Catalog, Event, Project
 
@@ -211,3 +215,13 @@ def traduire_toml(request):
         for project in Project.objects.for_user(request.user)
     )
     return http.HttpResponse(toml, content_type="text/plain; charset=utf-8")
+
+
+@login_required
+def messages_csv(request, slug):
+    project = get_object_or_404(Project.objects.for_user(request.user), slug=slug)
+
+    response = HttpResponse(content_type="text/csv")
+    csv.writer(response).writerows(messages_as_table(project))
+
+    return response
