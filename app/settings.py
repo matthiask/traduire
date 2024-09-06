@@ -54,7 +54,6 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = [
     # BASE_DIR / "frontend" / "static"
 ]
-WEBPACK_ASSETS = BASE_DIR / "static"
 
 STORAGES = {
     "default": django_storage_url(

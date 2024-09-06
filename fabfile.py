@@ -9,15 +9,4 @@ fl.config.update(
 )
 
 
-@fl.task(auto_shortflags=False)
-def dev(ctx, host="127.0.0.1", port=8000):
-    fl._concurrently(
-        ctx,
-        [
-            f".venv/bin/python manage.py runserver 0.0.0.0:{port}",
-            f"yarn run rsbuild dev --host {host}",
-        ],
-    )
-
-
-ns = fl.Collection(*fl.GENERAL, dev)
+ns = fl.Collection(*fl.GENERAL)
