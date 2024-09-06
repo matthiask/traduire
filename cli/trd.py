@@ -97,7 +97,8 @@ def current_project():
         if path == cwd:
             return project
 
-    _terminate(f"Couldn't find a project for the current working directory {cwd}")  # noqa: RET503
+    _terminate(f"Couldn't find a project for the current working directory {cwd}")
+    return None
 
 
 def find_pofiles(root):
