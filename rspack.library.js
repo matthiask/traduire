@@ -69,9 +69,6 @@ module.exports = (PRODUCTION) => {
           },
           externalHelpers: true,
         },
-        env: {
-          targets: "Chrome >= 48", // browser compatibility
-        },
       },
       type: "javascript/auto",
     }
@@ -95,9 +92,6 @@ module.exports = (PRODUCTION) => {
             },
           },
           externalHelpers: true,
-        },
-        env: {
-          targets: "Chrome >= 48", // browser compatibility
         },
       },
       type: "javascript/auto",
@@ -141,6 +135,7 @@ module.exports = (PRODUCTION) => {
       },
       plugins: truthy(htmlSingleChunkPlugin()),
       experiments: { css: true },
+      target: "browserslist:defaults",
     },
     devServer(proxySettings) {
       return {

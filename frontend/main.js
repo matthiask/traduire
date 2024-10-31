@@ -21,7 +21,6 @@ onReady(() => {
       e.target.form.requestSubmit()
     }
 
-    const entry = e.target.closest(".entry")
     if (e.target.closest(".entry__msgstr")) {
       qs(".entry__fuzzy input", e.target.closest(".entry")).checked = false
     }

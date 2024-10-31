@@ -21,9 +21,7 @@ button {
   padding: 7px 23px;
   border-radius: 1.5rem;
   white-space: nowrap;
-  transition:
-    color 200ms ease-in-out,
-    background-color 200ms ease-in-out,
+  transition: color 200ms ease-in-out, background-color 200ms ease-in-out,
     border-color 200ms ease-in-out;
 
   color: var(--button-fg);

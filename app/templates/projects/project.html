@@ -40,4 +40,4 @@
 
 <h2>{% translate 'Latest activity' %}</h2>
 {% for a in activity %}{{ a.as_html }}{% empty %}<p>{% translate 'None' %}</p>{% endfor %}
-{% endblock %}
+{% endblock content %}
