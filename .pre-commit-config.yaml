@@ -61,6 +61,7 @@ repos:
         additional_dependencies: ["@biomejs/biome@1.9.4"]
         args: [--unsafe]
         types_or: [css, javascript, json]
+        verbose: true
   - repo: https://github.com/boidolr/pre-commit-images
     rev: v1.8.2
     hooks:
