@@ -44,6 +44,7 @@ TO FH-FABLIB AT https://github.com/feinheit/fh-fablib
 
 const path = require("node:path")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
+const rspack = require("@rspack/core")
 
 const truthy = (...list) => list.filter((el) => !!el)
 
@@ -114,8 +115,17 @@ module.exports = (PRODUCTION) => {
 
   function postcssLoaders(plugins) {
     return [
+      { loader: rspack.CssExtractRspackPlugin.loader },
+      { loader: "css-loader" },
       { loader: "postcss-loader", options: { postcssOptions: { plugins } } },
     ]
+  }
+
+  function cssExtractPlugin() {
+    return new rspack.CssExtractRspackPlugin({
+      filename: PRODUCTION ? "[name].[contenthash].css" : "[name].css",
+      chunkFilename: PRODUCTION ? "[name].[contenthash].css" : "[name].css",
+    })
   }
 
   return {
@@ -133,8 +143,7 @@ module.exports = (PRODUCTION) => {
         // Same as the default but prefixed with "_/[name]."
         assetModuleFilename: "_/[name].[hash][ext][query][fragment]",
       },
-      plugins: truthy(htmlSingleChunkPlugin()),
-      experiments: { css: true },
+      plugins: truthy(cssExtractPlugin(), htmlSingleChunkPlugin()),
       target: "browserslist:defaults",
     },
     devServer(proxySettings) {
@@ -175,7 +184,7 @@ module.exports = (PRODUCTION) => {
     postcssRule(cfg) {
       return {
         test: /\.css$/i,
-        type: "css",
+        type: "javascript/auto",
         use: postcssLoaders(cfg?.plugins),
       }
     },
@@ -195,7 +204,7 @@ module.exports = (PRODUCTION) => {
             },
           },
         ],
-        type: "css",
+        type: "javascript/auto",
       }
     },
     swcWithPreactRule,
@@ -215,5 +224,6 @@ module.exports = (PRODUCTION) => {
     htmlPlugin,
     htmlSingleChunkPlugin,
     postcssLoaders,
+    cssExtractPlugin,
   }
 }
