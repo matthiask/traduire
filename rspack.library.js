@@ -180,7 +180,7 @@ module.exports = (PRODUCTION) => {
     },
     assetRule() {
       return {
-        test: /\.(png|woff2?|svg|eot|ttf|otf|gif|jpe?g|mp3|wav)$/i,
+        test: /\.(png|webp|woff2?|svg|eot|ttf|otf|gif|jpe?g|mp3|wav)$/i,
         type: "asset",
         parser: { dataUrlCondition: { maxSize: 512 /* bytes */ } },
       }
