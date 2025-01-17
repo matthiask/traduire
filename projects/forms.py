@@ -114,6 +114,7 @@ class EntriesForm(forms.Form):
                         entry.fuzzy = False
                         updates += 1
                     elif old != entry:
+                        entry.fuzzy = fuzzy
                         updates += 1
                     break
 
