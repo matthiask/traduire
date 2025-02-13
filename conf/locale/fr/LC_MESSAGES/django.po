@@ -16,7 +16,6 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "X-Translated-Using: traduire 0.0.1\n"
 
 #: accounts/apps.py
@@ -45,7 +44,9 @@ msgstr "Vous avez été déconnecté."
 
 #: accounts/views.py
 msgid "Error while fetching user data. Please try again."
-msgstr "Erreur lors de la récupération des données de l'utilisateur. Veuillez réessayer."
+msgstr ""
+"Erreur lors de la récupération des données de l'utilisateur. Veuillez "
+"réessayer."
 
 #: accounts/views.py
 #, python-format
@@ -63,7 +64,9 @@ msgstr "Un compte avec l'adresse e-mail {email} existe déjà."
 
 #: accounts/views.py
 msgid "Verified user data couldn't be found. Please try again."
-msgstr "Les données de l'utilisateur vérifié n'ont pas été trouvées. Veuillez réessayer."
+msgstr ""
+"Les données de l'utilisateur vérifié n'ont pas été trouvées. Veuillez "
+"réessayer."
 
 #: accounts/views.py
 msgid "Welcome, {}!"
@@ -195,7 +198,9 @@ msgstr "Compte"
 msgid "Log out"
 msgstr "Déconnexion"
 
-#: app/templates/projects/projects.html app/templates/registration/password_change_done.html app/templates/registration/password_change_form.html
+#: app/templates/projects/projects.html
+#: app/templates/registration/password_change_done.html
+#: app/templates/registration/password_change_form.html
 msgid "Change password"
 msgstr "Modifier le mot de passe"
 
@@ -203,15 +208,21 @@ msgstr "Modifier le mot de passe"
 msgid "Site administration"
 msgstr "Administration du site"
 
-#: app/templates/registration/login.html app/templates/registration/register.html
+#: app/templates/registration/login.html
+#: app/templates/registration/register.html
 msgid "Login"
 msgstr "Connexion"
 
-#: app/templates/registration/login.html app/templates/registration/register.html
+#: app/templates/registration/login.html
+#: app/templates/registration/register.html
 msgid "Register"
 msgstr "Registre"
 
-#: app/templates/registration/login.html app/templates/registration/password_reset_complete.html app/templates/registration/password_reset_confirm.html app/templates/registration/password_reset_done.html app/templates/registration/password_reset_form.html
+#: app/templates/registration/login.html
+#: app/templates/registration/password_reset_complete.html
+#: app/templates/registration/password_reset_confirm.html
+#: app/templates/registration/password_reset_done.html
+#: app/templates/registration/password_reset_form.html
 msgid "Reset password"
 msgstr "Réinitialiser le mot de passe"
 
@@ -224,41 +235,69 @@ msgid "Your password was changed."
 msgstr "Votre mot de passe a été modifié."
 
 #: app/templates/registration/password_change_form.html
-msgid "Please enter your old password, for security’s sake, and then enter your new password twice so we can verify you typed it in correctly."
-msgstr "Veuillez saisir votre ancien mot de passe, par mesure de sécurité, puis saisissez deux fois votre nouveau mot de passe afin que nous puissions vérifier que vous l'avez saisi correctement."
+msgid ""
+"Please enter your old password, for security’s sake, and then enter your new"
+" password twice so we can verify you typed it in correctly."
+msgstr ""
+"Veuillez saisir votre ancien mot de passe, par mesure de sécurité, puis "
+"saisissez deux fois votre nouveau mot de passe afin que nous puissions "
+"vérifier que vous l'avez saisi correctement."
 
-#: app/templates/registration/password_change_form.html app/templates/registration/password_reset_confirm.html app/templates/registration/password_reset_form.html
+#: app/templates/registration/password_change_form.html
+#: app/templates/registration/password_reset_confirm.html
+#: app/templates/registration/password_reset_form.html
 msgid "Submit"
 msgstr "Envoyer"
 
 #: app/templates/registration/password_reset_complete.html
 msgid "Your password has been set.  You may go ahead and log in now."
-msgstr "Votre mot de passe a été défini.  Vous pouvez maintenant vous connecter."
+msgstr ""
+"Votre mot de passe a été défini.  Vous pouvez maintenant vous connecter."
 
 #: app/templates/registration/password_reset_complete.html
 msgid "Log in"
 msgstr "Se connecter"
 
 #: app/templates/registration/password_reset_confirm.html
-msgid "The password reset link was invalid, possibly because it has already been used.  Please request a new password reset."
-msgstr "Le lien de réinitialisation du mot de passe n'était pas valide, peut-être parce qu'il a déjà été utilisé.  Veuillez demander une nouvelle réinitialisation du mot de passe."
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a new password reset."
+msgstr ""
+"Le lien de réinitialisation du mot de passe n'était pas valide, peut-être "
+"parce qu'il a déjà été utilisé.  Veuillez demander une nouvelle "
+"réinitialisation du mot de passe."
 
 #: app/templates/registration/password_reset_done.html
-msgid "We’ve emailed you instructions for setting your password, if an account exists with the email you entered. You should receive them shortly."
-msgstr "Nous vous avons envoyé par courrier électronique des instructions pour définir votre mot de passe, si un compte existe avec l'adresse électronique que vous avez indiquée. Vous devriez les recevoir sous peu."
+msgid ""
+"We’ve emailed you instructions for setting your password, if an account "
+"exists with the email you entered. You should receive them shortly."
+msgstr ""
+"Nous vous avons envoyé par courrier électronique des instructions pour "
+"définir votre mot de passe, si un compte existe avec l'adresse électronique "
+"que vous avez indiquée. Vous devriez les recevoir sous peu."
 
 #: app/templates/registration/password_reset_done.html
-msgid "If you don’t receive an email, please make sure you’ve entered the address you registered with, and check your spam folder."
-msgstr "Si vous ne recevez pas d'e-mail, assurez-vous d'avoir saisi l'adresse avec laquelle vous vous êtes inscrit et vérifiez votre dossier de courrier indésirable."
+msgid ""
+"If you don’t receive an email, please make sure you’ve entered the address "
+"you registered with, and check your spam folder."
+msgstr ""
+"Si vous ne recevez pas d'e-mail, assurez-vous d'avoir saisi l'adresse avec "
+"laquelle vous vous êtes inscrit et vérifiez votre dossier de courrier "
+"indésirable."
 
 #: app/templates/registration/password_reset_email.html
 #, python-format
-msgid "You're receiving this email because you requested a password reset for your user account at %(site_name)s."
-msgstr "Vous recevez cet e-mail parce que vous avez demandé la réinitialisation du mot de passe de votre compte utilisateur chez %(site_name)s."
+msgid ""
+"You're receiving this email because you requested a password reset for your "
+"user account at %(site_name)s."
+msgstr ""
+"Vous recevez cet e-mail parce que vous avez demandé la réinitialisation du "
+"mot de passe de votre compte utilisateur chez %(site_name)s."
 
 #: app/templates/registration/password_reset_email.html
 msgid "Please go to the following page and choose a new password:"
-msgstr "Veuillez vous rendre à la page suivante et choisir un nouveau mot de passe :"
+msgstr ""
+"Veuillez vous rendre à la page suivante et choisir un nouveau mot de passe :"
 
 #: app/templates/registration/password_reset_email.html
 msgid "Your username, in case you’ve forgotten:"
@@ -326,8 +365,12 @@ msgid "email domains"
 msgstr "domaines de e-mail"
 
 #: projects/models.py
-msgid "User accounts on these domains will automatically get access to this project. One domain per line."
-msgstr "Les comptes utilisateurs de ces domaines auront automatiquement accès à ce projet. Un domaine par ligne."
+msgid ""
+"User accounts on these domains will automatically get access to this "
+"project. One domain per line."
+msgstr ""
+"Les comptes utilisateurs de ces domaines auront automatiquement accès à ce "
+"projet. Un domaine par ligne."
 
 #: projects/models.py
 msgid "project"

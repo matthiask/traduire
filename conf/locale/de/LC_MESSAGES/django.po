@@ -111,15 +111,22 @@ msgstr "Konto"
 msgid "Log out"
 msgstr "Abmelden"
 
-#: app/templates/projects/projects.html app/templates/registration/password_change_done.html app/templates/registration/password_change_form.html
+#: app/templates/projects/projects.html
+#: app/templates/registration/password_change_done.html
+#: app/templates/registration/password_change_form.html
 msgid "Change password"
 msgstr "Passwort ändern"
 
-#: app/templates/registration/login.html app/templates/registration/password_reset_complete.html app/templates/registration/password_reset_confirm.html app/templates/registration/password_reset_done.html app/templates/registration/password_reset_form.html
+#: app/templates/registration/login.html
+#: app/templates/registration/password_reset_complete.html
+#: app/templates/registration/password_reset_confirm.html
+#: app/templates/registration/password_reset_done.html
+#: app/templates/registration/password_reset_form.html
 msgid "Reset password"
 msgstr "Passwort zurücksetzen"
 
-#: app/templates/registration/login.html app/templates/registration/register.html
+#: app/templates/registration/login.html
+#: app/templates/registration/register.html
 msgid "Login"
 msgstr "Anmelden"
 
@@ -128,10 +135,17 @@ msgid "Your password was changed."
 msgstr "Ihr Passwort wurde geändert."
 
 #: app/templates/registration/password_change_form.html
-msgid "Please enter your old password, for security’s sake, and then enter your new password twice so we can verify you typed it in correctly."
-msgstr "Bitte geben Sie zur Sicherheit Ihr altes Passwort ein und geben Sie dann Ihr neues Passwort zweimal ein, damit wir überprüfen können, ob Sie es richtig eingegeben haben."
+msgid ""
+"Please enter your old password, for security’s sake, and then enter your new"
+" password twice so we can verify you typed it in correctly."
+msgstr ""
+"Bitte geben Sie zur Sicherheit Ihr altes Passwort ein und geben Sie dann Ihr"
+" neues Passwort zweimal ein, damit wir überprüfen können, ob Sie es richtig "
+"eingegeben haben."
 
-#: app/templates/registration/password_change_form.html app/templates/registration/password_reset_confirm.html app/templates/registration/password_reset_form.html
+#: app/templates/registration/password_change_form.html
+#: app/templates/registration/password_reset_confirm.html
+#: app/templates/registration/password_reset_form.html
 msgid "Submit"
 msgstr "Abschicken"
 
@@ -144,25 +158,44 @@ msgid "Log in"
 msgstr "Anmelden"
 
 #: app/templates/registration/password_reset_confirm.html
-msgid "The password reset link was invalid, possibly because it has already been used.  Please request a new password reset."
-msgstr "Der Link zum Zurücksetzen des Passworts war ungültig, möglicherweise weil er bereits verwendet wurde.  Bitte fordern Sie ein neues Passwort an."
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a new password reset."
+msgstr ""
+"Der Link zum Zurücksetzen des Passworts war ungültig, möglicherweise weil er"
+" bereits verwendet wurde.  Bitte fordern Sie ein neues Passwort an."
 
 #: app/templates/registration/password_reset_done.html
-msgid "We’ve emailed you instructions for setting your password, if an account exists with the email you entered. You should receive them shortly."
-msgstr "Wir haben Ihnen per E-Mail eine Anleitung zum Einrichten Ihres Passworts geschickt, sofern ein Konto mit der von Ihnen eingegebenen E-Mail-Adresse existiert. Sie sollten sie in Kürze erhalten."
+msgid ""
+"We’ve emailed you instructions for setting your password, if an account "
+"exists with the email you entered. You should receive them shortly."
+msgstr ""
+"Wir haben Ihnen per E-Mail eine Anleitung zum Einrichten Ihres Passworts "
+"geschickt, sofern ein Konto mit der von Ihnen eingegebenen E-Mail-Adresse "
+"existiert. Sie sollten sie in Kürze erhalten."
 
 #: app/templates/registration/password_reset_done.html
-msgid "If you don’t receive an email, please make sure you’ve entered the address you registered with, and check your spam folder."
-msgstr "Wenn Sie keine E-Mail erhalten, vergewissern Sie sich bitte, dass Sie die Adresse eingegeben haben, mit der Sie sich registriert haben, und überprüfen Sie Ihren Spam-Ordner."
+msgid ""
+"If you don’t receive an email, please make sure you’ve entered the address "
+"you registered with, and check your spam folder."
+msgstr ""
+"Wenn Sie keine E-Mail erhalten, vergewissern Sie sich bitte, dass Sie die "
+"Adresse eingegeben haben, mit der Sie sich registriert haben, und überprüfen"
+" Sie Ihren Spam-Ordner."
 
 #: app/templates/registration/password_reset_email.html
 #, python-format
-msgid "You're receiving this email because you requested a password reset for your user account at %(site_name)s."
-msgstr "Sie erhalten diese E-Mail, weil Sie ein neues Passwort für Ihr Benutzerkonto bei %(site_name)s beantragt haben."
+msgid ""
+"You're receiving this email because you requested a password reset for your "
+"user account at %(site_name)s."
+msgstr ""
+"Sie erhalten diese E-Mail, weil Sie ein neues Passwort für Ihr Benutzerkonto"
+" bei %(site_name)s beantragt haben."
 
 #: app/templates/registration/password_reset_email.html
 msgid "Please go to the following page and choose a new password:"
-msgstr "Bitte gehen Sie auf die folgende Seite und wählen Sie ein neues Passwort:"
+msgstr ""
+"Bitte gehen Sie auf die folgende Seite und wählen Sie ein neues Passwort:"
 
 #: app/templates/registration/password_reset_email.html
 msgid "Your username, in case you’ve forgotten:"
@@ -294,7 +327,8 @@ msgstr "aktualisiert am"
 msgid "Please check your mailbox."
 msgstr "Bitte prüfen Sie Ihren Mailbox."
 
-#: app/templates/registration/login.html app/templates/registration/register.html
+#: app/templates/registration/login.html
+#: app/templates/registration/register.html
 msgid "Register"
 msgstr "Registrieren"
 
@@ -303,8 +337,12 @@ msgid "email domains"
 msgstr "E-Mail-Domains"
 
 #: projects/models.py
-msgid "User accounts on these domains will automatically get access to this project. One domain per line."
-msgstr "Benutzerkonten auf diesen Domänen erhalten automatisch Zugang zu diesem Projekt. Eine Domäne pro Zeile."
+msgid ""
+"User accounts on these domains will automatically get access to this "
+"project. One domain per line."
+msgstr ""
+"Benutzerkonten auf diesen Domänen erhalten automatisch Zugang zu diesem "
+"Projekt. Eine Domäne pro Zeile."
 
 #: projects/models.py
 msgid "Some of the lines are not valid domain names."
@@ -325,7 +363,9 @@ msgstr "Es existiert bereits ein Konto mit der E-Mail-Adresse {email}."
 
 #: accounts/views.py
 msgid "Verified user data couldn't be found. Please try again."
-msgstr "Es konnten keine verifizierten Benutzerdaten gefunden werden. Bitte versuchen Sie es erneut."
+msgstr ""
+"Es konnten keine verifizierten Benutzerdaten gefunden werden. Bitte "
+"versuchen Sie es erneut."
 
 #: app/templates/projects/project.html app/templates/projects/projects.html
 #, python-format
@@ -425,8 +465,12 @@ msgid "Export messages as CSV"
 msgstr "Einträge als CSV exportieren"
 
 #, python-brace-format
-#~ msgid "No user with email address {email} found and email address isn't automatically allowed."
-#~ msgstr "Kein Benutzer mit E-Mail-Adresse {email} gefunden und E-Mail-Adresse ist nicht automatisch erlaubt."
+#~ msgid ""
+#~ "No user with email address {email} found and email address isn't "
+#~ "automatically allowed."
+#~ msgstr ""
+#~ "Kein Benutzer mit E-Mail-Adresse {email} gefunden und E-Mail-Adresse ist "
+#~ "nicht automatisch erlaubt."
 
 #~ msgid "Single sign on"
 #~ msgstr "Anmeldung per SSO"

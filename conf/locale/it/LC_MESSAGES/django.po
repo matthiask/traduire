@@ -16,7 +16,6 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #: accounts/apps.py
 msgid "Authentication"
@@ -194,7 +193,9 @@ msgstr ""
 msgid "Log out"
 msgstr ""
 
-#: app/templates/projects/projects.html app/templates/registration/password_change_done.html app/templates/registration/password_change_form.html
+#: app/templates/projects/projects.html
+#: app/templates/registration/password_change_done.html
+#: app/templates/registration/password_change_form.html
 msgid "Change password"
 msgstr ""
 
@@ -202,15 +203,21 @@ msgstr ""
 msgid "Site administration"
 msgstr ""
 
-#: app/templates/registration/login.html app/templates/registration/register.html
+#: app/templates/registration/login.html
+#: app/templates/registration/register.html
 msgid "Login"
 msgstr ""
 
-#: app/templates/registration/login.html app/templates/registration/register.html
+#: app/templates/registration/login.html
+#: app/templates/registration/register.html
 msgid "Register"
 msgstr ""
 
-#: app/templates/registration/login.html app/templates/registration/password_reset_complete.html app/templates/registration/password_reset_confirm.html app/templates/registration/password_reset_done.html app/templates/registration/password_reset_form.html
+#: app/templates/registration/login.html
+#: app/templates/registration/password_reset_complete.html
+#: app/templates/registration/password_reset_confirm.html
+#: app/templates/registration/password_reset_done.html
+#: app/templates/registration/password_reset_form.html
 msgid "Reset password"
 msgstr ""
 
@@ -223,10 +230,14 @@ msgid "Your password was changed."
 msgstr ""
 
 #: app/templates/registration/password_change_form.html
-msgid "Please enter your old password, for security’s sake, and then enter your new password twice so we can verify you typed it in correctly."
+msgid ""
+"Please enter your old password, for security’s sake, and then enter your new"
+" password twice so we can verify you typed it in correctly."
 msgstr ""
 
-#: app/templates/registration/password_change_form.html app/templates/registration/password_reset_confirm.html app/templates/registration/password_reset_form.html
+#: app/templates/registration/password_change_form.html
+#: app/templates/registration/password_reset_confirm.html
+#: app/templates/registration/password_reset_form.html
 msgid "Submit"
 msgstr ""
 
@@ -239,20 +250,28 @@ msgid "Log in"
 msgstr ""
 
 #: app/templates/registration/password_reset_confirm.html
-msgid "The password reset link was invalid, possibly because it has already been used.  Please request a new password reset."
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a new password reset."
 msgstr ""
 
 #: app/templates/registration/password_reset_done.html
-msgid "We’ve emailed you instructions for setting your password, if an account exists with the email you entered. You should receive them shortly."
+msgid ""
+"We’ve emailed you instructions for setting your password, if an account "
+"exists with the email you entered. You should receive them shortly."
 msgstr ""
 
 #: app/templates/registration/password_reset_done.html
-msgid "If you don’t receive an email, please make sure you’ve entered the address you registered with, and check your spam folder."
+msgid ""
+"If you don’t receive an email, please make sure you’ve entered the address "
+"you registered with, and check your spam folder."
 msgstr ""
 
 #: app/templates/registration/password_reset_email.html
 #, python-format
-msgid "You're receiving this email because you requested a password reset for your user account at %(site_name)s."
+msgid ""
+"You're receiving this email because you requested a password reset for your "
+"user account at %(site_name)s."
 msgstr ""
 
 #: app/templates/registration/password_reset_email.html
@@ -325,7 +344,9 @@ msgid "email domains"
 msgstr ""
 
 #: projects/models.py
-msgid "User accounts on these domains will automatically get access to this project. One domain per line."
+msgid ""
+"User accounts on these domains will automatically get access to this "
+"project. One domain per line."
 msgstr ""
 
 #: projects/models.py
