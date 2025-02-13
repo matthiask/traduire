@@ -12,15 +12,21 @@ def translate_by_deepl(text, to_language, auth_key):
     else:
         endpoint = "https://api.deepl.com"
 
-    r = requests.post(
-        f"{endpoint}/v2/translate",
-        headers={"Authorization": f"DeepL-Auth-Key {auth_key}"},
-        data={
-            "target_lang": to_language.upper(),
-            "text": text,
-        },
-        timeout=5,
-    )
+    try:
+        r = requests.post(
+            f"{endpoint}/v2/translate",
+            headers={"Authorization": f"DeepL-Auth-Key {auth_key}"},
+            data={
+                "target_lang": to_language.upper(),
+                "text": text,
+            },
+            timeout=5,
+        )
+    except requests.Timeout as exc:
+        raise TranslationError(
+            "The Deepl request timed out. Please try again later."
+        ) from exc
+
     if r.status_code != 200:
         raise TranslationError(
             f"Deepl response is {r.status_code}. Please check your API key or try again later."
