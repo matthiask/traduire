@@ -1,7 +1,7 @@
 import fh_fablib as fl
 
 
-fl.require("1.0.20250610")
+fl.require("1.0.20250710")
 fl.config.update(
     domain="traduire.feinheit.dev",
     branch="main",
