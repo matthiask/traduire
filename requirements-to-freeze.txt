@@ -1,13 +1,13 @@
 blacknoise
 coverage
+django
 django-authlib
 django-canonical-domain
 django-debug-toolbar
 django-ratelimit
-django>=5.1b1
 granian
 polib
 psycopg[binary]
-sentry-sdk
+sentry-sdk<3
 speckenv
 time-machine

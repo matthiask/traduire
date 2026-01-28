@@ -36,7 +36,6 @@ dd {
 /* Set core body defaults */
 body {
   min-height: 100vh;
-  /* biome-ignore lint/suspicious/noDuplicateProperties: May be unsupported */
   min-height: -webkit-fill-available;
   scroll-behavior: smooth;
   text-rendering: optimizespeed;
