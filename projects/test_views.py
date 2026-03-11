@@ -509,3 +509,99 @@ msgstr[1] "Blab %(count)s"
             list(Event.objects.values_list("action", flat=True)),
             ["project-created"],
         )
+
+
+class FeedsTest(TestCase):
+    def setUp(self):
+        self.superuser = User.objects.create_superuser("admin@example.com", "admin")
+        self.user = User.objects.create_user("user@example.com", "user")
+
+        self.p1 = Project.objects.create(name="Project One", slug="p1")
+        self.p2 = Project.objects.create(name="Project Two", slug="p2")
+        self.user.projects.add(self.p2)
+
+        Event.objects.create(
+            user=self.superuser,
+            action=Event.Action.CATALOG_UPDATED,
+            project=self.p1,
+        )
+        Event.objects.create(
+            user=self.user,
+            action=Event.Action.CATALOG_REPLACED,
+            project=self.p2,
+        )
+
+    def test_global_feed_no_token(self):
+        r = self.client.get("/feed.rss")
+        self.assertEqual(r.status_code, 404)
+
+    def test_global_feed_invalid_token(self):
+        r = self.client.get("/feed.rss?token=bad")
+        self.assertEqual(r.status_code, 404)
+
+    def test_global_feed_staff_sees_all_projects(self):
+        r = self.client.get(f"/feed.rss?token={self.superuser.token}")
+        self.assertEqual(r.status_code, 200)
+        self.assertEqual(r["Content-Type"], "application/rss+xml; charset=utf-8")
+        content = r.content.decode()
+        self.assertIn("Project One", content)
+        self.assertIn("Project Two", content)
+
+    def test_global_feed_user_sees_own_projects_only(self):
+        r = self.client.get(f"/feed.rss?token={self.user.token}")
+        self.assertEqual(r.status_code, 200)
+        content = r.content.decode()
+        self.assertNotIn("Project One", content)
+        self.assertIn("Project Two", content)
+
+    def test_project_feed_no_token(self):
+        r = self.client.get("/p1/feed.rss")
+        self.assertEqual(r.status_code, 404)
+
+    def test_project_feed_invalid_token(self):
+        r = self.client.get("/p1/feed.rss?token=bad")
+        self.assertEqual(r.status_code, 404)
+
+    def test_project_feed_no_access(self):
+        r = self.client.get(f"/p1/feed.rss?token={self.user.token}")
+        self.assertEqual(r.status_code, 404)
+
+    def test_project_feed_returns_rss(self):
+        r = self.client.get(f"/p1/feed.rss?token={self.superuser.token}")
+        self.assertEqual(r.status_code, 200)
+        self.assertEqual(r["Content-Type"], "application/rss+xml; charset=utf-8")
+        content = r.content.decode()
+        self.assertIn("Project One", content)
+        self.assertNotIn("Project Two", content)
+
+    def test_project_feed_digest_groups_by_day(self):
+        # Add a second event on the same project — should produce one digest item
+        Event.objects.create(
+            user=self.superuser,
+            action=Event.Action.CATALOG_REPLACED,
+            project=self.p1,
+        )
+        r = self.client.get(f"/p1/feed.rss?token={self.superuser.token}")
+        self.assertEqual(r.status_code, 200)
+        content = r.content.decode()
+        # Both actions should appear in the description of the single digest item
+        self.assertIn("updated catalog", content)
+        self.assertIn("replaced catalog", content)
+        # Only one <item> since both events are on the same day
+        self.assertEqual(content.count("<item>"), 1)
+
+    def test_feed_excludes_login_events(self):
+        Event.objects.create(
+            user=self.superuser,
+            action=Event.Action.USER_LOGGED_IN,
+            project=self.p1,
+        )
+        r = self.client.get(f"/p1/feed.rss?token={self.superuser.token}")
+        content = r.content.decode()
+        self.assertNotIn("user logged in", content)
+
+    def test_feed_unique_guid_per_project_day(self):
+        r = self.client.get(f"/feed.rss?token={self.superuser.token}")
+        content = r.content.decode()
+        self.assertIn('<guid isPermaLink="false">p1-', content)
+        self.assertIn('<guid isPermaLink="false">p2-', content)

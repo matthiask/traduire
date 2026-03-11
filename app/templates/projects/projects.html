@@ -40,6 +40,7 @@
   {% endif %}
 
   <a download="traduire.toml" href="{% url 'projects:traduire_toml' %}">{% translate 'Download the configuration file' %}</a>
+  · <a href="{% url 'projects:feed' %}?token={{ request.user.token }}">{% translate 'RSS feed' %}</a>
 {% else %}
   <p>{% translate 'You do not have access to any projects. Sorry.' %}</p>
 {% endif %}

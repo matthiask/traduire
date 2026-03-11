@@ -39,5 +39,6 @@
 </details>
 
 <h2>{% translate 'Latest activity' %}</h2>
+<p><a href="{% url 'projects:project_feed' slug=project.slug %}?token={{ request.user.token }}">{% translate 'RSS feed' %}</a></p>
 {% for a in activity %}{{ a.as_html }}{% empty %}<p>{% translate 'None' %}</p>{% endfor %}
 {% endblock content %}

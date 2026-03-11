@@ -1,12 +1,14 @@
 from django.urls import path
 
-from projects import views
+from projects import feeds, views
 
 
 app_name = "projects"
 urlpatterns = [
     path("", views.projects, name="projects"),
+    path("feed.rss", feeds.AllProjectsFeed(), name="feed"),
     path("<slug:slug>/", views.project, name="project"),
+    path("<slug:slug>/feed.rss", feeds.ProjectFeed(), name="project_feed"),
     path(
         "<slug:project>/<str:language_code>/<str:domain>/",
         views.catalog,
