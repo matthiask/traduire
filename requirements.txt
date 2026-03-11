@@ -13,6 +13,9 @@ django-canonical-domain==0.11.0
 django-debug-toolbar==6.2.0
 django-ratelimit==4.1.0
 granian==2.7.2
+h11==0.16.0
+httpcore==1.0.9
+httpx==0.28.1
 idna==3.11
 oauthlib==3.3.1
 polib==1.2.0
@@ -23,7 +26,7 @@ requests-oauthlib==2.0.0
 sentry-sdk==2.54.0
 speckenv==6.2
 sqlparse==0.5.5
-starlette==1.0.0rc1
+starlette==0.52.1
 time-machine==3.2.0
 typing-extensions==4.15.0
 urllib3==2.6.3

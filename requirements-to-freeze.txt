@@ -6,6 +6,7 @@ django-canonical-domain
 django-debug-toolbar
 django-ratelimit
 granian
+httpx
 polib
 psycopg[binary]
 sentry-sdk<3

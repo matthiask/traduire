@@ -1,8 +1,9 @@
-from unittest.mock import Mock, patch
+from unittest.mock import AsyncMock, patch
 
+from asgiref.sync import sync_to_async
 from django.conf import settings
 from django.contrib.messages import get_messages
-from django.test import Client, TestCase
+from django.test import AsyncClient, Client, TestCase
 from django.test.utils import override_settings
 
 from accounts.models import User
@@ -403,32 +404,37 @@ msgstr[1] "Blab %(count)s"
             r, '<td class="field-explicit_users"> &lt;user@example.com&gt;</td>'
         )
 
-    def test_suggest(self):
-        c = Client()
+    async def test_suggest(self):
+        c = AsyncClient()
 
-        r = c.get("/api/suggest/")
+        r = await c.get("/api/suggest/")
         self.assertEqual(r.status_code, 405)
 
-        r = c.post("/api/suggest/")
+        r = await c.post("/api/suggest/")
         self.assertEqual(r.status_code, 403)
 
-        user = User.objects.create_user("user@example.com", "user")
-        c.force_login(user)
+        user = await sync_to_async(User.objects.create_user)("user@example.com", "user")
+        await c.aforce_login(user)
 
-        r = c.post("/api/suggest/")
+        r = await c.post("/api/suggest/")
         self.assertEqual(r.status_code, 400)
 
         with patch(
-            "projects.views.translators.translate_by_deepl", lambda *a: "Bonjour"
+            "projects.views.translators.translate_by_deepl",
+            AsyncMock(return_value="Bonjour"),
         ):
-            r = c.post("/api/suggest/", {"language_code": "fr", "msgid": "Anything"})
+            r = await c.post(
+                "/api/suggest/", {"language_code": "fr", "msgid": "Anything"}
+            )
             self.assertEqual(r.status_code, 200)
             self.assertEqual(r.json(), {"msgstr": "Bonjour"})
 
-        mock = Mock()
+        mock = AsyncMock()
         mock.side_effect = TranslationError("Oops")
         with patch("projects.views.translators.translate_by_deepl", mock):
-            r = c.post("/api/suggest/", {"language_code": "fr", "msgid": "Anything"})
+            r = await c.post(
+                "/api/suggest/", {"language_code": "fr", "msgid": "Anything"}
+            )
             self.assertEqual(r.status_code, 200)
             self.assertEqual(r.json(), {"error": "Oops"})
 

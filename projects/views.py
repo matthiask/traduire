@@ -123,15 +123,16 @@ def catalog(request, project, language_code, domain):
 
 
 @require_POST
-def suggest(request):
-    if not request.user.is_authenticated:
+async def suggest(request):
+    user = await request.auser()
+    if not user.is_authenticated:
         return http.HttpResponseForbidden()
 
     form = SuggestForm(request.POST)
     if form.is_valid():
         data = form.cleaned_data
         try:
-            translation = translators.translate_by_deepl(
+            translation = await translators.translate_by_deepl(
                 data["msgid"], data["language_code"], settings.DEEPL_AUTH_KEY
             )
         except translators.TranslationError as exc:

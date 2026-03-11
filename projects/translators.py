@@ -1,11 +1,11 @@
-import requests
+import httpx
 
 
 class TranslationError(Exception):
     pass
 
 
-def translate_by_deepl(text, to_language, auth_key):
+async def translate_by_deepl(text, to_language, auth_key):
     # Copied 1:1 from django-rosetta, thanks!
     if auth_key.lower().endswith(":fx"):
         endpoint = "https://api-free.deepl.com"
@@ -13,16 +13,17 @@ def translate_by_deepl(text, to_language, auth_key):
         endpoint = "https://api.deepl.com"
 
     try:
-        r = requests.post(
-            f"{endpoint}/v2/translate",
-            headers={"Authorization": f"DeepL-Auth-Key {auth_key}"},
-            data={
-                "target_lang": to_language.upper(),
-                "text": text,
-            },
-            timeout=5,
-        )
-    except requests.Timeout as exc:
+        async with httpx.AsyncClient() as client:
+            r = await client.post(
+                f"{endpoint}/v2/translate",
+                headers={"Authorization": f"DeepL-Auth-Key {auth_key}"},
+                data={
+                    "target_lang": to_language.upper(),
+                    "text": text,
+                },
+                timeout=5,
+            )
+    except httpx.TimeoutException as exc:
         raise TranslationError(
             "The Deepl request timed out. Please try again later."
         ) from exc
