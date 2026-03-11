@@ -24,6 +24,11 @@ def _variable_name(placeholder):
     return placeholder
 
 
+def find_variables(text):
+    """Return all placeholder variables found in text."""
+    return _VARIABLE_RE.findall(text)
+
+
 def _protect_variables(text):
     """Replace variables with named <var> tags so DeepL won't translate them.
 

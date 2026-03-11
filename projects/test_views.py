@@ -13,6 +13,7 @@ from projects.translators import (
     _protect_variables,
     _restore_variables,
     _variable_name,
+    find_variables,
     fix_nls,
 )
 
@@ -511,6 +512,67 @@ msgstr[1] "Blab %(count)s"
         for placeholder, expected in cases:
             with self.subTest(placeholder=placeholder):
                 self.assertEqual(_variable_name(placeholder), expected)
+
+    def test_find_variables(self):
+        self.assertEqual(find_variables("No variables here"), [])
+        self.assertEqual(find_variables("Hello %(name)s!"), ["%(name)s"])
+        self.assertEqual(find_variables("Hello {name}!"), ["{name}"])
+        self.assertEqual(
+            find_variables("%(user)s has {count} items"),
+            ["%(user)s", "{count}"],
+        )
+
+    def test_variable_hint_in_help_text(self):
+        superuser = User.objects.create_superuser("admin@example.com", "admin")
+        su_client = Client()
+        su_client.force_login(superuser)
+
+        _p, c = self.create_project_and_catalog()
+
+        r = su_client.get(c.get_absolute_url(), headers={"accept-language": "en"})
+        # The plural entry has %(count)s — it should appear as a hint
+        self.assertContains(r, "<code>%(count)s</code>")
+
+    def test_variable_validation_on_save(self):
+        superuser = User.objects.create_superuser("admin@example.com", "admin")
+        su_client = Client()
+        su_client.force_login(superuser)
+
+        _p, c = self.create_project_and_catalog()
+
+        # The plural entry is the third entry (index 2) in the catalog
+        # Submit a translation that drops %(count)s
+        r = su_client.post(
+            c.get_absolute_url(),
+            {
+                "msgid_2": "Successfully reset the password of %(count)s student.",
+                "msgstr_2:0": "Réinitialisation sans la variable.",
+                "msgstr_2:1": "Réinitialisation sans la variable.",
+            },
+            headers={"accept-language": "en"},
+        )
+        # Should re-render the form with errors, not redirect
+        self.assertEqual(r.status_code, 200)
+        self.assertContains(r, "Missing variables")
+
+    def test_valid_translation_with_variables_saves(self):
+        superuser = User.objects.create_superuser("admin@example.com", "admin")
+        su_client = Client()
+        su_client.force_login(superuser)
+
+        _p, c = self.create_project_and_catalog()
+
+        # Submit a translation that keeps %(count)s
+        r = su_client.post(
+            c.get_absolute_url(),
+            {
+                "msgid_2": "Successfully reset the password of %(count)s student.",
+                "msgstr_2:0": "Réinitialisation de %(count)s mot de passe.",
+                "msgstr_2:1": "Réinitialisation de %(count)s mots de passe.",
+            },
+            headers={"accept-language": "en"},
+        )
+        self.assertRedirects(r, c.get_absolute_url() + "?start=0")
 
     def test_event_save(self):
         user = User.objects.create_superuser("admin@example.com", "admin")

@@ -3,7 +3,7 @@ import copy
 from django import forms
 from django.conf import settings
 from django.contrib import messages
-from django.utils.html import format_html
+from django.utils.html import format_html, format_html_join
 from django.utils.timezone import localtime
 from django.utils.translation import gettext_lazy as _, ngettext
 
@@ -24,14 +24,26 @@ class FilterForm(forms.Form):
 
 
 def _help_text(msgid, language_code):
+    parts = []
     if settings.DEEPL_AUTH_KEY:
-        return format_html(
-            '<a href="#" data-suggest="{}" data-language-code="{}"><small>{}</small></a>',
-            msgid,
-            language_code,
-            _("Suggest"),
+        parts.append(
+            format_html(
+                '<a href="#" data-suggest="{}" data-language-code="{}"><small>{}</small></a>',
+                msgid,
+                language_code,
+                _("Suggest"),
+            )
         )
-    return ""
+    variables = translators.find_variables(msgid)
+    if variables:
+        parts.append(
+            format_html(
+                "<small>{}: {}</small>",
+                _("Variables"),
+                format_html_join(", ", "<code>{}</code>", ((v,) for v in variables)),
+            )
+        )
+    return format_html(" &middot; ".join(["{}"] * len(parts)), *parts) if parts else ""
 
 
 class EntriesForm(forms.Form):
@@ -82,6 +94,33 @@ class EntriesForm(forms.Form):
                     help_text=_help_text(entry.msgid, self.language_code),
                 )
                 self.entry_rows[-1]["msgstr"].append(self[name])
+
+    def clean(self):
+        cleaned = super().clean()
+        for index, entry in enumerate(self.entries):
+            if entry.msgid_plural:
+                source = entry.msgid_plural
+                for count in entry.msgstr_plural:
+                    field_name = f"msgstr_{index}:{count}"
+                    value = cleaned.get(field_name, "")
+                    if value:
+                        self._check_variables(source, value, field_name)
+            else:
+                field_name = f"msgstr_{index}"
+                value = cleaned.get(field_name, "")
+                if value:
+                    self._check_variables(entry.msgid, value, field_name)
+        return cleaned
+
+    def _check_variables(self, source, translation, field_name):
+        missing = set(translators.find_variables(source)) - set(
+            translators.find_variables(translation)
+        )
+        if missing:
+            self.add_error(
+                field_name,
+                _("Missing variables: {vars}").format(vars=", ".join(sorted(missing))),
+            )
 
     def update(self, catalog, *, request):
         updates = 0
