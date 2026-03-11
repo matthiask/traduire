@@ -59,6 +59,14 @@ And then access the development server at `http://127.0.0.1:8000/`. The
 prerequisites are Python 3.12 or better, yarn, and a local PostgreSQL database
 where you can connect without any authentication whatsoever.
 
+Run the test suite (requires an existing test database; use `--keepdb` to reuse it):
+
+    .venv/bin/python manage.py test --keepdb
+
+Run linting and formatting checks:
+
+    pre-commit run --all-files
+
 The code is formatted using [pre-commit](https://pre-commit.com/) and I welcome
 all sorts of contributions. Please open an issue first if you have big ideas.
 

@@ -8,7 +8,13 @@ from django.test.utils import override_settings
 
 from accounts.models import User
 from projects.models import Catalog, Event, Project
-from projects.translators import TranslationError, fix_nls
+from projects.translators import (
+    TranslationError,
+    _protect_variables,
+    _restore_variables,
+    _variable_name,
+    fix_nls,
+)
 
 
 def messages(response):
@@ -453,6 +459,58 @@ msgstr[1] "Blab %(count)s"
         ]:
             with self.subTest(test=test):
                 self.assertEqual(fix_nls(test[0], test[1]), test[2])
+
+    def test_protect_restore_variables(self):
+        cases = [
+            # No placeholders — unchanged
+            ("Hello world", "Hello world"),
+            # %(name)s style
+            ("Reset %(count)s password.", "Reset %(count)s password."),
+            ("%(count)d items", "%(count)d items"),
+            # {name} style
+            ("Hello {name}!", "Hello {name}!"),
+            # {0} positional
+            ("Item {0} of {1}", "Item {0} of {1}"),
+            # {name:spec} with format spec
+            ("Value: {amount:.2f}", "Value: {amount:.2f}"),
+            # Mixed styles in same string
+            ("%(user)s has {count} items", "%(user)s has {count} items"),
+            # Multiple of same style
+            ("{first} and {second}", "{first} and {second}"),
+        ]
+        for original, expected in cases:
+            with self.subTest(original=original):
+                protected, placeholders = _protect_variables(original)
+                restored = _restore_variables(protected, placeholders)
+                self.assertEqual(restored, expected)
+
+    def test_protect_variables_hides_placeholders(self):
+        """The protected text should contain no original placeholder syntax."""
+        text = "Hello %(name)s, you have {count} messages."
+        protected, placeholders = _protect_variables(text)
+        self.assertNotIn("%(name)s", protected)
+        self.assertNotIn("{count}", protected)
+        self.assertEqual(len(placeholders), 2)
+        self.assertIn("%(name)s", placeholders)
+        self.assertIn("{count}", placeholders)
+
+    def test_protect_variables_keeps_name_visible(self):
+        """Variable names should appear in the tag content for translation context."""
+        protected, _ = _protect_variables("Hello %(username)s, you have {count} items.")
+        self.assertIn("username", protected)
+        self.assertIn("count", protected)
+
+    def test_variable_name_extraction(self):
+        cases = [
+            ("%(count)s", "count"),
+            ("%(user_name)d", "user_name"),
+            ("{hello}", "hello"),
+            ("{0}", "0"),
+            ("{amount:.2f}", "amount"),
+        ]
+        for placeholder, expected in cases:
+            with self.subTest(placeholder=placeholder):
+                self.assertEqual(_variable_name(placeholder), expected)
 
     def test_event_save(self):
         user = User.objects.create_superuser("admin@example.com", "admin")

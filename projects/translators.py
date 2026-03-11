@@ -1,8 +1,56 @@
+import re
+
 import httpx
 
 
 class TranslationError(Exception):
     pass
+
+
+# Matches %(name)s-style and {name} / {0} / {name:spec}-style placeholders
+_VARIABLE_RE = re.compile(r"%\(\w+\)\w|\{[^}]+\}")
+
+
+def _variable_name(placeholder):
+    """Extract a human-readable name from a placeholder for DeepL context."""
+    # %(count)s → "count"
+    m = re.match(r"%\((\w+)\)", placeholder)
+    if m:
+        return m.group(1)
+    # {name}, {0}, {name:.2f} → the part before any colon
+    m = re.match(r"\{([^}:]+)", placeholder)
+    if m:
+        return m.group(1)
+    return placeholder
+
+
+def _protect_variables(text):
+    """Replace variables with named <var> tags so DeepL won't translate them.
+
+    The variable name is kept as tag content so translation engines can use it
+    as context. An id attribute ensures unambiguous restoration for duplicates.
+
+    Returns (modified_text, list_of_original_placeholders).
+    """
+    placeholders = []
+
+    def replace(match):
+        original = match.group(0)
+        name = _variable_name(original)
+        idx = len(placeholders)
+        placeholders.append(original)
+        return f'<var id="{idx}">{name}</var>'
+
+    return _VARIABLE_RE.sub(replace, text), placeholders
+
+
+def _restore_variables(text, placeholders):
+    """Restore <var> tags back to the original placeholders."""
+    return re.sub(
+        r'<var id="(\d+)">[^<]*</var>',
+        lambda m: placeholders[int(m.group(1))],
+        text,
+    )
 
 
 async def translate_by_deepl(text, to_language, auth_key):
@@ -12,14 +60,18 @@ async def translate_by_deepl(text, to_language, auth_key):
     else:
         endpoint = "https://api.deepl.com"
 
+    protected, placeholders = _protect_variables(text)
+
     try:
         async with httpx.AsyncClient() as client:
             r = await client.post(
                 f"{endpoint}/v2/translate",
                 headers={"Authorization": f"DeepL-Auth-Key {auth_key}"},
                 data={
+                    "tag_handling": "xml",
+                    "ignore_tags": "var",
                     "target_lang": to_language.upper(),
-                    "text": text,
+                    "text": protected,
                 },
                 timeout=5,
             )
@@ -33,7 +85,8 @@ async def translate_by_deepl(text, to_language, auth_key):
             f"Deepl response is {r.status_code}. Please check your API key or try again later."
         )
     try:
-        return r.json().get("translations")[0].get("text")
+        translated = r.json().get("translations")[0].get("text")
+        return _restore_variables(translated, placeholders)
     except Exception as exc:
         raise TranslationError(
             "Deepl returned a non-JSON or unexpected response."
