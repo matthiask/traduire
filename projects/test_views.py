@@ -555,6 +555,34 @@ msgstr[1] "Blab %(count)s"
         self.assertEqual(r.status_code, 200)
         self.assertContains(r, "Missing variables")
 
+    def test_msgid_with_whitespace_is_translatable(self):
+        """msgid values with leading/trailing whitespace must not be stripped
+        before matching against the catalog, otherwise the entry is silently
+        skipped and appears un-saveable (issue #13)."""
+        superuser = User.objects.create_superuser("admin@example.com", "admin")
+        su_client = Client()
+        su_client.force_login(superuser)
+
+        p = Project.objects.create(name="ws", slug="ws")
+        c = p.catalogs.create(
+            language_code="fr",
+            domain="django",
+            pofile='msgid ""\n"\\nHello with leading newline"\nmsgstr ""\n',
+        )
+
+        r = su_client.post(
+            c.get_absolute_url(),
+            {
+                "msgid_0": "\nHello with leading newline",
+                "msgstr_0": "\nBonjour avec saut de ligne",
+            },
+            headers={"accept-language": "en"},
+        )
+        self.assertRedirects(r, c.get_absolute_url() + "?start=0")
+
+        c.refresh_from_db()
+        self.assertIn("Bonjour avec saut de ligne", c.pofile)
+
     def test_valid_translation_with_variables_saves(self):
         superuser = User.objects.create_superuser("admin@example.com", "admin")
         su_client = Client()

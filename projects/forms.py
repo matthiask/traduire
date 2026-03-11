@@ -59,6 +59,7 @@ class EntriesForm(forms.Form):
                 widget=forms.HiddenInput,
                 initial=entry.msgid_with_context,
                 required=False,
+                strip=False,
             )
             self.fields[f"fuzzy_{index}"] = forms.BooleanField(
                 label="Fuzzy",
@@ -81,6 +82,7 @@ class EntriesForm(forms.Form):
                         widget=forms.Textarea(attrs={"rows": 3}),
                         initial=msgstr,
                         required=False,
+                        strip=False,
                         help_text=_help_text(entry.msgid_plural, self.language_code),
                     )
                     self.entry_rows[-1]["msgstr"].append(self[name])
@@ -91,6 +93,7 @@ class EntriesForm(forms.Form):
                     widget=forms.Textarea(attrs={"rows": 3}),
                     initial=entry.msgstr,
                     required=False,
+                    strip=False,
                     help_text=_help_text(entry.msgid, self.language_code),
                 )
                 self.entry_rows[-1]["msgstr"].append(self[name])
