@@ -26,7 +26,7 @@ def projects(request):
     return render(
         request,
         "projects/projects.html",
-        {"projects": Project.objects.for_user(request.user)},
+        {"projects": Project.objects.for_user(request.user).groups()},
     )
 
 

@@ -10,21 +10,38 @@
 
 {% include 'includes/messages.html' %}
 
-<h2>{% translate 'Your projects' %}</h2>
-{% if projects %}
-<ul>
-  {% for project in projects %}
-  <li>
-    <a href="{{ project.get_absolute_url }}">{{ project.name }}</a>
-    <small>
-      {% blocktranslate with timesince=project.pretty_timesince trimmed %}Updated {{ timesince }} ago.{% endblocktranslate %}
-    </small>
-  </li>
-  {% endfor %}
-</ul>
-<a download="traduire.toml" href="{% url 'projects:traduire_toml' %}">{% translate 'Download the configuration file' %}</a>
+{% if projects.any %}
+  {% if projects.active %}
+  <h2>{% translate 'Active projects' %}</h2>
+  <ul>
+    {% for project in projects.active %}
+    <li>
+      <a href="{{ project.get_absolute_url }}">{{ project.name }}</a>
+      <small>
+        {% blocktranslate with timesince=project.pretty_timesince trimmed %}Updated {{ timesince }} ago.{% endblocktranslate %}
+      </small>
+    </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  {% if projects.inactive %}
+  <h2>{% translate 'Inactive projects' %}</h2>
+  <ul>
+    {% for project in projects.inactive %}
+    <li>
+      <a href="{{ project.get_absolute_url }}">{{ project.name }}</a>
+      <small>
+        {% blocktranslate with timesince=project.pretty_timesince trimmed %}Updated {{ timesince }} ago.{% endblocktranslate %}
+      </small>
+    </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  <a download="traduire.toml" href="{% url 'projects:traduire_toml' %}">{% translate 'Download the configuration file' %}</a>
 {% else %}
-<p>{% translate 'You do not have access to any projects. Sorry.' %}</p>
+  <p>{% translate 'You do not have access to any projects. Sorry.' %}</p>
 {% endif %}
 
 <h2>{% translate 'Account' %}</h2>

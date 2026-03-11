@@ -1,3 +1,4 @@
+import datetime as dt
 from functools import cached_property
 
 import polib
@@ -46,6 +47,14 @@ class TimestampedModel(models.Model):
 class ProjectQuerySet(models.QuerySet):
     def for_user(self, user):
         return self if user.is_staff else self.filter(users=user)
+
+    def groups(self):
+        groups = {"active": [], "inactive": [], "any": bool(self)}
+        cutoff = localtime() - dt.timedelta(days=30)
+        localtime()
+        for obj in self:
+            groups["active" if obj.updated_at > cutoff else "inactive"].append(obj)
+        return groups
 
 
 class Project(TimestampedModel):
